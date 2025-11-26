@@ -1,6 +1,7 @@
 package Interface;
 import java.util.List;
 
+/* Dịch vụ xử lý menu (thêm/xóa/sửa/lấy món) */
 public interface IMenuService {
     List<IMenuItem> getAllItems();
     IMenuItem getItemById(String id);
@@ -8,3 +9,10 @@ public interface IMenuService {
     boolean updateMenuItem(IMenuItem item);
     boolean deleteMenuItem(String id);
 }
+
+/*
+Lấy tất cả món để hiển thị lên UI
+Thêm món mới
+Sửa món
+Xóa món
+*/
