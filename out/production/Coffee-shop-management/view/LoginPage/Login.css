@@ -1,0 +1,124 @@
+/* login.css (Phiên bản TỐI ƯU cho LoginView) */
+
+/* 0. Nền chung cho toàn bộ cửa sổ (từ StackPane) */
+.root-pane {
+    /* 1. Đặt ảnh nền */
+    -fx-background-image: url("Loginbackground.png");
+
+    /* 2. Cấu hình ảnh nền để lấp đầy toàn bộ cửa sổ */
+    -fx-background-size: cover; /* Phóng to ảnh để lấp đầy mà không làm biến dạng */
+    -fx-background-position: center center; /* Căn giữa ảnh */
+    -fx-background-repeat: no-repeat; /* Không lặp lại ảnh */
+
+    /* Xóa hoặc giữ nguyên thuộc tính màu nền cũ */
+    -fx-background-color: transparent;
+}
+
+/* 1. Container Chính (Thẻ Đăng nhập) */
+#login-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-padding: 20px;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-max-width: 400;
+    -fx-max-height: 200;
+    /* Hiệu ứng đổ bóng */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 20, 0.3, 0, 4);
+}
+
+/* 2. Tiêu đề (Màu nâu thương hiệu) */
+#title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ab8a43;
+    -fx-padding: 0 0 20px 0;
+}
+
+/* 3. Trường nhập liệu */
+.text-field, .password-field {
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-border-color: #D3D3D3;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-background-color: #FAFAFA;
+    -fx-max-width: 300;
+    -fx-max-height: 80;
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #c2b08a; /* Viền màu nâu khi focus */
+}
+
+/* 4. Nút Đăng nhập */
+#login-button {
+    -fx-background-color: #A0522D; /* Màu nâu đậm */
+    -fx-text-fill: white;
+    -fx-text-border: bold;
+    -fx-font-size: 20px;
+    -fx-padding: 5px 0;
+    -fx-cursor: hand;
+    -fx-background-radius: 40px;
+    -fx-max-width: 80;
+    -fx-max-high: 50;
+    -fx-transition: -fx-background-color 0.3s, -fx-scale 0.5s;
+}
+
+#login-button:hover {
+    -fx-background-color: #d48e5f;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* 5. Styling thông báo kết quả (Sử dụng class mới) */
+.success-message {
+    -fx-text-fill: #008000; /* Xanh lá */
+    -fx-font-weight: bold;
+}
+
+.error-message {
+    -fx-text-fill: #FF0000; /* Đỏ */
+    -fx-font-weight: bold;
+}
+/* --- LOGIN.CSS --- */
+
+/* Ẩn dấu check mặc định */
+#show-password-checkbox {
+    /* Đặt kích thước để nó không bị kéo giãn */
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+    -fx-translate-x: -20px;
+}
+
+#show-password-checkbox .box {
+    /* Ẩn hình hộp của checkbox */
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+
+}
+
+/* Biểu tượng con mắt khi chưa được chọn (ẩn) */
+#show-password-checkbox .mark {
+    /* Đặt nội dung là biểu tượng (cần font chứa biểu tượng, ví dụ: FontAwesome) */
+    /* Nếu không có FontAwesome, bạn có thể dùng một hình ảnh CSS hoặc để trống và dùng .mark để thay đổi */
+    -fx-shape: "M 0 0 L 1 1 L 0 2 L 2 2 L 3 1 L 2 0 L 0 0 Z"; /* Ví dụ: Hình học đơn giản */
+    -fx-background-color: #666666; /* Màu biểu tượng */
+    -fx-padding: 0.5em; /* Kích thước biểu tượng */
+}
+
+/* Biểu tượng con mắt gạch chéo khi được chọn (hiển thị) */
+#show-password-checkbox:selected .mark {
+    /* Thay đổi biểu tượng để chỉ ra nó đang hiển thị */
+    -fx-shape: "M 0 0 L 3 3 L 2 3 L 0 1 L 0 0 Z"; /* Ví dụ: Một hình học khác */
+    -fx-background-color: #A0522D; /* Màu thương hiệu khi active */
+}
+.password-toggle-icon {
+    /* Quan trọng: Bạn phải thay thế tên font bên dưới bằng tên font icon đã tích hợp (ví dụ: 'Font Awesome 6 Free', 'Material Design Icons') */
+    -fx-font-family: "Font Awesome 6 Free";
+    -fx-font-size: 16px;
+    -fx-font-weight: 900; /* Thiết lập weight cho biểu tượng (ví dụ: Solid) */
+    -fx-text-fill: #A0522D; /* Màu của biểu tượng */
+    -fx-cursor: hand; /* Biểu tượng chuột khi rê qua */
+}
