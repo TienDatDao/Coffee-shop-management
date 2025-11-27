@@ -13,8 +13,6 @@ public class MainTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // Tải file FXML
-        // Đảm bảo đường dẫn này khớp với vị trí của file Login.fxml của bạn
         URL fxmlUrl = getClass().getResource("/view/LoginPage/Login.fxml");
         if (fxmlUrl == null) {
             throw new IOException("Không tìm thấy file FXML: Login.fxml");
@@ -26,7 +24,6 @@ public class MainTest extends Application {
         Scene scene = new Scene(root, 1000, 600);
 
         // --- Liên kết File CSS ---
-        // Đảm bảo file login.css nằm trong cùng thư mục view/LoginPage
         scene.getStylesheets().add(getClass().getResource("/view/LoginPage/Login.css").toExternalForm());
 
         primaryStage.setTitle("Quản lý Quán Cà phê - Đăng nhập");
