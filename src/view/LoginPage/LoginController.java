@@ -23,10 +23,8 @@ public class LoginController implements Initializable {
     @FXML private Button btnLogin;
     @FXML private Label lblMessage;
 
-    // Dịch vụ (Dependency Injection đơn giản)
-    private IAuthService authService;// = new AuthServiceMock();
+    //private IAuthService authService;// = new AuthServiceMock();
 
-    // Phương thức này được gọi ngay sau khi FXML loader tải các thành phần
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Có thể thực hiện các thiết lập ban đầu tại đây (nếu cần)
@@ -39,7 +37,7 @@ public class LoginController implements Initializable {
     private void handleLoginAction() {
         String username = txtUsername.getText();
 
-        // Lấy mật khẩu từ trường đang hiển thị thông qua phương thức đóng gói
+        // Lấy mật khẩu từ trường đang hiển thị
         String password = getPasswordInput();
 
         lblMessage.getStyleClass().removeAll("success-message", "error-message");
@@ -90,12 +88,7 @@ public class LoginController implements Initializable {
             txtPasswordVisible.setManaged(false);
         }
     }
-
-    // --- CÁC PHƯƠNG THỨC HỖ TRỢ ---
-
-    /**
-     * Trả về giá trị mật khẩu từ trường đang hiển thị/quản lý.
-     */
+    // trả về mật khẩu trong textfield
     private String getPasswordInput() {
         if (txtPassword.isVisible()) {
             return txtPassword.getText();
@@ -105,9 +98,9 @@ public class LoginController implements Initializable {
         return "";
     }
 
-    /**
-     * Xóa nội dung của cả hai trường mật khẩu.
-     */
+
+     // Xóa nội dung của cả hai trường mật khẩu.
+
     private void clearPasswordFields() {
         txtPassword.clear();
         txtPasswordVisible.clear();
