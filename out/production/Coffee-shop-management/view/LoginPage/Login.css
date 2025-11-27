@@ -1,4 +1,3 @@
-/* login.css (Phiên bản TỐI ƯU cho LoginView) */
 
 /* 0. Nền chung cho toàn bộ cửa sổ (từ StackPane) */
 .root-pane {
@@ -6,11 +5,9 @@
     -fx-background-image: url("Loginbackground.png");
 
     /* 2. Cấu hình ảnh nền để lấp đầy toàn bộ cửa sổ */
-    -fx-background-size: cover; /* Phóng to ảnh để lấp đầy mà không làm biến dạng */
+    -fx-background-size: cover; /* Phóng to ảnh để lấp đầy không gian */
     -fx-background-position: center center; /* Căn giữa ảnh */
     -fx-background-repeat: no-repeat; /* Không lặp lại ảnh */
-
-    /* Xóa hoặc giữ nguyên thuộc tính màu nền cũ */
     -fx-background-color: transparent;
 }
 
@@ -26,7 +23,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 20, 0.3, 0, 4);
 }
 
-/* 2. Tiêu đề (Màu nâu thương hiệu) */
+/* 2. Tiêu đề */
 #title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -72,7 +69,7 @@
     -fx-scale-y: 1.02;
 }
 
-/* 5. Styling thông báo kết quả (Sử dụng class mới) */
+/* 5. Thông báo kết quả*/
 .success-message {
     -fx-text-fill: #008000; /* Xanh lá */
     -fx-font-weight: bold;
@@ -82,11 +79,10 @@
     -fx-text-fill: #FF0000; /* Đỏ */
     -fx-font-weight: bold;
 }
-/* --- LOGIN.CSS --- */
 
 /* Ẩn dấu check mặc định */
 #show-password-checkbox {
-    /* Đặt kích thước để nó không bị kéo giãn */
+    /* Đặt kích thước để không bị kéo giãn */
     -fx-max-width: 30px;
     -fx-max-height: 30px;
     -fx-translate-x: -20px;
@@ -99,26 +95,22 @@
 
 }
 
-/* Biểu tượng con mắt khi chưa được chọn (ẩn) */
+/* Biểu tượng check pw khi chưa được chọn (ẩn) */
 #show-password-checkbox .mark {
-    /* Đặt nội dung là biểu tượng (cần font chứa biểu tượng, ví dụ: FontAwesome) */
-    /* Nếu không có FontAwesome, bạn có thể dùng một hình ảnh CSS hoặc để trống và dùng .mark để thay đổi */
     -fx-shape: "M 0 0 L 1 1 L 0 2 L 2 2 L 3 1 L 2 0 L 0 0 Z"; /* Ví dụ: Hình học đơn giản */
     -fx-background-color: #666666; /* Màu biểu tượng */
     -fx-padding: 0.5em; /* Kích thước biểu tượng */
 }
 
-/* Biểu tượng con mắt gạch chéo khi được chọn (hiển thị) */
+/* Biểu tượng gạch chéo khi được chọn (hiển thị) */
 #show-password-checkbox:selected .mark {
-    /* Thay đổi biểu tượng để chỉ ra nó đang hiển thị */
-    -fx-shape: "M 0 0 L 3 3 L 2 3 L 0 1 L 0 0 Z"; /* Ví dụ: Một hình học khác */
+    -fx-shape: "M 0 0 L 3 3 L 2 3 L 0 1 L 0 0 Z";
     -fx-background-color: #A0522D; /* Màu thương hiệu khi active */
 }
 .password-toggle-icon {
-    /* Quan trọng: Bạn phải thay thế tên font bên dưới bằng tên font icon đã tích hợp (ví dụ: 'Font Awesome 6 Free', 'Material Design Icons') */
     -fx-font-family: "Font Awesome 6 Free";
     -fx-font-size: 16px;
-    -fx-font-weight: 900; /* Thiết lập weight cho biểu tượng (ví dụ: Solid) */
+    -fx-font-weight: 900; /* Thiết lập weight cho biểu tượng*/
     -fx-text-fill: #A0522D; /* Màu của biểu tượng */
     -fx-cursor: hand; /* Biểu tượng chuột khi rê qua */
 }

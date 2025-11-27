@@ -1,5 +1,5 @@
 package view.LoginPage;
-
+import view.MockTest.MockAuthService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 
 // Import các Interface Dịch vụ
 import Interface.IAuthService;
-import Interface.IUser;
 //import Service.AuthServiceMock;
 // Thay thế bằng AuthService thực tế khi cần
 
@@ -23,7 +22,7 @@ public class LoginController implements Initializable {
     @FXML private Button btnLogin;
     @FXML private Label lblMessage;
 
-    //private IAuthService authService;// = new AuthServiceMock();
+    private IAuthService authService = new MockAuthService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,9 +42,9 @@ public class LoginController implements Initializable {
         lblMessage.getStyleClass().removeAll("success-message", "error-message");
 
         // Gọi dịch vụ đăng nhập
-        //boolean loginSuccess = authService.login(username, password);
+        boolean loginSuccess = MockAuthService.login(username, password);
 
-        if (username.equals("admin")&&password.equals("123")) {
+        if (loginSuccess) {
            // IUser currentUser = authService.getCurrentUser();
 
            // lblMessage.setText("Đăng nhập thành công! Chào mừng " + currentUser.getUsername() + " (" + currentUser.getRole() + ")");
