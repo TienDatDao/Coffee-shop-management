@@ -7,8 +7,8 @@ public interface IOrderItem extends IMenuItem {
     String getMenuItemId();     // id món trong menu
     int getQuantity();          // số lượng khách gọi
     double getSubtotal();       // quantity × price
-    public String getName();
-    public double getPrice();
-    public String getCategory();
-    public Image getImage();
+    String getName();
+    double getPrice();
+    String getCategory();
+    Image getImage(); // bổ sung thêm thuộc tính ảnh của món
 }

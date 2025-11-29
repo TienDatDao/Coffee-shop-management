@@ -8,6 +8,7 @@ import java.util.List;
 public class MockOrder implements IOrder  {
     private String orderId;
     private String tableId;
+    private boolean status;
     private List<IOrderItem> IOrderItemList;
     public MockOrder(){
     }
@@ -15,6 +16,7 @@ public class MockOrder implements IOrder  {
         this.IOrderItemList = IOrderItemList;
         this.tableId = tableId;
         this.orderId = orderId;
+        this.status =false;
     }
     @Override
     public String getOrderId() {
@@ -49,5 +51,10 @@ public class MockOrder implements IOrder  {
     @Override
     public String getCreatedAt() {
         return null;
+    }
+
+    @Override
+    public boolean completeOrder() {
+        return true;
     }
 }

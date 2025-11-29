@@ -22,8 +22,4 @@ public class MockOrderService implements IOrderService {
         return null;
     }
 
-    @Override
-    public boolean completeOrder(String orderId) {
-        return true;
-    }
 }
