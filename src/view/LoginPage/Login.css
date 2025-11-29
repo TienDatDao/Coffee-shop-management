@@ -2,7 +2,7 @@
    0. NỀN CHUNG CHO TOÀN BỘ ROOT
    =========================================== */
 .root-pane {
-    -fx-opacity: 0;
+    -fx-opacity: 1;
     -fx-background-image: url("Loginbackground.png");
     -fx-background-size: cover;
     -fx-background-position: center center;
@@ -21,7 +21,7 @@
    1. LOGIN PANE (CARD ĐĂNG NHẬP)
    =========================================== */
 #login-pane {
-    -fx-opacity: 0;
+    -fx-opacity: 1;
     -fx-translate-y: 20;
 
     -fx-background-color: rgba(255, 255, 255, 0.4);

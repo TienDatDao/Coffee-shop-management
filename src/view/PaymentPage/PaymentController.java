@@ -3,15 +3,20 @@ package view.PaymentPage;
 import Interface.IOrder;
 import Interface.IOrderItem;
 import Interface.IOrderService;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import view.MockTest.MockOrder;
 import view.MockTest.MockOrderItem;
 import view.MockTest.MockOrderService;
@@ -151,7 +156,40 @@ public class PaymentController implements Initializable {
         iOrderService.createOrder(iOrder.getTableId(), iOrder.getItems(), iOrder.getOrderId());
         lblMessage.setText("Thanh toán thành công qua phương thức " + selected.getText() + "!");
         lblMessage.setStyle("-fx-text-fill: green;");
+        // test thử quay về trang login
+        delayThenRun(1, () -> goToPage("/view/LoginPage/Login.fxml", "/view/LoginPage/Login.css"));
     }
+    // độ trễ trước khi chuyển trang ( đề xuất cho hợp lí)
+    private void delayThenRun(double seconds, Runnable action) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+        pause.setOnFinished(e -> action.run());
+        pause.play();
+    }
+    // chuyển trang sau khi thanh toán xong
+    private void goToPage(String fxmlPath, String cssPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            Scene scene = btnPay.getScene();
+            scene.setRoot(root);
+
+            // Xóa tất cả stylesheet hiện tại
+            scene.getStylesheets().clear();
+
+            // Thêm CSS mới
+            if (cssPath != null) {
+                scene.getStylesheets().add(
+                        getClass().getResource(cssPath).toExternalForm()
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @FXML
     private void handleBack(){
         System.out.println("quan que");// chưa có back

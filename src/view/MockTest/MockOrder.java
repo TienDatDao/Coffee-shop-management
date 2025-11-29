@@ -28,12 +28,12 @@ public class MockOrder implements IOrder  {
 
     @Override
     public List<IOrderItem> getItems() {
-        return List.of(new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10,"/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png")
+        return List.of(new MockOrderItem("1", "cf", 140000.0, "delicious", 2, "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2,  "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2,  "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, "/view/LoginPage/LoginLogo.png")
                 );
     }
 

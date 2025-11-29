@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="Update interface(should check), update PaymentPage,">
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="Update little">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1764404985900</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update little">
+      <created>1764405522015</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764405522015</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -169,7 +177,8 @@
     <MESSAGE value="Update Loginpage03" />
     <MESSAGE value="Update new(important), should check" />
     <MESSAGE value="Update interface(should check), update PaymentPage," />
-    <option name="LAST_COMMIT_MESSAGE" value="Update interface(should check), update PaymentPage," />
+    <MESSAGE value="Update little" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update little" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

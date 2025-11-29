@@ -16,7 +16,7 @@ public class MainTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //  trang đăng nhập
+//        //  trang đăng nhập
 //        URL fxmlUrl = getClass().getResource("/view/LoginPage/Login.fxml");
 //        if (fxmlUrl == null) {
 //            throw new IOException("Không tìm thấy file FXML: Login.fxml");
@@ -40,7 +40,7 @@ public class MainTest extends Application {
 //                    true
 //            );
 //        });
-        // trang đăng nhập
+//        // trang đăng nhập
         // trang thanh toán cuối cùng
         BorderPane root = FXMLLoader.load(getClass().getResource("/view/PaymentPage/Payment.fxml"));
         Scene scene = new Scene(root, 1000, 600);

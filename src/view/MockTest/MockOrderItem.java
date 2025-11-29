@@ -13,15 +13,13 @@ public class MockOrderItem extends MockMenuItem implements IOrderItem {
     private String description;
     private String imagePath;
 
-    public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity, double subtotal){
+    public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity){
         super(menuItemId, name, price, description);
         this.quantity = quantity;
-        this.subtotal = subtotal;
     }
-    public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity, double subtotal, String imagePath){
+    public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity, String imagePath){
         super(menuItemId, name, price, description, imagePath);
         this.quantity = quantity;
-        this.subtotal = subtotal;
         this.imagePath = imagePath;
     }
     @Override
@@ -44,7 +42,7 @@ public class MockOrderItem extends MockMenuItem implements IOrderItem {
 
     @Override
     public double getSubtotal() {
-        return subtotal;
+        return getPrice()*getQuantity();
     }
 
     public String getName() { return super.getName(); }
