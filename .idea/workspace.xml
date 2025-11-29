@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="Update new(important), should check" />
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="Update new(important), should check">
+      <change afterPath="$PROJECT_DIR$/src/view/PaymentPage/ListPaymentMethod.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/PaymentPage/PaymentBackground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/IOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockMenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockMenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/Payment.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/Payment.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/Payment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/Payment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,6 +64,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\PaymentPage" />
       <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\LoginPage" />
     </key>
   </component>
@@ -130,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1764266649888</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Update new(important), should check">
+      <created>1764267032222</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1764267032222</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

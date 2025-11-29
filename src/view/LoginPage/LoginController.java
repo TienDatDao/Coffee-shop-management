@@ -1,4 +1,5 @@
 package view.LoginPage;
+import Interface.IUser;
 import view.MockTest.MockAuthService;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,10 +29,11 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Có thể thực hiện các thiết lập ban đầu tại đây (nếu cần)
     }
+    //
 
-    /**
-     * Xử lý sự kiện khi nhấp vào nút Đăng nhập.
-     */
+
+    //Xử lý sự kiện khi nhấp vào nút Đăng nhập.
+
     @FXML
     private void handleLoginAction() {
         String username = txtUsername.getText();
@@ -45,9 +47,8 @@ public class LoginController implements Initializable {
         boolean loginSuccess = MockAuthService.login(username, password);
 
         if (loginSuccess) {
-           // IUser currentUser = authService.getCurrentUser();
+           IUser currentUser = authService.getCurrentUser();
 
-           // lblMessage.setText("Đăng nhập thành công! Chào mừng " + currentUser.getUsername() + " (" + currentUser.getRole() + ")");
             lblMessage.setText("Login successful!");
             lblMessage.getStyleClass().add("success-message");
 
@@ -62,9 +63,9 @@ public class LoginController implements Initializable {
         }
     }
 
-    /**
-     * Xử lý sự kiện khi CheckBox hiển thị mật khẩu được thay đổi.
-     */
+
+    // * Xử lý sự kiện khi CheckBox hiển thị mật khẩu được thay đổi.
+
     @FXML
     private void handleShowPasswordToggle() {
         if (chkShowPassword.isSelected()) {

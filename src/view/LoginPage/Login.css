@@ -1,29 +1,50 @@
-
-/* 0. Nền chung cho toàn bộ cửa sổ (từ StackPane) */
+/* ===========================================
+   0. NỀN CHUNG CHO TOÀN BỘ ROOT
+   =========================================== */
 .root-pane {
-    /* 1. Đặt ảnh nền */
+    -fx-opacity: 0;
     -fx-background-image: url("Loginbackground.png");
-
-    /* 2. Cấu hình ảnh nền để lấp đầy toàn bộ cửa sổ */
-    -fx-background-size: cover; /* Phóng to ảnh để lấp đầy không gian */
-    -fx-background-position: center center; /* Căn giữa ảnh */
-    -fx-background-repeat: no-repeat; /* Không lặp lại ảnh */
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
     -fx-background-color: transparent;
+
+    /* Fade-in mượt */
+    -fx-transition: -fx-opacity 0.8s ease;
 }
 
-/* 1. Container Chính (Thẻ Đăng nhập) */
+.root-pane:shown {
+    -fx-opacity: 1;
+}
+
+/* ===========================================
+   1. LOGIN PANE (CARD ĐĂNG NHẬP)
+   =========================================== */
 #login-pane {
+    -fx-opacity: 0;
+    -fx-translate-y: 20;
+
     -fx-background-color: rgba(255, 255, 255, 0.4);
     -fx-padding: 20px;
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
     -fx-max-width: 400;
     -fx-max-height: 200;
-    /* Hiệu ứng đổ bóng */
+
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 20, 0.3, 0, 4);
+
+    /* Animation xuất hiện */
+    -fx-transition: -fx-opacity 0.6s ease, -fx-translate-y 0.6s ease;
 }
 
-/* 2. Tiêu đề */
+.root-pane:shown #login-pane {
+    -fx-opacity: 1;
+    -fx-translate-y: 0;
+}
+
+/* ===========================================
+   2. TIÊU ĐỀ
+   =========================================== */
 #title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -31,86 +52,126 @@
     -fx-padding: 0 0 20px 0;
 }
 
-/* 3. Trường nhập liệu */
+/* ===========================================
+   3. TEXT FIELD + PASSWORD FIELD
+   =========================================== */
 .text-field, .password-field {
     -fx-font-size: 14px;
     -fx-padding: 10px 15px;
+
     -fx-border-color: #D3D3D3;
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
-    -fx-background-color: #FAFAFA;
-    -fx-max-width: 300;
-    -fx-max-height: 80;
     -fx-background-color: rgba(255, 255, 255, 0.4);
 
+    -fx-transition:
+        -fx-border-color 0.25s ease,
+        -fx-background-color 0.25s ease;
+}
+
+.text-field:hover, .password-field:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
 }
 
 .text-field:focused, .password-field:focused {
-    -fx-border-color: #c2b08a; /* Viền màu nâu khi focus */
+    -fx-border-color: #c2b08a;
+    -fx-background-color: rgba(255, 255, 255, 0.75);
 }
 
-/* 4. Nút Đăng nhập */
+/* ===========================================
+   4. NÚT ĐĂNG NHẬP
+   =========================================== */
 #login-button {
-    -fx-background-color: #A0522D; /* Màu nâu đậm */
+    -fx-background-color: #A0522D;
     -fx-text-fill: white;
-    -fx-text-border: bold;
     -fx-font-size: 20px;
     -fx-padding: 5px 0;
     -fx-cursor: hand;
     -fx-background-radius: 40px;
     -fx-max-width: 80;
-    -fx-max-high: 50;
-    -fx-transition: -fx-background-color 0.3s, -fx-scale 0.5s;
+
+    -fx-transition:
+        -fx-background-color 0.25s ease,
+        -fx-scale-x 0.25s ease,
+        -fx-scale-y 0.25s ease;
 }
 
 #login-button:hover {
     -fx-background-color: #d48e5f;
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
-/* 5. Thông báo kết quả*/
+#login-button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* ===========================================
+   5. MESSAGE
+   =========================================== */
 .success-message {
-    -fx-text-fill: #008000; /* Xanh lá */
+    -fx-text-fill: #008000;
     -fx-font-weight: bold;
 }
 
 .error-message {
-    -fx-text-fill: #FF0000; /* Đỏ */
+    -fx-text-fill: #FF0000;
     -fx-font-weight: bold;
 }
 
-/* Ẩn dấu check mặc định */
+/* ===========================================
+   6. CHECKBOX SHOW PASSWORD
+   =========================================== */
 #show-password-checkbox {
-    /* Đặt kích thước để không bị kéo giãn */
     -fx-max-width: 30px;
     -fx-max-height: 30px;
     -fx-translate-x: -20px;
+
+    -fx-transition:
+        -fx-scale-x 0.2s ease,
+        -fx-scale-y 0.2s ease;
+}
+
+#show-password-checkbox:hover {
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
 }
 
 #show-password-checkbox .box {
-    /* Ẩn hình hộp của checkbox */
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-
 }
 
-/* Biểu tượng check pw khi chưa được chọn (ẩn) */
 #show-password-checkbox .mark {
-    -fx-shape: "M 0 0 L 1 1 L 0 2 L 2 2 L 3 1 L 2 0 L 0 0 Z"; /* Ví dụ: Hình học đơn giản */
-    -fx-background-color: #666666; /* Màu biểu tượng */
-    -fx-padding: 0.5em; /* Kích thước biểu tượng */
+    -fx-shape: "M 0 0 L 1 1 L 0 2 L 2 2 L 3 1 L 2 0 L 0 0 Z";
+    -fx-background-color: #666666;
+    -fx-padding: 0.5em;
 }
 
-/* Biểu tượng gạch chéo khi được chọn (hiển thị) */
 #show-password-checkbox:selected .mark {
     -fx-shape: "M 0 0 L 3 3 L 2 3 L 0 1 L 0 0 Z";
-    -fx-background-color: #A0522D; /* Màu thương hiệu khi active */
+    -fx-background-color: #A0522D;
 }
+
+/* ===========================================
+   7. ICON EYE
+   =========================================== */
 .password-toggle-icon {
     -fx-font-family: "Font Awesome 6 Free";
     -fx-font-size: 16px;
-    -fx-font-weight: 900; /* Thiết lập weight cho biểu tượng*/
-    -fx-text-fill: #A0522D; /* Màu của biểu tượng */
-    -fx-cursor: hand; /* Biểu tượng chuột khi rê qua */
+    -fx-font-weight: 900;
+    -fx-text-fill: #A0522D;
+    -fx-cursor: hand;
+
+    -fx-transition:
+        -fx-scale-x 0.2s ease,
+        -fx-scale-y 0.2s ease,
+        -fx-text-fill 0.25s ease;
+}
+
+.password-toggle-icon:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-text-fill: #d48e5f;
 }

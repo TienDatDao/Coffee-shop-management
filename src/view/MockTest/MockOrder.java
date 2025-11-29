@@ -5,10 +5,12 @@ import Interface.IOrderItem;
 
 import java.util.List;
 
-public class MockOrder implements IOrder {
+public class MockOrder implements IOrder  {
     private String orderId;
     private String tableId;
     private List<IOrderItem> IOrderItemList;
+    public MockOrder(){
+    }
     public MockOrder(String tableId, List<IOrderItem> IOrderItemList, String orderId){
         this.IOrderItemList = IOrderItemList;
         this.tableId = tableId;
@@ -16,18 +18,22 @@ public class MockOrder implements IOrder {
     }
     @Override
     public String getOrderId() {
-        return "1";
+        return orderId;
     }
 
     @Override
     public String getTableId() {
-        return "1";
+        return tableId;
     }
 
     @Override
     public List<IOrderItem> getItems() {
-        return List.of(new MockOrderItem("1", 2, "none"),
-                new MockOrderItem("2", 3, "none")
+        return List.of(new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10,"/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png"),
+                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, 10, "/view/LoginPage/LoginLogo.png")
                 );
     }
 
