@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="Update new, quite important,...">
-      <change beforePath="$PROJECT_DIR$/src/Interface/IMenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IMenuItem.java" afterDir="false" />
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="Update new in interface IOrder, IOrderService">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interface/IOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/IOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/IOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrderService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,19 +37,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hieuv/IdeaProjects/Coffee-shop-management/src/view/LoginPage/Login.fxml&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15546875&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.20331186&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/hieuv/IdeaProjects/QuanLyChiTieu",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15546875",
+    "project.structure.side.proportion": "0.20331186",
+    "settings.editor.selected.configurable": "preferences.JavaFX"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\PaymentPage" />
@@ -166,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1764423041752</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Update new in interface IOrder, IOrderService">
+      <created>1764423593693</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1764423593693</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -188,7 +191,8 @@
     <MESSAGE value="Update interface(should check), update PaymentPage," />
     <MESSAGE value="Update little" />
     <MESSAGE value="Update new, quite important,..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update new, quite important,..." />
+    <MESSAGE value="Update new in interface IOrder, IOrderService" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update new in interface IOrder, IOrderService" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
