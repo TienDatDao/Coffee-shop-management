@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.PaymentPage.PaymentController"
+            styleClass="main-border-pane">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <center>
+        <ListView fx:id="listItems" prefWidth="600" prefHeight="600"
+                  styleClass="order-list-view"/> </center>
+
+    <right>
+        <StackPane prefWidth="200">
+            <VBox spacing="15"
+                  styleClass="payment-panel" alignment="CENTER">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <Label fx:id="lblTotal" text="Tổng tiền: 0.00"
+                       styleClass="total-label"/>
+                <Label fx:id="lblDiscount" text="Ưu đãi: -0.00"
+                       styleClass="discount-label" />
+                <Label fx:id="lblSubTotal" text="Thành tiền: 0.00"
+                       styleClass="subtotal-label" />
+                <Label text="Phương thức thanh toán:" styleClass="section-header"/>
+
+                <RadioButton fx:id="rbCash" text="Thanh toán bằng tiền mặt" styleClass="pay-radio"/>
+                <RadioButton fx:id="rbCard" text="Thanh toán bằng QR code" styleClass="pay-radio"/>
+                <RadioButton fx:id="rbWallet" text="Thanh toán bằng thẻ ATM" styleClass="pay-radio"/>
+                <FlowPane fx:id="flowImages"
+                          hgap="15" vgap="15"
+                          prefWrapLength="400"
+                          xmlns:fx="http://javafx.com/fxml/1" />
+                <Button fx:id="btnPay" text="Thanh toán" onAction="#handlePay"
+                        styleClass="pay-button"/>
+                <Label fx:id="lblMessage" text="" wrapText="true"/>
+            </VBox>
+        </StackPane>
+    </right>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/> </padding>
+            <Button fx:id="btnBack"
+                    text="← Trở lại"
+                    onAction="#handleBack"
+                    styleClass="back-button"/>
+            <HBox.margin>
+                <Insets top="10" left="10" bottom="10" right="0"/>
+            </HBox.margin>
+        </HBox>
+    </bottom>
+</BorderPane>

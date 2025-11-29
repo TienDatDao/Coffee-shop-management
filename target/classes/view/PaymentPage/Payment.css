@@ -1,0 +1,250 @@
+/* Màu nền của toàn bộ ứng dụng, sử dụng ảnh nền  */
+.main-border-pane {
+    -fx-background-color: white;
+    -fx-background-image: url("/view/PaymentPage/PaymentBackground.png");
+
+    /* Ngăn ảnh lặp lại */
+    -fx-background-repeat: no-repeat;
+
+    /* Điều chỉnh kích thước và vị trí ảnh */
+    -fx-background-position: center center; /* Căn giữa ảnh */
+    -fx-background-size: cover; /* Co giãn để lấp đầy toàn bộ khu vực */
+}
+/* Style cho VBox Thanh toán (payment-panel) */
+.payment-panel {
+    -fx-background-color: white;
+    -fx-opacity: 0.9;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    /* Khoảng cách giữa các phần tử */
+    -fx-spacing: 10;
+}
+.payment-method-image {
+    -fx-pref-width: 200px;
+}
+/* Tổng tiền */
+.total-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #8B4513;
+    -fx-wrap-text: true;  /* tự xuống dòng nếu quá dài */
+    -fx-text-alignment: center;
+}
+
+/* Ưu đãi */
+.discount-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #CD5C5C;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+/* Thành tiền (Subtotal) */
+.subtotal-label {
+    -fx-font-size: 20px;          /* 20px */
+    -fx-font-weight: bold;
+    -fx-text-fill: #A0522D;
+    -fx-padding: 8 12 8 12;       /* padding*/
+    -fx-background-color: #FFF5E6;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: #D2691E;
+    -fx-border-width: 1.5px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.12), 3, 0, 0, 1.5);
+    -fx-wrap-text: true;          /* xuống dòng nếu text dài */
+    -fx-text-alignment: center;
+    -fx-max-width: 180px;          /* hạn chế chiều ngang */
+}
+
+
+/* Style cho Button Pay (btnPay) */
+.pay-button {
+    -fx-background-color: #4CAF50; /* Xanh lá đậm */
+    -fx-border-color: #A5D6A7; /* Viền xanh sáng */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    /* -fx-font-spacing: 2px; // Không phải thuộc tính CSS hợp lệ cho JavaFX */
+    -fx-font-weight: bold;
+    -fx-pref-width: 120px;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-alignment: center;
+    /* Đổ bóng khi bình thường (nổi lên) */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.2, 2, 2);
+
+    /* Thêm hiệu ứng chuyển động mượt mà hơn */
+    -fx-transition: -fx-scale-x 0.4s, -fx-scale-y 0.4s, -fx-background-color 0.2s;
+}
+
+.pay-button:hover {
+    -fx-border-color: #7CB342; /* Viền khi di chuột */
+    -fx-background-color: #18f218; /* Xanh sáng khi di chuột */
+    /* Giảm đổ bóng */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.1, 1, 1);
+
+    /* Phóng to nhẹ */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+/* 2a. Đặt màu nền cho ListView TỔNG THỂ */
+.order-list-view {
+    /* Màu nền mong muốn cho khu vực chứa danh sách (khác với màu item) */
+    -fx-background-color: transparent; /* trong suot */
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent; /* Xóa border mặc định nếu có */
+}
+/* Điều chỉnh hiệu ứng của thanh trượt không là mặc định*/
+.order-list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;   /* nền thanh trượt trong suốt */
+    -fx-padding: 0;
+    -fx-pref-width: 8px;                /* chiều rộng thanh trượt */
+}
+
+.order-list-view  .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0,0,0,0.2); /* thanh trượt mờ */
+    -fx-background-insets: 0;
+    -fx-background-radius: 4px;           /* bo góc */
+}
+
+.order-list-view  .scroll-bar:vertical:hover .thumb {
+    -fx-background-color: rgba(0,0,0,0.5); /* hiện rõ khi hover */
+}
+
+.order-list-view  .scroll-bar:vertical .track {
+    -fx-background-color: transparent;    /* track trong suốt */
+}
+
+/* 2b. Làm cho cell là TRONG SUỐT */
+.order-list-view .list-cell {
+    /* Đặt màu nền cell là trong suốt */
+    -fx-background-color: transparent;
+    /* Đặt màu nền điều khiển bên trong cell là trong suốt */
+    -fx-control-inner-background: transparent;
+    /* Xóa padding và viền mặc định của cell */
+    -fx-padding: 0;
+}
+
+/* 2c. Định kiểu cho container VBox của từng mục (list-item-cell) */
+.list-item-cell {
+    -fx-padding: 10; /* Đệm nội dung bên trong màu nền */
+    -fx-background-color: white;
+    -fx-opacity: 0.8;
+    /* Thiết lập khoảng lề bên ngoài */
+    -fx-background-insets: 5 10 5 10;
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+/* Container chính chứa Ảnh, tên và miêu tả orderItem (HBox) */
+.main-item-content {
+    -fx-spacing: 15;
+    -fx-max-width: infinity;
+    -fx-max-height: infinity;
+    -fx-alignment: top-left; /* Đảm bảo các thành phần (Ảnh, VBox text) được căn trên cùng */
+}
+
+/* Định kiểu cho Ảnh món ăn */
+.item-image {
+    -fx-max-width: infinity;
+    -fx-max-height: infinity;
+}
+
+/* VBox chứa tên và mô tả */
+.item-text-container {
+    -fx-alignment: top-left;
+}
+
+/* Định kiểu cho Mô tả món ăn */
+.item-description, .item-price {
+    -fx-spacing: 5;
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+    -fx-max-width: infinity;
+}
+.item-name {
+       -fx-text-fill: #333333;
+       -fx-font-weight: bold;
+       -fx-font-size: 16px;
+
+       -fx-max-width: infinity;
+       -fx-alignment: center-left; /* Căn văn bản trong Label sang phải */
+   }
+.item-image, .item-text-container{
+    -fx-translate-x: 20px;
+}
+/* VBox chứa quantity*/
+.item-detail-vbox {
+    -fx-spacing: 3;
+    -fx-translate-x: -20px;
+}
+
+/* Style cho Label chi tiết */
+.item-quantity{
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-max-width: infinity;
+    -fx-alignment: center-right; /* Căn văn bản trong Label sang phải */
+}
+.item-quantity {
+    -fx-text-fill: #333333;
+    -fx-font-size: 12px;
+    -fx-max-width: infinity;
+    -fx-alignment: center-right;
+    -fx-translate-y: 80px;
+}
+/* RadioButton text */
+.pay-radio {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4B382A; /* nâu đậm */
+    -fx-font-weight: bold;
+    -fx-padding: 4 0 4 0;
+}
+
+/* Vòng ngoài */
+.pay-radio .radio {
+    -fx-border-color: #a6b3a9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-background-color: transparent;
+    -fx-pref-width: 18px;
+    -fx-pref-height: 18px;
+}
+
+/* Chấm khi selected */
+.pay-radio:selected .dot {
+    -fx-background-color: #4bfa4e;
+    -fx-background-radius: 50%;
+    -fx-padding: 6px;
+}
+
+/* Hover effect */
+.pay-radio:hover .radio {
+    -fx-border-color: #4bfa4e;
+    -fx-background-color: rgba(165, 250, 169,0.1);
+}
+
+/* Focus effect */
+.pay-radio:focused .radio {
+    -fx-border-color: #4bfa4e;
+    -fx-effect: dropshadow(gaussian, rgba(165, 250, 169,0.4), 6, 0, 0, 0);
+}
+/* Style cho Button Quay lại (btnBack) */
+.back-button {
+    -fx-background-color: #A0522D; /* màu nâu nhạt */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20; /* Đệm để nút lớn hơn */
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-opacity: 0.7;
+}
+
+.back-button:hover {
+    -fx-background-color: #f7c79c; /* Màu nâu sáng hơn khi di chuột vào */
+}
