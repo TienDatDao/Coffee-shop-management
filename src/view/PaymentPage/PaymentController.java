@@ -134,7 +134,7 @@ public class PaymentController implements Initializable {
         double sumSubtotal = listItems.getItems().stream().mapToDouble(IOrderItem::getSubtotal).sum();
         lblSubTotal.setText(String.format("Thành tiền: %.2fvnđ", sumSubtotal));
 
-        double sum = listItems.getItems().stream().mapToDouble(IOrderItem::getPrice).sum();
+        double sum = iOrder.getTotalPrice();
         lblTotal.setText(String.format("Tổng tiền: %.0fvnđ", sum));
         double discount = sum-sumSubtotal;
         lblDiscount.setText(String.format("Ưu đãi: -%.2fvnđ", discount));

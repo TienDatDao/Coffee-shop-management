@@ -39,7 +39,11 @@ public class MockOrder implements IOrder  {
 
     @Override
     public double getTotalPrice() {
-        return 0;
+        double sum = 0.0;
+        for(IOrderItem iOrderItem: getItems()){
+            sum+= iOrderItem.getSubtotal();
+        }
+        return sum;
     }
 
     @Override
