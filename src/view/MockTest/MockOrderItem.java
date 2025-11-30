@@ -1,5 +1,6 @@
 package view.MockTest;
 
+import Interface.IMenuItem;
 import Interface.IOrderItem;
 
 import javafx.scene.image.Image;
@@ -17,6 +18,14 @@ public class MockOrderItem extends MockMenuItem implements IOrderItem {
         super(menuItemId, name, price, description);
         this.quantity = quantity;
     }
+    public MockOrderItem(IMenuItem mockMenuItem, int quantity){
+        super(mockMenuItem.getId(), mockMenuItem.getName(),  mockMenuItem.getPrice(), mockMenuItem.getCategory());
+        this.quantity = quantity;
+    }
+    public MockOrderItem(IMenuItem mockMenuItem){
+        super(mockMenuItem.getId(), mockMenuItem.getName(),  mockMenuItem.getPrice(), mockMenuItem.getCategory());
+    }
+
     public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity, String imagePath){
         super(menuItemId, name, price, description, imagePath);
         this.quantity = quantity;

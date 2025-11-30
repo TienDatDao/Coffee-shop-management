@@ -6,5 +6,9 @@ public interface IAuthService {
         return true;
     };    // kiểm tra username/password
     void logout();                                      // xóa phiên đăng nhập
-    IUser getCurrentUser();                             // trả về user đang dùng app
+
+    static IUser getCurrentUser()                             // trả về user đang dùng app
+    {
+        return null;
+    }
 }

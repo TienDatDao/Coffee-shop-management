@@ -23,6 +23,11 @@ public class MockUser implements IUser {
     }
 
     @Override
+    public String getPassWord() {
+        return null;
+    }
+
+    @Override
     public String getRole() {
         return null;
     }
