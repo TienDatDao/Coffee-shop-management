@@ -9,4 +9,5 @@ public interface IOrder {
     double getTotalPrice();         // tổng tiền cuối cùng
     String getCreatedAt();          // thời gian order
     boolean completeOrder();                      // đánh dấu đã thanh toán với một đơn hàng
+    void setListOrderItem(IOrderItem item);
 }
