@@ -10,14 +10,14 @@ public class MockMenuService implements IMenuService {
 
     @Override
     public List<IMenuItem> getAllItems() {
-        return List.of(new MockMenuItem("1", "Coffee", 150000.0, "Delicious"),
-                new MockMenuItem("2", "tea", 130000.0, "Delicious")
+        return List.of(new MockMenuItem("1", "Coffee", 150000.0, "Drink"),
+                new MockMenuItem("2", "tea", 130000.0, "Drink")
                 );
     }
 
     @Override
     public IMenuItem getItemById(String id) {
-        return new MockMenuItem(id, "Coffee", 150000.0, "Delicious");
+        return new MockMenuItem(id, "Coffee", 150000.0, "Drink");
     }
 
     @Override

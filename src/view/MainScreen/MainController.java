@@ -1,6 +1,7 @@
 package view.MainScreen;
 
 import Interface.*;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import view.MockTest.*;
 import view.PaymentPage.PaymentController;
 import view.Wrapper.OrderItemWrapper;
@@ -23,75 +26,97 @@ import java.util.Locale;
 
 public class MainController {
 
-    @FXML
-    private TextField searchField;
-    @FXML
-    private FlowPane menuGrid;
+    @FXML private TextField searchField;
+    @FXML private FlowPane menuGrid;
 
-    @FXML
-    private TableView<OrderItemWrapper> orderTable;
-    @FXML
-    private TableColumn<OrderItemWrapper, String> colName;
-    @FXML
-    private TableColumn<OrderItemWrapper, Number> colQty;
-    @FXML
-    private TableColumn<OrderItemWrapper, Number> colTotal;
+    @FXML private TableView<OrderItemWrapper> orderTable;
+    @FXML private TableColumn<OrderItemWrapper, String> colName;
+    @FXML private TableColumn<OrderItemWrapper, Number> colQty;
+    @FXML private TableColumn<OrderItemWrapper, Number> colTotal;
 
-    @FXML
-    private Label totalLabel;
+    @FXML private Label totalLabel;
 
-    // Dữ liệu
+    /* HAMBURGER ELEMENT */
+    @FXML
+    private Button menuButton;
+    @FXML
+    private VBox slideMenu;
+    private boolean menuOpen = false;
+
+
     private IMenuService iMenuService = new MockMenuService();
     private IOrderService iOrderService = new MockOrderService();
     private ObservableList<OrderItemWrapper> currentOrder = FXCollections.observableArrayList();
 
-    // Formatter tiền tệ VNĐ
     private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
     @FXML
     public void initialize() {
         loadMockData();
         setupTable();
-        renderMenuGrid(iMenuService.getAllItems()); // Hiển thị tất cả ban đầu
+        renderMenuGrid(iMenuService.getAllItems());
 
-        // Listener tìm kiếm
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            handleSearch(newValue);
+        searchField.textProperty().addListener((o, oldVal, newVal) -> handleSearch(newVal));
+// Ẩn menu ban đầu
+        slideMenu.setTranslateX(-220);
+        menuButton.setOnAction(e -> {
+            if (!menuOpen) {
+                showOverlay();
+            } else {
+                hideOverlay();
+            }
+            menuOpen = !menuOpen;
         });
-    }
 
-    private void loadMockData() {
 
     }
+// hiệu ứng slidebả cho thanh trượt menu
+    private void showOverlay() {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(400), slideMenu);
+        tt.setToX(0);
+        tt.play();
+    }
+
+    private void hideOverlay() {
+        TranslateTransition tt = new TranslateTransition(Duration.millis(200), slideMenu);
+        tt.setToX(-220);
+        tt.play();
+    }
+
+
+    private void hideSlideMenu() {
+        javafx.animation.TranslateTransition tt = new javafx.animation.TranslateTransition(
+                javafx.util.Duration.millis(200), slideMenu);
+        tt.setToX(-220); // trượt ra ngoài
+        tt.play();
+
+        menuOpen = false;
+        menuButton.setVisible(false);
+    }
+
+    private void loadMockData() {}
 
     private void setupTable() {
-        colName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        colQty.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
+        colName.setCellValueFactory(c -> c.getValue().nameProperty());
+        colQty.setCellValueFactory(c -> c.getValue().quantityProperty());
+        colTotal.setCellValueFactory(c -> c.getValue().subtotalProperty());
 
-        // Format cột tiền tệ trong bảng
-        colTotal.setCellValueFactory(cellData -> cellData.getValue().subtotalProperty());
-        colTotal.setCellFactory(tc -> new TableCell<OrderItemWrapper, Number>() {
+        colTotal.setCellFactory(tc -> new TableCell<>() {
             @Override
             protected void updateItem(Number price, boolean empty) {
                 super.updateItem(price, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(currencyFormatter.format(price));
-                }
+                setText(empty ? null : currencyFormatter.format(price));
             }
         });
 
         orderTable.setItems(currentOrder);
     }
 
-    // --- LOGIC GIAO DIỆN (MENU) ---
-
-    // Hàm render các thẻ sản phẩm
+    /* RENDER PRODUCT CARD */
     private void renderMenuGrid(List<IMenuItem> items) {
         menuGrid.getChildren().clear();
         for (IMenuItem item : items) {
-            VBox card = createProductCard(item);
-            menuGrid.getChildren().add(card);
+            menuGrid.getChildren().add(createProductCard(item));
         }
     }
 
@@ -101,14 +126,9 @@ public class MainController {
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
 
-        // Ảnh (Placeholder nếu không tìm thấy)
         ImageView imageView = new ImageView();
-        try {
-            // Lưu ý: Cần folder resources/images thật hoặc dùng ảnh online
-            imageView.setImage(item.getImage());
-        } catch (Exception e) {
-            // Fallback nếu lỗi ảnh
-        }
+        try { imageView.setImage(item.getImage()); } catch (Exception ignored) {}
+
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
         imageView.setPreserveRatio(true);
@@ -122,16 +142,11 @@ public class MainController {
 
         card.getChildren().addAll(imageView, nameLabel, priceLabel);
 
-        // Sự kiện click vào thẻ -> Mở Popup (Ở đây làm đơn giản là thêm thẳng)
-        card.setOnMouseClicked(event -> {
-            // TODO: Ở đây sẽ gọi logic mở Modal Màn hình 2
-            // Hiện tại demo thêm trực tiếp
-            addToCart(item);
-        });
-
+        card.setOnMouseClicked(event -> addToCart(item));
         return card;
     }
 
+    /* SEARCH */
     private void handleSearch(String keyword) {
         if (keyword == null || keyword.isEmpty()) {
             renderMenuGrid(iMenuService.getAllItems());
@@ -143,25 +158,26 @@ public class MainController {
         renderMenuGrid(filtered);
     }
 
-    @FXML
-    void filterAll() {
+    /* FILTERS */
+    @FXML private void filterAll() {
         renderMenuGrid(iMenuService.getAllItems());
+        hideOverlay();
     }
 
-    @FXML
-    void filterDrink() {
-        renderMenuGrid(iMenuService.getAllItems().stream().filter(m -> m.getCategory().equals("Drink")).toList());
+    @FXML private void filterDrink() {
+        renderMenuGrid(iMenuService.getAllItems().stream()
+                .filter(m -> m.getCategory().equals("Drink")).toList());
+        hideOverlay();
     }
 
-    @FXML
-    void filterFood() {
-        renderMenuGrid(iMenuService.getAllItems().stream().filter(m -> m.getCategory().equals("Food")).toList());
+    @FXML private void filterFood() {
+        renderMenuGrid(iMenuService.getAllItems().stream()
+                .filter(m -> m.getCategory().equals("Food")).toList());
+        hideOverlay();
     }
 
-    // --- LOGIC GIAO DIỆN BÊN PHẢI (ORDER) ---
-
+    /* ORDER */
     private void addToCart(IMenuItem item) {
-        // Kiểm tra xem món đã có trong giỏ chưa
         for (OrderItemWrapper orderItem : currentOrder) {
             if (orderItem.getMenuItem().getId().equals(item.getId())) {
                 orderItem.increaseQuantity();
@@ -169,15 +185,12 @@ public class MainController {
                 return;
             }
         }
-        // Nếu chưa có, thêm mới, thêm ở dạng lớp bọc cho fe
-        IOrderItem newItem = new OrderItemWrapper(item, 1);
-        // ép kiểu thành lớp bọc
-        currentOrder.add((OrderItemWrapper) newItem);
+
+        currentOrder.add(new OrderItemWrapper(item, 1));
         refreshOrderState();
     }
 
-    @FXML
-    private void handleIncreaseQty() {
+    @FXML private void handleIncreaseQty() {
         OrderItemWrapper selected = orderTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             selected.increaseQuantity();
@@ -185,38 +198,21 @@ public class MainController {
         }
     }
 
-    @FXML
-    private void handleDecreaseQty() {
+    @FXML private void handleDecreaseQty() {
         OrderItemWrapper selected = orderTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             selected.decreaseQuantity();
-            refreshOrderState(); // Subtotal tự tính lại trong Model, nhưng cần refresh tổng đơn
+            refreshOrderState();
         }
     }
 
-    @FXML
-    private void handleRemoveItem() {
-        IOrderItem selected = orderTable.getSelectionModel().getSelectedItem();
+    @FXML private void handleRemoveItem() {
+        OrderItemWrapper selected = orderTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             currentOrder.remove(selected);
             refreshOrderState();
         }
     }
-
-    private void refreshOrderState() {
-        orderTable.refresh(); // Refresh lại UI bảng để hiện số mới
-        updateTotal();
-    }
-
-    private void updateTotal() {
-        double total = 0;
-        for (OrderItemWrapper item : currentOrder) {
-            total += item.subtotalProperty().get();
-        }
-
-        totalLabel.setText(currencyFormatter.format(total));
-    }
-
     @FXML
     private void handleApplyDiscount() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -226,46 +222,44 @@ public class MainController {
         alert.showAndWait();
     }
 
+    private void refreshOrderState() {
+        orderTable.refresh();
+        updateTotal();
+    }
+
+    private void updateTotal() {
+        double total = currentOrder.stream()
+                .mapToDouble(i -> i.subtotalProperty().get())
+                .sum();
+        totalLabel.setText(currencyFormatter.format(total));
+    }
+
+    /* CHECKOUT */
     @FXML
     private void handleCheckout() throws IOException {
-
         if (currentOrder.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Giỏ hàng đang trống!");
             alert.showAndWait();
             return;
-        } else {
-
-            // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentPage/Payment.fxml"));
-            Parent root = loader.load();
-
-            // 1. TẠO IOrder chính thức TẠI ĐÂY, điền dữ liệu từ Wrapper
-            IOrder orderToSend = new MockOrder();
-
-            for (OrderItemWrapper itemWrapper : currentOrder) {
-                // Tạo Model Cốt lõi từ dữ liệu của Wrapper
-                IOrderItem finalItem = new MockOrderItem(
-                        itemWrapper.getMenuItem(),
-                        itemWrapper.getQuantity() // Lấy số lượng đã cập nhật
-                );
-                orderToSend.setListOrderItem(finalItem);
-            }
-            PaymentController paymentController = loader.getController();
-            paymentController.setIOrder(orderToSend);
-            Scene scene = menuGrid.getScene();
-            scene.setRoot(root);
-
-            // Xóa tất cả stylesheet hiện tại
-            scene.getStylesheets().clear();
-
-            // Thêm CSS
-                scene.getStylesheets().add(
-                        getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm()
-                );
-
-
-            // >>> KẾT THÚC PHẦN CHUYỂN TRANG <<<
         }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentPage/Payment.fxml"));
+        Parent root = loader.load();
+
+        IOrder orderToSend = new MockOrder();
+        for (OrderItemWrapper itemWrapper : currentOrder) {
+            IOrderItem finalItem = new MockOrderItem(itemWrapper.getMenuItem(), itemWrapper.getQuantity());
+            orderToSend.setListOrderItem(finalItem);
+        }
+
+        PaymentController paymentController = loader.getController();
+        paymentController.setIOrder(orderToSend);
+
+        Scene scene = menuGrid.getScene();
+        scene.setRoot(root);
+
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
     }
 }

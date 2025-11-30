@@ -68,6 +68,9 @@ public class LoginController implements Initializable {
 
                 // 4. Tạo Scene mới và thiết lập Stage
                 Scene scene = new Scene(root);
+                scene.getStylesheets().add(
+                        getClass().getResource("/view/MainScreen/Main.css").toExternalForm()
+                );
 
                 // (Tùy chọn) Đặt tiêu đề mới cho cửa sổ
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
