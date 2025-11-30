@@ -3,7 +3,6 @@ package model;
 import Interface.IMenuItem; // Import interface
 import javafx.scene.image.Image;
 
-// THÊM: implements IMenuItem
 public class MenuItem implements IMenuItem {
     private String id;
     private String name;

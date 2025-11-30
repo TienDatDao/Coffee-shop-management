@@ -13,7 +13,6 @@ public class OrderItem implements IOrderItem {
     private SimpleIntegerProperty quantity;
     private SimpleDoubleProperty subtotal;
 
-    // Constructor nhận vào IMenuItem (interface) thay vì MenuItem cụ thể -> linh hoạt hơn
     public OrderItem(IMenuItem menuItem, int quantity) {
         this.menuItem = menuItem;
 

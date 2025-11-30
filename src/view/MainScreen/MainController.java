@@ -1,34 +1,44 @@
 package view.MainScreen;
 
+import Interface.IMenuItem;
+import Interface.IMenuService;
+import model.OrderItem;
+import service.MenuService;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class MainController {
 
+    // --- FXML UI COMPONENTS ---
     @FXML private TextField searchField;
     @FXML private FlowPane menuGrid;
 
-    @FXML private TableView<OrderItem> orderTable;
+    @FXML private TableView<OrderItem> orderTable; // TableView vẫn dùng Class cụ thể để bind property
     @FXML private TableColumn<OrderItem, String> colName;
     @FXML private TableColumn<OrderItem, Number> colQty;
     @FXML private TableColumn<OrderItem, Number> colTotal;
 
+    @FXML private Label subTotalLabel;
     @FXML private Label totalLabel;
 
-    // Dữ liệu
-    private List<MenuItem> fullMenu = new ArrayList<>();
+    // --- DATA & SERVICES ---
+    private List<IMenuItem> fullMenu;
+
+    // Gọi Service thông qua Interface
+    private IMenuService menuService;
+
+    // Danh sách hiển thị trên bảng order
     private ObservableList<OrderItem> currentOrder = FXCollections.observableArrayList();
 
     // Formatter tiền tệ VNĐ
@@ -36,31 +46,28 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        loadMockData();
+        // 1. Khởi tạo Service
+        menuService = new MenuService();
+
+        // 2. Lấy dữ liệu từ Service
+        fullMenu = menuService.getAllItems();
+
+        // 3. Setup giao diện
         setupTable();
         renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
 
-        // Listener tìm kiếm
+        // 4. Listener tìm kiếm
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearch(newValue);
         });
     }
 
-    private void loadMockData() {
-        // Giả lập dữ liệu từ MenuService
-        fullMenu.add(new MenuItem("1", "Cà phê đen", 25000, "Drink", "/images/black_coffee.png"));
-        fullMenu.add(new MenuItem("2", "Cà phê sữa", 30000, "Drink", "/images/milk_coffee.png"));
-        fullMenu.add(new MenuItem("3", "Bạc xỉu", 35000, "Drink", "/images/bac_xiu.png"));
-        fullMenu.add(new MenuItem("4", "Trà đào", 40000, "Drink", "/images/peach_tea.png"));
-        fullMenu.add(new MenuItem("5", "Bánh Croissant", 20000, "Food", "/images/croissant.png"));
-        fullMenu.add(new MenuItem("6", "Bánh Tiramisu", 45000, "Food", "/images/tiramisu.png"));
-    }
-
     private void setupTable() {
+        // Cấu hình cột cho bảng Order
         colName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         colQty.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
 
-        // Format cột tiền tệ trong bảng
+        // Format cột tiền tệ
         colTotal.setCellValueFactory(cellData -> cellData.getValue().subtotalProperty());
         colTotal.setCellFactory(tc -> new TableCell<OrderItem, Number>() {
             @Override
@@ -79,48 +86,56 @@ public class MainController {
 
     // --- LOGIC GIAO DIỆN (MENU) ---
 
-    // Hàm render các thẻ sản phẩm
-    private void renderMenuGrid(List<MenuItem> items) {
+    // Hàm render nhận vào danh sách Interface IMenuItem
+    private void renderMenuGrid(List<IMenuItem> items) {
         menuGrid.getChildren().clear();
-        for (MenuItem item : items) {
+        for (IMenuItem item : items) {
             VBox card = createProductCard(item);
             menuGrid.getChildren().add(card);
         }
     }
 
-    private VBox createProductCard(MenuItem item) {
-        VBox card = new VBox(5);
-        card.setPrefSize(150, 200);
+    // Tạo thẻ sản phẩm từ Interface
+    private VBox createProductCard(IMenuItem item) {
+        VBox card = new VBox(10);
+        double cardWidth = 180;
+        card.setPrefWidth(cardWidth);
+        card.setMaxWidth(cardWidth);
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
 
-        // Ảnh (Placeholder nếu không tìm thấy)
+        // --- XỬ LÝ ẢNH (Gọn hơn rất nhiều nhờ Interface) ---
         ImageView imageView = new ImageView();
-        try {
-            // Lưu ý: Cần folder resources/images thật hoặc dùng ảnh online
-            imageView.setImage(new Image(getClass().getResourceAsStream(item.getImagePath())));
-        } catch (Exception e) {
-            // Fallback nếu lỗi ảnh
-        }
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
-        imageView.setPreserveRatio(true);
+
+        // IMenuItem đã cam kết có hàm getImage(), ta chỉ việc dùng
+        imageView.setImage(item.getImage());
+
+        imageView.setFitWidth(140);
+        imageView.setFitHeight(140);
+
+        // Bo tròn ảnh
+        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(140, 140);
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
+        imageView.setClip(clip);
+
+        // --- THÔNG TIN TEXT ---
+        VBox infoBox = new VBox(5);
+        infoBox.setAlignment(Pos.CENTER);
 
         Label nameLabel = new Label(item.getName());
         nameLabel.getStyleClass().add("card-title");
         nameLabel.setWrapText(true);
+        nameLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 
         Label priceLabel = new Label(currencyFormatter.format(item.getPrice()));
         priceLabel.getStyleClass().add("card-price");
 
-        card.getChildren().addAll(imageView, nameLabel, priceLabel);
+        infoBox.getChildren().addAll(nameLabel, priceLabel);
+        card.getChildren().addAll(imageView, infoBox);
 
-        // Sự kiện click vào thẻ -> Mở Popup (Ở đây làm đơn giản là thêm thẳng)
-        card.setOnMouseClicked(event -> {
-            // TODO: Ở đây sẽ gọi logic mở Modal Màn hình 2
-            // Hiện tại demo thêm trực tiếp
-            addToCart(item);
-        });
+        // Sự kiện Click -> Thêm vào giỏ
+        card.setOnMouseClicked(e -> addToCart(item));
 
         return card;
     }
@@ -130,32 +145,36 @@ public class MainController {
             renderMenuGrid(fullMenu);
             return;
         }
-        List<MenuItem> filtered = fullMenu.stream()
+        // Stream filter trên Interface
+        List<IMenuItem> filtered = fullMenu.stream()
                 .filter(m -> m.getName().toLowerCase().contains(keyword.toLowerCase()))
-                .toList();
+                .collect(Collectors.toList());
         renderMenuGrid(filtered);
     }
 
+    // Các nút lọc danh mục
     @FXML void filterAll() { renderMenuGrid(fullMenu); }
     @FXML void filterDrink() {
-        renderMenuGrid(fullMenu.stream().filter(m -> m.getCategory().equals("Drink")).toList());
+        renderMenuGrid(fullMenu.stream().filter(m -> "Drink".equalsIgnoreCase(m.getCategory())).collect(Collectors.toList()));
     }
     @FXML void filterFood() {
-        renderMenuGrid(fullMenu.stream().filter(m -> m.getCategory().equals("Food")).toList());
+        renderMenuGrid(fullMenu.stream().filter(m -> "Food".equalsIgnoreCase(m.getCategory())).collect(Collectors.toList()));
     }
 
     // --- LOGIC GIAO DIỆN BÊN PHẢI (ORDER) ---
 
-    private void addToCart(MenuItem item) {
+    // Tham số đầu vào là Interface IMenuItem
+    private void addToCart(IMenuItem item) {
         // Kiểm tra xem món đã có trong giỏ chưa
         for (OrderItem orderItem : currentOrder) {
-            if (orderItem.getMenuItem().getId().equals(item.getId())) {
+            // So sánh ID thông qua Interface
+            if (orderItem.getMenuItemId().equals(item.getId())) {
                 orderItem.increaseQuantity();
                 refreshOrderState();
                 return;
             }
         }
-        // Nếu chưa có, thêm mới
+        // Nếu chưa có, tạo mới OrderItem (OrderItem nhận vào IMenuItem trong constructor)
         OrderItem newItem = new OrderItem(item, 1);
         currentOrder.add(newItem);
         refreshOrderState();
@@ -175,7 +194,10 @@ public class MainController {
         OrderItem selected = orderTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             selected.decreaseQuantity();
-            refreshOrderState(); // Subtotal tự tính lại trong Model, nhưng cần refresh tổng đơn
+            if (selected.quantityProperty().get() == 0 ) {
+                currentOrder.remove(selected);
+            }
+            refreshOrderState();
         }
     }
 
@@ -189,7 +211,7 @@ public class MainController {
     }
 
     private void refreshOrderState() {
-        orderTable.refresh(); // Refresh lại UI bảng để hiện số mới
+        orderTable.refresh();
         updateTotal();
     }
 
@@ -198,16 +220,9 @@ public class MainController {
         for (OrderItem item : currentOrder) {
             total += item.subtotalProperty().get();
         }
-        totalLabel.setText(currencyFormatter.format(total));
-    }
-
-    @FXML
-    private void handleApplyDiscount() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Khuyến mãi");
-        alert.setHeaderText(null);
-        alert.setContentText("Tính năng áp dụng mã giảm giá đang phát triển.");
-        alert.showAndWait();
+        String formatted = currencyFormatter.format(total);
+        totalLabel.setText(formatted);
+        if(subTotalLabel != null) subTotalLabel.setText(formatted);
     }
 
     @FXML
@@ -218,7 +233,7 @@ public class MainController {
             alert.showAndWait();
             return;
         }
-        // Chuyển sang Màn hình 3 (Payment)
-        System.out.println("Chuyển sang màn hình thanh toán với tổng tiền: " + totalLabel.getText());
+        // Chuyển sang Màn hình thanh toán...
+        System.out.println("Processing checkout...");
     }
 }
