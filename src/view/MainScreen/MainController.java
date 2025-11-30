@@ -2,6 +2,7 @@ package view.MainScreen;
 
 import Interface.IMenuItem;
 import Interface.IMenuService;
+import javafx.geometry.Insets;
 import model.OrderItem;
 import service.MenuService;
 
@@ -63,6 +64,9 @@ public class MainController {
     }
 
     private void setupTable() {
+        // Thêm đoạn này để menu luôn căn chỉnh đẹp
+        menuGrid.setAlignment(Pos.TOP_CENTER);
+        menuGrid.setPadding(new Insets(20, 20, 50, 20)); // Padding dưới 50 để ko bị che bởi mép màn hình
         // Cấu hình cột cho bảng Order
         colName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         colQty.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
@@ -97,36 +101,43 @@ public class MainController {
 
     // Tạo thẻ sản phẩm từ Interface
     private VBox createProductCard(IMenuItem item) {
-        VBox card = new VBox(10);
-        double cardWidth = 180;
+        VBox card = new VBox(10); //
+        double cardWidth = 170;   // Tăng độ rộng thẻ một chút
         card.setPrefWidth(cardWidth);
         card.setMaxWidth(cardWidth);
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
+        card.setPadding(new javafx.geometry.Insets(15)); // Padding nội bộ thẻ
 
-        // --- XỬ LÝ ẢNH (Gọn hơn rất nhiều nhờ Interface) ---
+        // --- XỬ LÝ ẢNH ---
         ImageView imageView = new ImageView();
 
-        // IMenuItem đã cam kết có hàm getImage(), ta chỉ việc dùng
-        imageView.setImage(item.getImage());
+        // Xử lý trường hợp ảnh lỗi hoặc null (Best practice)
+        try {
+            imageView.setImage(item.getImage());
+        } catch (Exception e) {
+            // Có thể set ảnh placeholder ở đây nếu muốn
+        }
 
-        imageView.setFitWidth(140);
-        imageView.setFitHeight(140);
+        imageView.setFitWidth(130);
+        imageView.setFitHeight(130);
+        imageView.setPreserveRatio(true); // Giữ tỷ lệ ảnh
 
-        // Bo tròn ảnh
-        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(140, 140);
-        clip.setArcWidth(20);
-        clip.setArcHeight(20);
+        // Bo tròn ảnh (Soft square)
+        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
+        clip.setArcWidth(30); // Bo tròn nhiều hơn cho mềm mại
+        clip.setArcHeight(30);
         imageView.setClip(clip);
 
         // --- THÔNG TIN TEXT ---
-        VBox infoBox = new VBox(5);
+        VBox infoBox = new VBox(6);
         infoBox.setAlignment(Pos.CENTER);
 
         Label nameLabel = new Label(item.getName());
         nameLabel.getStyleClass().add("card-title");
         nameLabel.setWrapText(true);
         nameLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        nameLabel.setMinHeight(40); // Cố định chiều cao tên để thẻ đều nhau
 
         Label priceLabel = new Label(currencyFormatter.format(item.getPrice()));
         priceLabel.getStyleClass().add("card-price");
@@ -134,8 +145,17 @@ public class MainController {
         infoBox.getChildren().addAll(nameLabel, priceLabel);
         card.getChildren().addAll(imageView, infoBox);
 
-        // Sự kiện Click -> Thêm vào giỏ
-        card.setOnMouseClicked(e -> addToCart(item));
+        // --- SỰ KIỆN CLICK & ANIMATION ---
+        card.setOnMouseClicked(e -> {
+            addToCart(item);
+            // Hiệu ứng nhún nhẹ khi click
+            javafx.animation.ScaleTransition st = new javafx.animation.ScaleTransition(javafx.util.Duration.millis(100), card);
+            st.setFromX(1.0); st.setFromY(1.0);
+            st.setToX(0.95); st.setToY(0.95);
+            st.setAutoReverse(true);
+            st.setCycleCount(2);
+            st.play();
+        });
 
         return card;
     }

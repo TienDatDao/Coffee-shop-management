@@ -32,7 +32,6 @@ public class MenuItem implements IMenuItem {
     @Override
     public String getCategory() { return category; }
 
-    // Xử lý logic load ảnh ở đây để khớp với Interface
     @Override
     public Image getImage() {
         try {
