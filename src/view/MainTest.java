@@ -41,15 +41,21 @@ public class MainTest extends Application {
 //            );
 //        });
 //        // trang đăng nhập
-        // trang thanh toán cuối cùng
-        BorderPane root = FXMLLoader.load(getClass().getResource("/view/PaymentPage/Payment.fxml"));
+//        // trang thanh toán cuối cùng
+//        BorderPane root = FXMLLoader.load(getClass().getResource("/view/PaymentPage/Payment.fxml"));
+//        Scene scene = new Scene(root, 1000, 600);
+//        primaryStage.setTitle("Payment Page - POS");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//        // Giả sử 'scene' là đối tượng Scene của bạn
+//        scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
+//        // trang thanh toán cuối cùng
+        StackPane root = FXMLLoader.load(getClass().getResource("/view/MenuManagerPage/MenuManager.fxml"));
         Scene scene = new Scene(root, 1000, 600);
-        primaryStage.setTitle("Payment Page - POS");
+        primaryStage.setTitle("Coffee management app");
         primaryStage.setScene(scene);
         primaryStage.show();
-        // Giả sử 'scene' là đối tượng Scene của bạn
-        scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
-        // trang thanh toán cuối cùng
+        scene.getStylesheets().add(getClass().getResource("/view/MenuManagerPage/MenuManager.css").toExternalForm());
     }
 
     public static void main(String[] args) {

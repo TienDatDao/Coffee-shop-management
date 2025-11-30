@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="Update new in interface IOrder, IOrderService">
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="Update new in interface">
+      <change afterPath="$PROJECT_DIR$/src/view/MenuManagerPage/MenuManager.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MenuManagerPage/MenuManager.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MenuManagerPage/MenuManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/IOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +172,14 @@
       <option name="project" value="LOCAL" />
       <updated>1764423593693</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Update new in interface">
+      <created>1764424859226</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1764424859226</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,7 +202,8 @@
     <MESSAGE value="Update little" />
     <MESSAGE value="Update new, quite important,..." />
     <MESSAGE value="Update new in interface IOrder, IOrderService" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update new in interface IOrder, IOrderService" />
+    <MESSAGE value="Update new in interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update new in interface" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

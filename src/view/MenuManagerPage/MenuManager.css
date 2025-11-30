@@ -1,0 +1,47 @@
+/* Nút hamburger */
+.menu-button {
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-background-color: #3f51b5;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0.5, 0, 2);
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+.menu-button:hover {
+    -fx-background-color: #5c6bc0;
+}
+.menu-button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* VBox menu */
+.menu-list-vbox {
+    -fx-pref-width: 220px;
+    -fx-max-width: 220px;
+    -fx-spacing: 5px;
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.1, 0, 1);
+}
+
+/* Menu items */
+.menu-item {
+    -fx-pref-width: 220px;
+    -fx-padding: 5px 10px;
+    -fx-background-color: transparent;
+    -fx-text-fill: #333;
+    -fx-cursor: hand;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+.menu-item:hover {
+    -fx-background-color: #e0e0e0;
+}
