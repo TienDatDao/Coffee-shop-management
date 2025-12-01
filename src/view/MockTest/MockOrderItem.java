@@ -5,7 +5,11 @@ import Interface.IOrderItem;
 
 import javafx.scene.image.Image;
 
-public class MockOrderItem extends MockMenuItem implements IOrderItem {
+public class MockOrderItem implements IOrderItem {
+
+
+
+    IMenuItem MenuItem;
     private int quantity;
     private double subtotal;
     private String menuItemId;
@@ -13,27 +17,21 @@ public class MockOrderItem extends MockMenuItem implements IOrderItem {
     private Double price;
     private String description;
     private String imagePath;
-
-    public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity){
-        super(menuItemId, name, price, description);
+    public MockOrderItem(IMenuItem MenuItem, int quantity){
+        this.MenuItem = MenuItem;
         this.quantity = quantity;
     }
-    public MockOrderItem(IMenuItem mockMenuItem, int quantity){
-        super(mockMenuItem.getId(), mockMenuItem.getName(),  mockMenuItem.getPrice(), mockMenuItem.getCategory());
-        this.quantity = quantity;
-    }
-    public MockOrderItem(IMenuItem mockMenuItem){
-        super(mockMenuItem.getId(), mockMenuItem.getName(),  mockMenuItem.getPrice(), mockMenuItem.getCategory());
+    public MockOrderItem(IMenuItem MenuItem){
+        this.MenuItem = MenuItem;
     }
 
     public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity, String imagePath){
-        super(menuItemId, name, price, description, imagePath);
         this.quantity = quantity;
         this.imagePath = imagePath;
     }
     @Override
     public Image getImage(){
-        return super.getImage();
+        return MenuItem.getImage();
     }
     public void setImage(String imagePath){
         this.imagePath = imagePath;
@@ -41,7 +39,7 @@ public class MockOrderItem extends MockMenuItem implements IOrderItem {
 
     @Override
     public String getMenuItemId() {
-        return super.getId(); // từ MockMenuItem
+        return MenuItem.getId(); // từ MockMenuItem
     }
 
     @Override
@@ -54,8 +52,12 @@ public class MockOrderItem extends MockMenuItem implements IOrderItem {
         return getPrice()*getQuantity();
     }
 
-    public String getName() { return super.getName(); }
-    public double getPrice() { return super.getPrice(); }
-    public String getCategory() { return super.getCategory(); }
-    public String getImageUrl(){return null;}
+    @Override
+    public String getId() {
+        return null;
+    }
+
+    public String getName() { return MenuItem.getName(); }
+    public double getPrice() { return MenuItem.getPrice(); }
+    public String getCategory() { return MenuItem.getCategory(); }
 }

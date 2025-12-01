@@ -106,10 +106,14 @@ public class PaymentController implements Initializable {
                     mainItemContent.getStyleClass().add("main-item-content");
 
                     // Ảnh món ăn (Bên trái)
-                    // Giả định item.getImage() trả về Image
                     ImageView itemImage = new ImageView(item.getImage());
                     itemImage.setFitWidth(80);
                     itemImage.setFitHeight(100);
+                    // Bo tròn ảnh (Soft square)
+                    javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
+                    clip.setArcWidth(30); // Bo tròn nhiều hơn cho mềm mại
+                    clip.setArcHeight(30);
+                    itemImage.setClip(clip);
                     itemImage.setPreserveRatio(false);
                     itemImage.getStyleClass().add("item-image");
 

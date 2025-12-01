@@ -76,6 +76,7 @@ public class LoginController implements Initializable {
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
 
                 currentStage.setScene(scene);
+                currentStage.setMaximized(true);
                 currentStage.show();
 
             } catch (Exception e) {

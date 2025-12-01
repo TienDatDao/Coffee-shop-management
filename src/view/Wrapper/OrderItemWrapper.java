@@ -52,12 +52,12 @@ public class OrderItemWrapper implements IOrderItem {
 
     @Override
     public String getId() {
-        return null;
+        return menuItem.getId();
     }
 
     @Override
     public String getMenuItemId() {
-        return null;
+        return menuItem.getId();
     }
 
     @Override
@@ -82,11 +82,11 @@ public class OrderItemWrapper implements IOrderItem {
 
     @Override
     public String getCategory() {
-        return null;
+        return menuItem.getCategory();
     }
 
     @Override
     public Image getImage() {
-        return null;
+        return menuItem.getImage();
     }
 }

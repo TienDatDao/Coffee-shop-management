@@ -6,19 +6,19 @@ import javafx.scene.image.Image;
 public class MockMenuItem implements IMenuItem {
     private String name;
     private String id;
-    private String description;
+    private String category;
     private double price;
     private String imagePath;
 
-    public MockMenuItem(String id, String name, Double price, String description){
+    public MockMenuItem(String id, String name, Double price, String category){
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.category = category;
         this.price = price;
     }
 
-    public MockMenuItem(String id, String name, Double price, String description, String imagePath){
-        this(id, name, price, description);
+    public MockMenuItem(String id, String name, Double price, String category, String imagePath){
+        this(id, name, price, category);
         this.imagePath = imagePath;
     }
 
@@ -58,6 +58,6 @@ public class MockMenuItem implements IMenuItem {
 
     @Override
     public String getCategory() {
-        return description;
+        return category;
     }
 }
