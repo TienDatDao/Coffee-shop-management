@@ -27,6 +27,7 @@
                 <Button maxWidth="Infinity" styleClass="nav-btn, active-nav" text="🛒   Bán hàng" />
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="📊   Thống kê" />
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="👥   Khách hàng" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="⚙   Cài đặt" />
 
                 <Region VBox.vgrow="ALWAYS" />
