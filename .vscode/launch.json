@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MainTest",
+            "request": "launch",
+            "mainClass": "view.MainTest",
+            "projectName": "Coffee-shop-management_74fa201e"
+        },
+        {
+            "type": "java",
             "name": "Run JavaFX App",
             "request": "launch",
             "mainClass": "Main",

@@ -12,6 +12,7 @@ public interface IMenuService {
 
 /*
 Lấy tất cả món để hiển thị lên UI
+Tìm món bằng Id
 Thêm món mới
 Sửa món
 Xóa món
