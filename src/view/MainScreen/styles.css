@@ -12,24 +12,25 @@
     -fx-background-color: #F8FAFC; /* Slate 50 */
 }
 
-/* --- SIDEBAR (LEFT) --- */
+/* --- SIDEBAR (LEFT) - Tông Nâu Espresso --- */
 .sidebar {
-    -fx-background-color: #1E293B; /* Slate 800 */
+    /* Đổi từ xanh đen sang nâu đậm sang trọng */
+    -fx-background-color: #2D1E17;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
 }
 
 .app-logo {
     -fx-font-size: 28px;
     -fx-font-weight: 800;
-    -fx-text-fill: #F1F5F9; /* Slate 100 */
+    -fx-text-fill: #EFEBE9; /* Màu trắng ngà cho logo */
     -fx-padding: 0 0 10 0;
     -fx-alignment: CENTER;
 }
 
-/* Navigation Buttons */
+/* Nút điều hướng bình thường */
 .nav-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #94A3B8; /* Slate 400 */
+    -fx-text-fill: #BCAAA4; /* Màu nâu nhạt */
     -fx-font-size: 15px;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 12 20;
@@ -38,17 +39,19 @@
 }
 
 .nav-btn:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.05);
-    -fx-text-fill: #F1F5F9;
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-text-fill: #EFEBE9;
 }
 
+
+/* Nút đang được chọn (Active) - Chuyển từ Xanh sang Nâu Caramel */
 .active-nav {
-    -fx-background-color: #3B82F6; /* Blue 500 */
+    -fx-background-color: #8D6E63; /* Brown 400 */
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.4), 10, 0, 0, 5);
+    /* Hiệu ứng bóng đổ ấm hơn */
+    -fx-effect: dropshadow(three-pass-box, rgba(62, 39, 35, 0.4), 10, 0, 0, 5);
 }
-
 /* --- CENTER CONTENT --- */
 .search-bar {
     -fx-background-color: white;
@@ -109,16 +112,32 @@
     -fx-font-weight: bold;
 }
 
-/* --- RIGHT PANE (ORDER) --- */
+/* --- RIGHT PANE (ORDER) - Tông Kem Sữa --- */
 .right-pane-light {
-    -fx-background-color: white;
+    /* Màu kem rất nhạt, tiệp với màu nền giữa */
+    -fx-background-color: #FFFCF9;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), -5, 0, 0, 0);
 }
 
 .section-title {
     -fx-font-size: 18px;
     -fx-font-weight: 800;
-    -fx-text-fill: #1E293B;
+    /* Đổi màu chữ tiêu đề thành nâu đậm */
+    -fx-text-fill: #3E2723;
+}
+
+/* Các label tiêu đề nhỏ (Tạm tính, Giảm giá...) */
+.total-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #795548; /* Nâu vừa phải */
+}
+
+/* Giá tiền tổng cộng */
+.total-price {
+    -fx-font-size: 20px;
+    -fx-font-weight: 900;
+    /* Đổi từ xanh dương sang cam đất hoặc nâu đỏ để nổi bật */
+    -fx-text-fill: #BF360C;
 }
 
 /* TABLE VIEW STYLING - Phần khó nhất để làm đẹp */
@@ -158,24 +177,24 @@
 
 /* BUTTONS ACTION */
 .qty-btn {
-    -fx-background-color: #F1F5F9;
-    -fx-text-fill: #1E293B;
+    -fx-background-color: #EFEBE9; /* Xám nâu nhạt */
+    -fx-text-fill: #3E2723;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
     -fx-min-width: 32px;
     -fx-min-height: 32px;
     -fx-cursor: hand;
 }
-.qty-btn:hover { -fx-background-color: #E2E8F0; }
+.qty-btn:hover { -fx-background-color: #D7CCC8; }
 
 .danger-btn {
-    -fx-background-color: #FEE2E2; /* Red 100 */
-    -fx-text-fill: #EF4444; /* Red 500 */
+    -fx-background-color: #FFEBEE; /* Nền đỏ rất nhạt */
+    -fx-text-fill: #C62828; /* Chữ đỏ đậm */
     -fx-background-radius: 8;
     -fx-cursor: hand;
     -fx-padding: 8 16;
 }
-.danger-btn:hover { -fx-background-color: #FECACA; }
+.danger-btn:hover { -fx-background-color: #FFCDD2; }
 
 /* TOTAL & CHECKOUT */
 .total-label {
@@ -190,20 +209,22 @@
 }
 
 .checkout-btn {
-    -fx-background-color: linear-gradient(to right, #10B981, #059669);
+    /* Gradient từ nâu đất sang nâu cafe */
+    -fx-background-color: linear-gradient(to right, #5D4037, #3E2723);
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-background-radius: 12;
-    -fx-effect: dropshadow(three-pass-box, rgba(16, 185, 129, 0.4), 10, 0, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(62, 39, 35, 0.4), 10, 0, 0, 5);
     -fx-cursor: hand;
 }
 
 .checkout-btn:hover {
-    -fx-background-color: linear-gradient(to right, #34D399, #10B981);
+    -fx-background-color: linear-gradient(to right, #6D4C41, #4E342E);
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
 }
+
 /* --- TABLE VIEW CAO CẤP --- */
 
 /* 1. Tổng thể bảng: Bo tròn, đổ bóng nhẹ, nền trắng */
@@ -229,10 +250,8 @@
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #94A3B8; /* Màu chữ xám nhạt sang trọng */
+    -fx-text-fill: #8D6E63; /* Nâu nhạt */
     -fx-font-weight: bold;
-    -fx-font-size: 11px;
-    -fx-alignment: CENTER_LEFT;
 }
 
 /* 3. Dòng dữ liệu (Rows): Cao hơn, thoáng hơn */
@@ -260,11 +279,10 @@
 
 /* 4. Text trong ô */
 .table-cell {
+    -fx-text-fill: #4E342E; /* Nâu đậm */
     -fx-alignment: CENTER_LEFT;
-    -fx-text-fill: #334155;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-border-color: transparent; /* Xóa viền ô */
 }
 /* --- SCROLL PANE & MENU BACKGROUND --- */
 
@@ -310,4 +328,37 @@
     -fx-pref-height: 0;
     -fx-pref-width: 0;
     -fx-shape: " "; /* Hack để ẩn hình mũi tên */
+}
+
+/* --- CENTER BACKGROUND (Hình nền khu vực giữa) --- */
+
+.center-pane {
+    /* 1. Màu nền dự phòng (nếu ảnh lỗi thì hiện màu này) */
+    -fx-background-color: #f3f4f6;
+
+    /* 2. ĐƯỜNG DẪN ẢNH (Quan trọng: hãy đổi tên file đúng với ảnh của bạn) */
+    /* Nếu file ảnh nằm cùng thư mục với styles.css thì chỉ cần điền tên file */
+    -fx-background-image: url('images/coffee-background.png');
+
+    /* 3. Kiểu hiển thị ảnh */
+    -fx-background-repeat: no-repeat;    /* Không lặp lại ảnh */
+    -fx-background-position: center center; /* Căn giữa */
+    -fx-background-size: cover;          /* Co giãn ảnh để phủ kín toàn bộ khung */
+}
+
+/* Mẹo Pro: Làm ảnh nền mờ đi để nổi bật món ăn */
+/* Chúng ta sử dụng FlowPane (menu-grid) để phủ một lớp màu bán trong suốt lên trên */
+.menu-grid {
+    /* Màu trắng với độ trong suốt 85% (0.85) */
+    /* Bạn có thể giảm xuống 0.5 nếu muốn nhìn rõ ảnh nền hơn */
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+
+    /* Bo tròn nhẹ góc của vùng chứa menu cho mềm mại */
+    -fx-background-radius: 15;
+}
+
+/* Đảm bảo ScrollPane trong suốt để nhìn xuyên thấu xuống background */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
 }

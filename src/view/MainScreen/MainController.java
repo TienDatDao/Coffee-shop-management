@@ -107,7 +107,7 @@ public class MainController {
         card.setMaxWidth(cardWidth);
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new javafx.geometry.Insets(15)); // Padding nội bộ thẻ
+        card.setPadding(new javafx.geometry.Insets(10)); // Padding nội bộ thẻ
 
         // --- XỬ LÝ ẢNH ---
         ImageView imageView = new ImageView();
@@ -120,8 +120,8 @@ public class MainController {
         }
 
         imageView.setFitWidth(130);
-        imageView.setFitHeight(130);
-        imageView.setPreserveRatio(true); // Giữ tỷ lệ ảnh
+        imageView.setFitHeight(100);
+        imageView.setPreserveRatio(false); // Giữ tỷ lệ ảnh
 
         // Bo tròn ảnh (Soft square)
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
