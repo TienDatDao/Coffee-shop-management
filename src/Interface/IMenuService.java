@@ -8,7 +8,7 @@ public interface IMenuService {
     boolean addMenuItem(IMenuItem item);
     boolean updateMenuItem(IMenuItem item);
     boolean deleteMenuItem(String id);
-    List<IMenuItem> search(String newV);
+    List<IMenuItem> search(String keyword);
 }
 
 /*
