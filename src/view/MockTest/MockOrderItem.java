@@ -6,9 +6,6 @@ import Interface.IOrderItem;
 import javafx.scene.image.Image;
 
 public class MockOrderItem implements IOrderItem {
-
-
-
     IMenuItem MenuItem;
     private int quantity;
     private double subtotal;
@@ -58,6 +55,6 @@ public class MockOrderItem implements IOrderItem {
     }
 
     public String getName() { return MenuItem.getName(); }
-    public double getPrice() { return MenuItem.getPrice(); }
+    public Double getPrice() { return MenuItem.getPrice(); }
     public String getCategory() { return MenuItem.getCategory(); }
 }

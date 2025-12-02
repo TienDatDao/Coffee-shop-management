@@ -76,7 +76,7 @@ public class OrderItemWrapper implements IOrderItem {
     }
 
     @Override
-    public double getPrice() {
+    public Double getPrice() {
         return price.get();
     }
 

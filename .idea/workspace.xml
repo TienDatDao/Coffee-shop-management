@@ -4,22 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="add hieu ung">
-      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/MainScreenImages/bac_xiu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/MainScreenImages/banh_croissant.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/MainScreenImages/banh_tiramisu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/MainScreenImages/ca_phe_den.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/MainScreenImages/ca_phe_sua.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/MainScreenImages/tra_dao.png" afterDir="false" />
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="fix bug, merge with fe-chinh">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/Main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/Main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/IOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrderItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockMenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockMenuItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockMenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockMenuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MenuManagerPage/MenuManager.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManager.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MenuManagerPage/MenuManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManager.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MenuManagerPage/MenuManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Wrapper/OrderItemWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Wrapper/OrderItemWrapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -219,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1764517200505</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fix bug">
+      <created>1764607547092</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1764607547092</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -246,7 +245,9 @@
     <MESSAGE value="Update, rất là nhiều=)))), bao gồm chỉnh sửa interface( chưa xong), thêm lớp bọc(wrapper) cho fe cập nhật trực tiếp, cuối cùng là cập nhật liên kết giữa các nút login, pay" />
     <MESSAGE value="thiếu" />
     <MESSAGE value="add hieu ung" />
-    <option name="LAST_COMMIT_MESSAGE" value="add hieu ung" />
+    <MESSAGE value="fix bug" />
+    <MESSAGE value="fix bug, merge with fe-chinh" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug, merge with fe-chinh" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

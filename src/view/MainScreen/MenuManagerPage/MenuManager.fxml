@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="root" stylesheets="MenuManager.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.MainScreen.ManageMenuController">
+
+    <!-- LEFT: Sidebar (giữ lại giao diện cũ) -->
+    <left>
+        <VBox fx:id="sidebarBox" prefWidth="200.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="20" left="15" right="15" top="20"/></padding>
+            <children>
+                <Label styleClass="app-logo" text="COFFEE POS" />
+                <Separator opacity="0.1" />
+                <Region prefHeight="20.0" />
+                <Button maxWidth="Infinity" styleClass="nav-btn active-nav" text="🛒   Bán hàng" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="📊   Thống kê" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="👥   Khách hàng" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="⚙   Cài đặt" />
+                <Region VBox.vgrow="ALWAYS" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="🚪   Đăng xuất" />
+            </children>
+        </VBox>
+    </left>
+
+    <!-- CENTER: Giữ menu chính (bên trái trong yêu cầu của bạn) -->
+    <center>
+        <VBox prefWidth="700.0" spacing="20.0" style="-fx-background-color: #F3F4F6;">
+            <padding><Insets bottom="20" left="18" right="18" top="18"/></padding>
+
+            <HBox alignment="CENTER_LEFT">
+                <VBox>
+                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d3436;" text="Thực đơn" />
+                    <Label fx:id="dateLabel" style="-fx-text-fill: #9ca3af;" text="Ngày" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" prefHeight="40.0" prefWidth="300.0" promptText="🔍 Tìm kiếm món..." styleClass="search-bar" />
+            </HBox>
+
+            <HBox spacing="10.0">
+                <Button onAction="#filterAll" prefHeight="34" prefWidth="80" styleClass="filter-btn" text="Tất cả" />
+                <Button onAction="#filterDrink" prefHeight="34" prefWidth="100" styleClass="filter-btn" text="☕ Đồ uống" />
+                <Button onAction="#filterFood" prefHeight="34" prefWidth="90" styleClass="filter-btn" text="🍰 Đồ ăn" />
+            </HBox>
+
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent;">
+                <content>
+                    <FlowPane fx:id="centerMenuGrid" hgap="20" vgap="20" />
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+
+    <!-- RIGHT: Quản lý menu - top tools + grid (thay cho order panel) -->
+    <right>
+        <VBox prefWidth="420.0" spacing="12.0" styleClass="right-pane-light">
+            <padding><Insets bottom="20" left="16" right="16" top="16"/></padding>
+
+            <!-- TOP TOOLBAR -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button fx:id="btnAdd" onAction="#onAdd" text="➕ Thêm món" styleClass="primary-btn" />
+                <Button fx:id="btnEdit" onAction="#onEdit" text="✏️ Sửa món" styleClass="secondary-btn" disable="true" />
+                <Button fx:id="btnDelete" onAction="#onDelete" text="🗑️ Xóa món" styleClass="danger-btn" disable="true" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnExtra" text="⋯" styleClass="ghost-btn" />
+            </HBox>
+
+            <Separator />
+
+            <!-- CONTENT GRID (maintain old style product cards) -->
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent;">
+                <content>
+                    <FlowPane fx:id="manageMenuGrid" hgap="20" vgap="20" />
+                </content>
+            </ScrollPane>
+        </VBox>
+    </right>
+
+</BorderPane>

@@ -1,4 +1,4 @@
-package view.MenuManagerPage;
+package view.MainScreen.MenuManagerPage;
 
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;

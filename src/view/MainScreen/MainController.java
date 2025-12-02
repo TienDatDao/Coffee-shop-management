@@ -198,15 +198,14 @@ public class MainController {
         for (OrderItemWrapper orderItem : currentOrder) {
             // So sánh ID thông qua Interface
             if (orderItem.getId().equals(item.getId())) {
-
                 orderItem.increaseQuantity();
                 refreshOrderState();
                 return;
             }
         }
         // Nếu chưa có, tạo mới OrderItem (OrderItem nhận vào IMenuItem trong constructor)
-        IMenuItem newItem = new OrderItemWrapper(item, 1);
-        currentOrder.add((OrderItemWrapper) newItem);
+        OrderItemWrapper newItem = new OrderItemWrapper(item, 1);
+        currentOrder.add( newItem);
         refreshOrderState();
     }
 
