@@ -19,7 +19,7 @@
     <right>
         <StackPane prefWidth="200">
             <VBox spacing="15"
-                  styleClass="payment-panel" alignment="CENTER">
+                  styleClass="payment-panel" alignment="TOP_CENTER">
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>

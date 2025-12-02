@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController">
+<BorderPane stylesheets="@Main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController">
 
     <left>
         <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="202.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">

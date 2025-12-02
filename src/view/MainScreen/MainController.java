@@ -2,9 +2,14 @@ package view.MainScreen;
 
 import Interface.IMenuItem;
 import Interface.IMenuService;
+import Interface.IOrder;
+import Interface.IOrderItem;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import model.OrderItem;
-import service.MenuService;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import model.OrderItemWrapper;
+import view.MockTest.MockMenuService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +18,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import view.MockTest.MockOrder;
+import view.MockTest.MockOrderItem;
+import view.PaymentPage.PaymentController;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -25,10 +34,10 @@ public class MainController {
     @FXML private TextField searchField;
     @FXML private FlowPane menuGrid;
 
-    @FXML private TableView<OrderItem> orderTable; // TableView vẫn dùng Class cụ thể để bind property
-    @FXML private TableColumn<OrderItem, String> colName;
-    @FXML private TableColumn<OrderItem, Number> colQty;
-    @FXML private TableColumn<OrderItem, Number> colTotal;
+    @FXML private TableView<OrderItemWrapper> orderTable; // TableView vẫn dùng Class cụ thể để bind property
+    @FXML private TableColumn<OrderItemWrapper, String> colName;
+    @FXML private TableColumn<OrderItemWrapper, Number> colQty;
+    @FXML private TableColumn<OrderItemWrapper, Number> colTotal;
 
     @FXML private Label subTotalLabel;
     @FXML private Label totalLabel;
@@ -40,7 +49,7 @@ public class MainController {
     private IMenuService menuService;
 
     // Danh sách hiển thị trên bảng order
-    private ObservableList<OrderItem> currentOrder = FXCollections.observableArrayList();
+    private ObservableList<OrderItemWrapper> currentOrder = FXCollections.observableArrayList();
 
     // Formatter tiền tệ VNĐ
     private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
@@ -48,7 +57,7 @@ public class MainController {
     @FXML
     public void initialize() {
         // 1. Khởi tạo Service
-        menuService = new MenuService();
+        menuService = new MockMenuService();
 
         // 2. Lấy dữ liệu từ Service
         fullMenu = menuService.getAllItems();
@@ -73,7 +82,7 @@ public class MainController {
 
         // Format cột tiền tệ
         colTotal.setCellValueFactory(cellData -> cellData.getValue().subtotalProperty());
-        colTotal.setCellFactory(tc -> new TableCell<OrderItem, Number>() {
+        colTotal.setCellFactory(tc -> new TableCell<OrderItemWrapper, Number>() {
             @Override
             protected void updateItem(Number price, boolean empty) {
                 super.updateItem(price, empty);
@@ -186,7 +195,7 @@ public class MainController {
     // Tham số đầu vào là Interface IMenuItem
     private void addToCart(IMenuItem item) {
         // Kiểm tra xem món đã có trong giỏ chưa
-        for (OrderItem orderItem : currentOrder) {
+        for (OrderItemWrapper orderItem : currentOrder) {
             // So sánh ID thông qua Interface
             if (orderItem.getMenuItemId().equals(item.getId())) {
                 orderItem.increaseQuantity();
@@ -195,14 +204,14 @@ public class MainController {
             }
         }
         // Nếu chưa có, tạo mới OrderItem (OrderItem nhận vào IMenuItem trong constructor)
-        OrderItem newItem = new OrderItem(item, 1);
+        OrderItemWrapper newItem = new OrderItemWrapper(item, 1);
         currentOrder.add(newItem);
         refreshOrderState();
     }
 
     @FXML
     private void handleIncreaseQty() {
-        OrderItem selected = orderTable.getSelectionModel().getSelectedItem();
+        OrderItemWrapper selected = orderTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             selected.increaseQuantity();
             refreshOrderState();
@@ -211,7 +220,7 @@ public class MainController {
 
     @FXML
     private void handleDecreaseQty() {
-        OrderItem selected = orderTable.getSelectionModel().getSelectedItem();
+        OrderItemWrapper selected = orderTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             selected.decreaseQuantity();
             if (selected.quantityProperty().get() == 0 ) {
@@ -223,7 +232,7 @@ public class MainController {
 
     @FXML
     private void handleRemoveItem() {
-        OrderItem selected = orderTable.getSelectionModel().getSelectedItem();
+        OrderItemWrapper selected = orderTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             currentOrder.remove(selected);
             refreshOrderState();
@@ -237,7 +246,7 @@ public class MainController {
 
     private void updateTotal() {
         double total = 0;
-        for (OrderItem item : currentOrder) {
+        for (OrderItemWrapper item : currentOrder) {
             total += item.subtotalProperty().get();
         }
         String formatted = currencyFormatter.format(total);
@@ -246,7 +255,7 @@ public class MainController {
     }
 
     @FXML
-    private void handleCheckout() {
+    private void handleCheckout() throws IOException {
         if (currentOrder.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Giỏ hàng đang trống!");
@@ -254,6 +263,23 @@ public class MainController {
             return;
         }
         // Chuyển sang Màn hình thanh toán...
-        System.out.println("Processing checkout...");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentPage/Payment.fxml"));
+        Parent root = loader.load();
+
+        IOrder orderToSend = new MockOrder();
+        for (OrderItemWrapper itemWrapper : currentOrder) {
+            IOrderItem finalItem = new MockOrderItem(itemWrapper.getMenuItem(), itemWrapper.getQuantity());
+            orderToSend.setListOrderItem(finalItem);
+        }
+
+        PaymentController paymentController = loader.getController();
+        paymentController.setIOrder(orderToSend);
+
+        Scene scene = menuGrid.getScene();
+        scene.setRoot(root);
+
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
     }
 }

@@ -3,13 +3,14 @@ package view.MockTest;
 import Interface.IOrder;
 import Interface.IOrderItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MockOrder implements IOrder  {
     private String orderId;
     private String tableId;
     private boolean status;
-    private List<IOrderItem> IOrderItemList;
+    private List<IOrderItem> IOrderItemList = new ArrayList<>();
     public MockOrder(){
     }
     public MockOrder(String tableId, List<IOrderItem> IOrderItemList, String orderId){
@@ -30,13 +31,7 @@ public class MockOrder implements IOrder  {
 
     @Override
     public List<IOrderItem> getItems() {
-        return List.of(new MockOrderItem("1", "cf", 140000.0, "delicious", 2, "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2,  "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2,  "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, "/view/LoginPage/LoginLogo.png"),
-                new MockOrderItem("1", "cf", 140000.0, "delicious", 2, "/view/LoginPage/LoginLogo.png")
-                );
+        return this.IOrderItemList;
     }
 
     @Override
@@ -56,5 +51,10 @@ public class MockOrder implements IOrder  {
     @Override
     public boolean completeOrder() {
         return true;
+    }
+
+    @Override
+    public void setListOrderItem(IOrderItem item) {
+               this.IOrderItemList.add(item);
     }
 }

@@ -1,5 +1,9 @@
 package view.LoginPage;
 import Interface.IUser;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import view.MockTest.MockAuthService;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,17 +41,12 @@ public class LoginController implements Initializable {
     @FXML
     private void handleLoginAction() {
         String username = txtUsername.getText();
-
-        // Lấy mật khẩu từ trường đang hiển thị
         String password = getPasswordInput();
-
         lblMessage.getStyleClass().removeAll("success-message", "error-message");
 
-        // Gọi dịch vụ đăng nhập
-        boolean loginSuccess = MockAuthService.login(username, password);
+        boolean success= MockAuthService.login(username, password);
 
-        if (loginSuccess) {
-           IUser currentUser = authService.getCurrentUser();
+        if (success) {
 
             lblMessage.setText("Login successful!");
             lblMessage.getStyleClass().add("success-message");
@@ -56,7 +55,35 @@ public class LoginController implements Initializable {
             txtUsername.clear();
             clearPasswordFields();
 
-            // TODO: Chuyển sang màn hình chính
+            // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
+            try {
+                // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
+                Stage currentStage = (Stage) txtUsername.getScene().getWindow();
+
+                // 2. Tải FXML của màn hình chính
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MainView.fxml"));
+
+                // 3. Tải Root Node
+                Parent root = loader.load();
+
+                // 4. Tạo Scene mới và thiết lập Stage
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(
+                        getClass().getResource("/view/MainScreen/Main.css").toExternalForm()
+                );
+
+                //  Đặt tiêu đề mới cho cửa sổ
+                currentStage.setTitle("Coffee Shop Management - Welcome ");
+                currentStage.setScene(scene);
+                currentStage.setMaximized(true);
+                currentStage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi nếu không tải được FXML
+                lblMessage.setText("Lỗi tải màn hình chính!");
+                lblMessage.getStyleClass().add("error-message");
+            }
+            // >>> KẾT THÚC PHẦN CHUYỂN TRANG <<<
         } else {
             lblMessage.setText("Wrong, please check your password and username!");
             lblMessage.getStyleClass().add("error-message");
@@ -99,7 +126,7 @@ public class LoginController implements Initializable {
     }
 
 
-     // Xóa nội dung của cả hai trường mật khẩu.
+    // Xóa nội dung của cả hai trường mật khẩu.
 
     private void clearPasswordFields() {
         txtPassword.clear();

@@ -5,7 +5,7 @@ import Interface.IOrderItem;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
-public class OrderItem implements IOrderItem {
+public class OrderItemWrapper implements IOrderItem {
     // Giữ lại tham chiếu tới MenuItem gốc để lấy thông tin
     private IMenuItem menuItem;
 
@@ -13,7 +13,7 @@ public class OrderItem implements IOrderItem {
     private SimpleIntegerProperty quantity;
     private SimpleDoubleProperty subtotal;
 
-    public OrderItem(IMenuItem menuItem, int quantity) {
+    public OrderItemWrapper(IMenuItem menuItem, int quantity) {
         this.menuItem = menuItem;
 
         this.name = new SimpleStringProperty(menuItem.getName());
@@ -41,6 +41,9 @@ public class OrderItem implements IOrderItem {
     // --- THỰC THI INTERFACE IOrderItem ---
     @Override
     public String getMenuItemId() { return menuItem.getId(); }
+    public IMenuItem getMenuItem(){
+        return menuItem;
+    }
 
     @Override
     public int getQuantity() { return quantity.get(); }

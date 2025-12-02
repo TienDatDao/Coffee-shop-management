@@ -3,7 +3,7 @@ package model;
 import Interface.IMenuItem; // Import interface
 import javafx.scene.image.Image;
 
-public class MenuItem implements IMenuItem {
+public class MenuItemWrapper implements IMenuItem {
     private String id;
     private String name;
     private double price;
@@ -11,7 +11,7 @@ public class MenuItem implements IMenuItem {
     private String imagePath;
 
     // Constructor giữ nguyên
-    public MenuItem(String id, String name, double price, String category, String imagePath) {
+    public MenuItemWrapper(String id, String name, double price, String category, String imagePath) {
         this.id = id;
         this.name = name;
         this.price = price;

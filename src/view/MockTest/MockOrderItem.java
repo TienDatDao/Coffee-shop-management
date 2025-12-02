@@ -1,38 +1,45 @@
 package view.MockTest;
 
+import Interface.IMenuItem;
 import Interface.IOrderItem;
-
 import javafx.scene.image.Image;
 
-public class MockOrderItem extends MockMenuItem implements IOrderItem {
+public class MockOrderItem implements IOrderItem {
+
+    private IMenuItem MenuItem;
     private int quantity;
-    private double subtotal;
-    private String menuItemId;
-    private String name;
-    private Double price;
-    private String description;
     private String imagePath;
 
-    public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity){
-        super(menuItemId, name, price, description);
+    // Constructor chuẩn dùng MenuItem thật
+    public MockOrderItem(IMenuItem MenuItem, int quantity){
+        this.MenuItem = MenuItem;
         this.quantity = quantity;
     }
+
+    public MockOrderItem(IMenuItem MenuItem){
+        this.MenuItem = MenuItem;
+        this.quantity = 1;
+    }
+
+    // Constructor dùng mock data → tự tạo MockMenuItem
     public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity, String imagePath){
-        super(menuItemId, name, price, description, imagePath);
+        this.MenuItem = new MockMenuItem(menuItemId, name, price, description, imagePath);
         this.quantity = quantity;
         this.imagePath = imagePath;
     }
+
     @Override
     public Image getImage(){
-        return super.getImage();
+        return MenuItem.getImage();
     }
+
     public void setImage(String imagePath){
         this.imagePath = imagePath;
     }
 
     @Override
     public String getMenuItemId() {
-        return super.getId(); // từ MockMenuItem
+        return MenuItem.getId();
     }
 
     @Override
@@ -42,11 +49,23 @@ public class MockOrderItem extends MockMenuItem implements IOrderItem {
 
     @Override
     public double getSubtotal() {
-        return getPrice()*getQuantity();
+        return getPrice() * getQuantity();
     }
 
-    public String getName() { return super.getName(); }
-    public double getPrice() { return super.getPrice(); }
-    public String getCategory() { return super.getCategory(); }
-    public String getImageUrl(){return null;}
+    @Override
+    public String getId() {
+        return MenuItem.getId();
+    }
+
+    public String getName() {
+        return MenuItem.getName();
+    }
+
+    public double getPrice() {
+        return MenuItem.getPrice();
+    }
+
+    public String getCategory() {
+        return MenuItem.getCategory();
+    }
 }

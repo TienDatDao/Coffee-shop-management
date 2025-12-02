@@ -11,19 +11,17 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
-import view.MockTest.MockOrder;
-import view.MockTest.MockOrderItem;
 import view.MockTest.MockOrderService;
 
-import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
+
 public class PaymentController implements Initializable {
 
     @FXML private ListView<IOrderItem> listItems;
@@ -34,78 +32,119 @@ public class PaymentController implements Initializable {
     @FXML private Button btnPay;
     @FXML private Label lblMessage;
     @FXML private FlowPane flowImages;
-
     @FXML private Button btnBack;
     @FXML private Label lblSubTotal;
     @FXML private Label lblDiscount;
-    private ToggleGroup paymentGroup;
-    private IOrder iOrder = new MockOrder();
 
-    private IOrderService iOrderService = new MockOrderService();
+    private ToggleGroup paymentGroup;
+    private IOrder iOrder; // Đối tượng Order được truyền từ MainController
+
+    // Formatter tiền tệ VNĐ
+    private final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
+    // Dịch vụ Order (sử dụng để tạo/lưu Order khi thanh toán)
+    private final IOrderService iOrderService = new MockOrderService();
+
+    // --- PHƯƠNG THỨC NHẬN DỮ LIỆU TỪ CONTROLLER KHÁC ---
+
+    /**
+     * Nhận đối tượng IOrder từ MainController và kích hoạt tải dữ liệu.
+     * Phương thức này được gọi SAU initialize().
+     */
+    public void setIOrder(IOrder order) {
+        this.iOrder = order;
+        // TẢI DỮ LIỆU SAU KHI IORDER ĐÃ ĐƯỢC GÁN
+        loadOrderDetails();
+    }
+
+    // --- INITIALIZE VÀ LOGIC TẢI DỮ LIỆU ---
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Chỉ thiết lập các thành phần UI
 
-        // Thiết lập ToggleGroup( dùng đề nhóm các thành phần radioButton hoặc tương tự)
+        // Thiết lập ToggleGroup
         paymentGroup = new ToggleGroup();
         rbCash.setToggleGroup(paymentGroup);
         rbCard.setToggleGroup(paymentGroup);
         rbWallet.setToggleGroup(paymentGroup);
         rbCash.setSelected(true);
 
-        // Thêm dữ liệu vào ListView
+        // Load ảnh của các phương thức/ngân hàng
+        loadImage();
+    }
+
+    /**
+     * Tải dữ liệu từ đối tượng IOrder đã được truyền và cập nhật UI.
+     * Chỉ gọi sau khi iOrder đã được gán (trong setOrder).
+     */
+    private void loadOrderDetails() {
+        if (this.iOrder == null) {
+            // Đây là lớp bảo vệ, không nên xảy ra nếu MainController gọi setOrder
+            System.err.println("Lỗi: iOrder chưa được gán giá trị!");
+            return;
+        }
+
+        // 1. Cập nhật ListView
+        // Dùng getItems() từ IOrder để lấy danh sách IOrderItem (Wrapper Class)
         listItems.getItems().setAll(iOrder.getItems());
-        // Custom mỗi item dạng Box
+
+        // 2. Custom mỗi item dạng Box
         listItems.setCellFactory(lv -> new ListCell<IOrderItem>() {
             @Override
             protected void updateItem(IOrderItem item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setGraphic(null);
-                }
-                else {
-                    // 1. Container chính của một Item (.list-item-cell)
+                } else {
+                    // *** LOGIC CUSTOM CELL ***
                     VBox itemVBox = new VBox(5);
                     itemVBox.getStyleClass().add("list-item-cell");
                     itemVBox.setPadding(Insets.EMPTY);
 
-                    // Tạo HBox Chính (mainItemContent) để có thể sắp xếp Ngang
                     HBox mainItemContent = new HBox(15);
                     mainItemContent.getStyleClass().add("main-item-content");
-                    // 2. Ảnh món ăn (Bên trái)
-                    ImageView itemImage = new ImageView(item.getImage()); // sẽ lấy ảnh từ việc người dùng đưa vào be
+
+                    // Ảnh món ăn (Bên trái)
+                    ImageView itemImage = new ImageView(item.getImage());
                     itemImage.setFitWidth(80);
                     itemImage.setFitHeight(100);
-                    itemImage.setPreserveRatio(false); // Giữ tỉ lệ ảnh
-                    itemImage.setSmooth(true);
+                    // Bo tròn ảnh (Soft square)
+                    javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
+                    clip.setArcWidth(30); // Bo tròn nhiều hơn cho mềm mại
+                    clip.setArcHeight(30);
+                    itemImage.setClip(clip);
+                    itemImage.setPreserveRatio(false);
                     itemImage.getStyleClass().add("item-image");
 
-
-                    // 3. VBox Tên và Mô tả và Giá (Cạnh ảnh bên phải)
+                    // VBox Tên và Mô tả và Giá
                     VBox nameAndDescBox = new VBox(3);
                     nameAndDescBox.getStyleClass().add("item-text-container");
 
                     Label lblName = new Label(item.getName());
                     lblName.getStyleClass().add("item-name");
-
                     Label lblDescription = new Label(item.getCategory());
                     lblDescription.getStyleClass().add("item-description");
-                    Label lblPrice = new Label("Giá: " + item.getPrice()+"vnđ");
+                    // Sử dụng formatter
+                    Label lblPrice = new Label("Giá: " + currencyFormatter.format(item.getPrice()));
                     lblPrice.getStyleClass().add("item-price");
-                    nameAndDescBox.getChildren().addAll(lblName, lblDescription,lblPrice);
+                    nameAndDescBox.getChildren().addAll(lblName, lblDescription, lblPrice);
 
                     HBox.setHgrow(nameAndDescBox, Priority.ALWAYS);
-                    // 4. VBox chứa label của số lượng ở dưới bên góc phải( chưa tối ưu)
+
+                    // VBox chứa label của số lượng
                     VBox detailVBox = new VBox(5);
                     detailVBox.getStyleClass().add("item-detail-vbox");
 
                     Label lblQty = new Label("Số lượng: x" + item.getQuantity());
                     lblQty.getStyleClass().add("item-quantity");
-                    Label lblSubtotal = new Label("Thành tiền(sau ưu đãi): $" + item.getSubtotal());
+
+                    // Thành tiền sau ưu đãi/subtotal
+                    Label lblSubtotal = new Label("Thành tiền: " + currencyFormatter.format(item.getSubtotal()));
                     lblSubtotal.getStyleClass().add("item-subtotal");
 
-                    detailVBox.getChildren().addAll( lblQty);
+                    detailVBox.getChildren().addAll(lblQty, lblSubtotal);
 
-                    // 5. Thêm các Container vào HBox Chính
                     mainItemContent.getChildren().addAll(itemImage, nameAndDescBox, detailVBox);
                     itemVBox.getChildren().addAll(mainItemContent);
                     setGraphic(itemVBox);
@@ -113,37 +152,47 @@ public class PaymentController implements Initializable {
             }
         });
 
-        updateTotal();
-        // load ảnh của các phương thức/ ngân hàng có thể dùng để thanh toán
-        loadImage();
+        // 3. Cập nhật tổng tiền và ưu đãi
+        updateTotalsDisplay();
     }
-    // dùng để load ảnh các ngân hàng có thể dùng để thanh toán
+
     private void loadImage(){
-        // danh sách các ngân hàng liên kết ( hiện đang sử dụng ảnh minh họa( 1 ảnh)
         String[] files = {
                 "/view/PaymentPage/ListPaymentMethod.png"
         };
-        // load địa chỉ chuyển thành ảnh
         for (String file : files) {
-            ImageView iv = new ImageView(new Image(file));
-
-            iv.setFitWidth(200);
-            iv.setFitHeight(200);
-            iv.setPreserveRatio(true);
-
-            flowImages.getChildren().add(iv);
+            // Lưu ý: Cần xử lý lỗi nếu file không tồn tại
+            try {
+                ImageView iv = new ImageView(file);
+                iv.setFitWidth(200);
+                iv.setFitHeight(200);
+                iv.setPreserveRatio(true);
+                flowImages.getChildren().add(iv);
+            } catch (Exception e) {
+                System.err.println("Không thể load ảnh: " + file);
+            }
         }
     }
 
-    private void updateTotal() {
-        double sumSubtotal = listItems.getItems().stream().mapToDouble(IOrderItem::getSubtotal).sum();
-        lblSubTotal.setText(String.format("Thành tiền: %.2fvnđ", sumSubtotal));
+    /**
+     * Cập nhật các Label tổng tiền, Subtotal và Discount.
+     * Chỉ gọi sau khi iOrder đã được gán.
+     */
+    private void updateTotalsDisplay() {
+        if (iOrder == null) return;
 
-        double sum = iOrder.getTotalPrice();
-        lblTotal.setText(String.format("Tổng tiền: %.0fvnđ", sum));
-        double discount = sum-sumSubtotal;
-        lblDiscount.setText(String.format("Ưu đãi: -%.2fvnđ", discount));
+        // Giả định IOrder.getItems() trả về danh sách có sẵn
+        double sumSubtotal = iOrder.getItems().stream().mapToDouble(IOrderItem::getSubtotal).sum();
+        double sumTotal = iOrder.getTotalPrice(); // Giả định IOrder có phương thức getTotalPrice()
+
+        lblSubTotal.setText(currencyFormatter.format(sumSubtotal));
+        lblTotal.setText(currencyFormatter.format(sumTotal));
+
+        double discount = sumSubtotal - sumTotal;
+        lblDiscount.setText(String.format("Ưu đãi: -%s", currencyFormatter.format(discount)));
     }
+
+    // --- LOGIC XỬ LÝ SỰ KIỆN ---
 
     @FXML
     private void handlePay() {
@@ -153,45 +202,54 @@ public class PaymentController implements Initializable {
             lblMessage.setStyle("-fx-text-fill: red;");
             return;
         }
+
+        // Tạo order mới (lưu vào hệ thống)
         iOrderService.createOrder(iOrder.getTableId(), iOrder.getItems(), iOrder.getOrderId());
+
         lblMessage.setText("Thanh toán thành công qua phương thức " + selected.getText() + "!");
         lblMessage.setStyle("-fx-text-fill: green;");
-        // test thử quay về trang login
-        delayThenRun(1, () -> goToPage("/view/LoginPage/Login.fxml", "/view/LoginPage/Login.css"));
+
+        // Chuyển trang sau khi thanh toán xong
+        delayThenRun(1, () -> {
+            try {
+                goToPage("/view/MainScreen/MainView.fxml", "/view/MainScreen/Main.css");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
-    // độ trễ trước khi chuyển trang ( đề xuất cho hợp lí)
+
+    @FXML
+    private void handleBack(){
+        // Logic quay lại màn hình MainScreen
+        try {
+            goToPage("/view/MainScreen/MainView.fxml", "/view/MainScreen/Main.css");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // --- PHƯƠNG THỨC PHỤ TRỢ ---
+
     private void delayThenRun(double seconds, Runnable action) {
         PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
         pause.setOnFinished(e -> action.run());
         pause.play();
     }
-    // chuyển trang sau khi thanh toán xong
-    private void goToPage(String fxmlPath, String cssPath) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
 
-            Scene scene = btnPay.getScene();
-            scene.setRoot(root);
+    private void goToPage(String fxmlPath, String cssPath) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent root = loader.load();
 
-            // Xóa tất cả stylesheet hiện tại
-            scene.getStylesheets().clear();
+        Scene scene = btnPay.getScene();
+        scene.setRoot(root);
 
-            // Thêm CSS mới
-            if (cssPath != null) {
-                scene.getStylesheets().add(
-                        getClass().getResource(cssPath).toExternalForm()
-                );
-            }
+        scene.getStylesheets().clear();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (cssPath != null) {
+            scene.getStylesheets().add(
+                    getClass().getResource(cssPath).toExternalForm()
+            );
         }
-    }
-
-
-    @FXML
-    private void handleBack(){
-        System.out.println("quan que");// chưa có back
     }
 }
