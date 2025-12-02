@@ -1,19 +1,17 @@
 package view.LoginPage;
-import Interface.IUser;
+
+import Interface.IAuthService;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import view.MockTest.MockAuthService;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-
-// Import các Interface Dịch vụ
-import Interface.IAuthService;
 //import Service.AuthServiceMock;
 // Thay thế bằng AuthService thực tế khi cần
 
@@ -75,8 +73,8 @@ public class LoginController implements Initializable {
                 //  Đặt tiêu đề mới cho cửa sổ
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
 
-                currentStage.setScene(scene);
                 currentStage.setMaximized(true);
+                currentStage.setScene(scene);
                 currentStage.show();
 
             } catch (Exception e) {

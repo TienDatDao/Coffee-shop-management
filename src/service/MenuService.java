@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MenuService implements IMenuService {
     private List<IMenuItem> menuList = new ArrayList<>();
@@ -59,5 +60,16 @@ public class MenuService implements IMenuService {
     @Override
     public boolean deleteMenuItem(String id) {
         return menuList.removeIf(item -> item.getId().equals(id));
+    }
+
+    @Override
+    public List<IMenuItem> search(String keyword) {
+        if (keyword == null || keyword.isEmpty()) {
+            return getAllItems(); // Trả lại toàn bộ menu
+        }
+        String lower = keyword.toLowerCase();
+        return getAllItems().stream()
+                .filter(item -> item.getName().toLowerCase().contains(lower))
+                .collect(Collectors.toList());
     }
 }

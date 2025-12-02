@@ -37,6 +37,11 @@ public class MockMenuItem implements IMenuItem {
         return new Image("file:" + imagePath);
     }
 
+    @Override
+    public Image setImage(Image image) {
+        return image;
+    }
+
     public void setImage(String imagePath){
         this.imagePath = imagePath;
     }
@@ -59,5 +64,29 @@ public class MockMenuItem implements IMenuItem {
     @Override
     public String getCategory() {
         return category;
+    }
+    public void setId(String id){
+        this.id = id;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+
+    }
+
+    @Override
+    public void setPrice(Double price) {
+this.price = price;
+    }
+
+    @Override
+    public void setCategory(String category) {
+this.category =category;
+    }
+
+    @Override
+    public void updateFromOriginal() {
+
     }
 }
