@@ -205,8 +205,8 @@ public class MainController {
             }
         }
         // Nếu chưa có, tạo mới OrderItem (OrderItem nhận vào IMenuItem trong constructor)
-        IMenuItem newItem = new OrderItemWrapper(item, 1);
-        currentOrder.add((OrderItemWrapper) newItem);
+        OrderItemWrapper newItem = new OrderItemWrapper(item, 1);
+        currentOrder.add( newItem );
         refreshOrderState();
     }
 
