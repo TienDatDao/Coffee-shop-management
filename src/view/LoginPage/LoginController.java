@@ -63,7 +63,7 @@ public class LoginController implements Initializable {
                 // 2. Tải FXML của màn hình chính
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MainView.fxml"));
 
-                // 3. Tải Root Node (Giả sử là BorderPane, hãy đảm bảo kiểu dữ liệu khớp với FXML)
+                // 3. Tải Root Node
                 Parent root = loader.load();
 
                 // 4. Tạo Scene mới và thiết lập Stage
@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
                         getClass().getResource("/view/MainScreen/Main.css").toExternalForm()
                 );
 
-                // (Tùy chọn) Đặt tiêu đề mới cho cửa sổ
+                //  Đặt tiêu đề mới cho cửa sổ
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
 
                 currentStage.setScene(scene);
