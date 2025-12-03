@@ -73,7 +73,6 @@ public class LoginController implements Initializable {
                 //  Đặt tiêu đề mới cho cửa sổ
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
 
-                currentStage.setMaximized(true);
                 currentStage.setScene(scene);
                 currentStage.show();
 

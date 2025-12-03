@@ -32,9 +32,7 @@ public class MenuItemWrapper implements IMenuItem{
     }
 
     // =======================================================
-    // 💡 PHƯƠNG THỨC MỚI: Cập nhật Properties từ object gốc
     // Cần gọi phương thức này sau khi đối tượng gốc (original) bị thay đổi
-    // bên ngoài (ví dụ: trong ItemDialogController)
     // =======================================================
     @Override
     public void updateFromOriginal() {
@@ -71,7 +69,7 @@ public class MenuItemWrapper implements IMenuItem{
 
     // Sửa lỗi: Triển khai từ IMenuItem và chỉnh sửa phương thức
     @Override
-    public void setPrice(Double price) { this.price.set(price); }
+    public void setPrice(double price) { this.price.set(price); }
 
     public DoubleProperty priceProperty() { return price; }
 
@@ -82,7 +80,7 @@ public class MenuItemWrapper implements IMenuItem{
     public void setCategory(String category) { this.category.set(category); }
     public StringProperty categoryProperty() { return category; }
 
-    public Image getImage() { return image.get(); }
+    public Image getImage() { return this.image.get(); }
 
     // Sửa lỗi: Triển khai từ IMenuItem (Trả về void)
     @Override
@@ -90,7 +88,7 @@ public class MenuItemWrapper implements IMenuItem{
     return image;
     }
 
-    public ObjectProperty<Image> imageProperty() { return image; }
+    public ObjectProperty<Image> imageProperty() { return this.image; }
 
     @Override
     public String toString() { return getName(); }

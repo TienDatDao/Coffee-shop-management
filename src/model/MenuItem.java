@@ -35,27 +35,28 @@ public class MenuItem implements IMenuItem {
 
     @Override
     public Image setImage(Image image) {
-        return null;
+        this.image = image;
+        return this.image;
     }
 
     @Override
     public void setId(String id) {
-
+        this.id = id;
     }
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
-    public void setPrice(Double price) {
-
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
     public void setCategory(String category) {
-
+        this.category = category;
     }
 
     @Override

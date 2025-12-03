@@ -12,7 +12,7 @@ public interface IMenuItem {
     Image setImage(Image image);
     void setId(String id);
     void setName(String name);
-    void setPrice(Double price);
+    void setPrice(double price);
     void setCategory(String category);
     void updateFromOriginal();
 }

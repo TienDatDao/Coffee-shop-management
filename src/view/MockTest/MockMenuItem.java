@@ -9,6 +9,7 @@ public class MockMenuItem implements IMenuItem {
     private String category;
     private double price;
     private String imagePath;
+    private Image image;
 
     public MockMenuItem(String id, String name, Double price, String category){
         this.id = id;
@@ -21,13 +22,18 @@ public class MockMenuItem implements IMenuItem {
         this(id, name, price, category);
         this.imagePath = imagePath;
     }
-
+    public MockMenuItem(String id, String name, Double price, String category, Image image){
+        this(id, name, price, category);
+        this.image = image;
+    }
     public Image getImage() {
+        if(image!=null){
+        return this.image;
+        }
         if (imagePath == null || imagePath.isEmpty()) {
             return null;
         }
-
-        // Load từ resources (ưu tiên)
+        // Load từ resources
         var url = getClass().getResource(imagePath);
         if (url != null) {
             return new Image(url.toExternalForm());
@@ -39,6 +45,7 @@ public class MockMenuItem implements IMenuItem {
 
     @Override
     public Image setImage(Image image) {
+        this.image=image;
         return image;
     }
 
@@ -76,7 +83,7 @@ public class MockMenuItem implements IMenuItem {
     }
 
     @Override
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
 this.price = price;
     }
 

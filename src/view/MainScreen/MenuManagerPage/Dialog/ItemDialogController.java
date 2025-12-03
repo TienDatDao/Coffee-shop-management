@@ -12,8 +12,6 @@ import view.MockTest.MockMenuItem;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.List;
 
 public class ItemDialogController {
 
@@ -26,7 +24,7 @@ public class ItemDialogController {
 
     private IMenuItem editing; // null if adding
     private Image chosenImage;
-    private final List<String> categories = Arrays.asList("Đồ uống", "Đồ ăn", "Khác"); // Danh sách Category
+    private String chosenImagePath;
 
     // ===========================================
     // 1. KHỞI TẠO (Initialization)
@@ -34,11 +32,10 @@ public class ItemDialogController {
     @FXML
     public void initialize() {
         // Khởi tạo ChoiceBox với các Category
-        categoryChoice.getItems().addAll(categories);
 
         // Đặt giá trị mặc định khi khởi tạo
         if (categoryChoice.getValue() == null) {
-            categoryChoice.setValue("Đồ uống");
+            categoryChoice.setValue("Drink");
         }
     }
 
@@ -86,6 +83,7 @@ public class ItemDialogController {
             try (FileInputStream fis = new FileInputStream(f)) {
                 chosenImage = new Image(fis);
                 imagePreview.setImage(chosenImage);
+                chosenImagePath = f.getAbsolutePath();
             } catch (Exception ex) {
                 ex.printStackTrace();
                 // Thông báo lỗi nếu không tải được ảnh
@@ -120,6 +118,7 @@ public class ItemDialogController {
         if (category == null) category = "Drink";
 
         if (editing != null) {
+
             editing.setName(name.trim());
             editing.setPrice(price);
             editing.setCategory(category);
@@ -129,7 +128,7 @@ public class ItemDialogController {
             dialogRoot.getScene().setUserData(editing);
 
         } else {
-            IMenuItem newItem = new MockMenuItem(null, name.trim(), price, category, chosenImage.getUrl());
+            IMenuItem newItem = new MockMenuItem(null, name.trim(), price, category, chosenImage);
 
             dialogRoot.getScene().setUserData(newItem);
         }
