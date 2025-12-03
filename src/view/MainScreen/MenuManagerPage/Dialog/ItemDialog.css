@@ -34,8 +34,6 @@
     -fx-font-weight: bold; /* Tinh chỉnh: dùng 'bold' thay vì 700 */
 }
 
-/* ⚠️ Tinh chỉnh: Dùng .text-area .text thay vì .text */
-/* .text chỉ áp dụng cho Text node. Nếu muốn cho tất cả text trong dialog, dùng Label/Text */
 .dialog-root .text {
     -fx-fill: #475569;
     -fx-font-size: 14px;
@@ -63,7 +61,6 @@
 
     /* Hiệu ứng */
     -fx-effect: innershadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 3);
-    /* ⚠️ Tinh chỉnh: JavaFX CSS không hỗ trợ -fx-transition: all như Web CSS */
 }
 
 /* --- Focus State --- */
@@ -90,13 +87,12 @@
     -fx-background-radius: 16;
     -fx-padding: 14 28;
     -fx-font-size: 15px;
-    -fx-font-weight: bold; /* Tinh chỉnh: dùng 'bold' thay vì 700 */
+    -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-cursor: hand;
 
-    /* Shine + depth - Giữ nguyên */
+    /* Shine + depth */
     -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.5), 15, 0.4, 0, 6);
-    /* ⚠️ Tinh chỉnh: Loại bỏ -fx-background-insets không cần thiết nếu không có viền đặc biệt */
 }
 
 .primary-btn:hover {
@@ -126,7 +122,6 @@
 }
 
 /* --- Danger Button --- */
-/* ⚠️ Tinh chỉnh: Sửa lỗi cú pháp, loại bỏ dấu */
 .danger-btn {
     -fx-background-color: #FEF2F2;
     -fx-text-fill: #DC2626;
@@ -146,17 +141,16 @@
 
 
 /* ======================================= */
-/* 5. DIALOGPANE BUTTONS (Mặc định) */
+/* 5. DIALOGPANE BUTTONS  */
 /* ======================================= */
 
 /* --- Confirm Button (DialogPane) --- */
-/* ⚠️ Tinh chỉnh: Loại bỏ .dialog-button không cần thiết. Dùng DialogPane .button */
 .dialog-pane .button.confirm {
     -fx-background-color: #6366F1;
     -fx-background-radius: 14;
     -fx-padding: 12 24;
     -fx-text-fill: white;
-    -fx-font-weight: bold; /* Tinh chỉnh: dùng 'bold' thay vì 700 */
+    -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-cursor: hand;
 }
@@ -184,21 +178,13 @@
     -fx-background-color: #F8FAFC;
 }
 
-
-/* ======================================= */
-/* 6. KHÁC */
-/* ======================================= */
-
 /* Image preview */
 .dialog-root ImageView {
     -fx-background-radius: 16;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);
 }
 
-/* --- Animation (Cần thiết lập trong code Java/Controller) --- */
-/* ⚠️ Tinh chỉnh: JavaFX không hỗ trợ thuộc tính transition: all như Web CSS.
-Chúng ta cần khai báo rõ ràng thuộc tính nào thay đổi (opacity và translate-y)
- */
+/* --- Animation --- */
 .fade-in {
     -fx-opacity: 1;
     -fx-transition: -fx-opacity 0.3s linear,

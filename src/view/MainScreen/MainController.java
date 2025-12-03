@@ -26,6 +26,8 @@ import view.Wrapper.OrderItemWrapper;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -33,6 +35,7 @@ import java.util.stream.Collectors;
 public class MainController {
 
     // --- FXML UI COMPONENTS ---
+    @FXML private Label dateLabel;
     @FXML private TextField searchField;
     @FXML private FlowPane menuGrid;
 
@@ -64,6 +67,9 @@ public class MainController {
             // 2. Lấy dữ liệu từ Service
             fullMenu = menuService.getAllItems();
 
+            // lấy ngày hiện tại
+            dateLabel.setText(LocalDate.now().format(
+                DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", Locale.forLanguageTag("vi-VN"))));
             // 3. Setup giao diện
             setupTable();
             renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu

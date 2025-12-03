@@ -89,6 +89,9 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.07), 10, 0, 0, 5);
     -fx-transition: all 0.25s ease;
 }
+.product-card:selected {
+    -fx-border-color: #3B82F6;
+}
 
 .product-card:hover {
     -fx-scale-x: 1.04;
