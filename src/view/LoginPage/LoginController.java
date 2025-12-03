@@ -1,8 +1,10 @@
 package view.LoginPage;
 import Interface.IUser;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.MockTest.MockAuthService;
 import java.net.URL;
@@ -72,10 +74,16 @@ public class LoginController implements Initializable {
                         getClass().getResource("/view/MainScreen/Main.css").toExternalForm()
                 );
 
+                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+                // Set Stage bằng kích thước màn hình
+                currentStage.setX(screenBounds.getMinX());
+                currentStage.setY(screenBounds.getMinY());
+                currentStage.setWidth(screenBounds.getWidth());
+                currentStage.setHeight(screenBounds.getHeight());
                 //  Đặt tiêu đề mới cho cửa sổ
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
                 currentStage.setScene(scene);
-                currentStage.setMaximized(true);
                 currentStage.show();
             } catch (Exception e) {
                 e.printStackTrace();
