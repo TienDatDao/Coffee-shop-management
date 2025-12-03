@@ -89,8 +89,15 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.07), 10, 0, 0, 5);
     -fx-transition: all 0.25s ease;
 }
-.product-card:selected {
-    -fx-border-color: #3B82F6;
+.product-card.selected {
+    -fx-border-color: #3B82F6; /* xanh */
+    -fx-border-radius: 16;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.25), 12, 0.2, 0, 2);
+}
+.product-card.dimmed {
+
 }
 
 .product-card:hover {

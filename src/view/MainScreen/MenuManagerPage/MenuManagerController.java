@@ -2,21 +2,26 @@ package view.MainScreen.MenuManagerPage;
 
 import Interface.IMenuItem;
 import Interface.IMenuService;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import view.MainScreen.MainController;
+import javafx.util.Duration;
 import view.MainScreen.MenuManagerPage.Dialog.ItemDialogController;
 import view.MainTest;
-import view.MockTest.MockMenuService;
 import view.Wrapper.MenuItemWrapper;
 
 import java.io.IOException;
@@ -26,6 +31,7 @@ import java.util.*;
 
 public class MenuManagerController {
 
+    @FXML private BorderPane root;
     @FXML private FlowPane centerMenuGrid;
     @FXML private TextField searchField;
     @FXML private Label dateLabel;
@@ -43,7 +49,7 @@ public class MenuManagerController {
     @FXML
     public void initialize() {
         menuService = MainTest.SHARED_MENU_SERVICE;
-
+        root.setOnMouseClicked(e -> handleClickOutside(e));
         // Bao dữ liệu gốc trong wrapper
         fullMenu = new ArrayList<>();
         for (IMenuItem item : menuService.getAllItems()) {
@@ -105,12 +111,12 @@ public class MenuManagerController {
         clip.setArcHeight(30);
         iv.setClip(clip);
 
-        iv.imageProperty().bind(w.imageProperty()); // BIND trực tiếp với wrapper
+        iv.imageProperty().bind(w.imageProperty());
 
         Label nameLbl = new Label();
         nameLbl.setWrapText(true);
         nameLbl.setMaxWidth(150);
-        nameLbl.textProperty().bind(w.nameProperty()); // BIND trực tiếp
+        nameLbl.textProperty().bind(w.nameProperty());
 
         Label priceLbl = new Label();
         priceLbl.getStyleClass().add("card-price");
@@ -118,12 +124,17 @@ public class MenuManagerController {
 
         card.getChildren().addAll(iv, nameLbl, priceLbl);
 
+        card.setUserData(w); // *** LIÊN KẾT CARD -> ITEM ***
+
         card.setOnMouseClicked(e -> {
             if (selectedItem != null && selectedItem.idProperty().get().equals(w.idProperty().get())) {
                 selectedItem = null;
+                selectedCard = null;
             } else {
                 selectedItem = w;
+                selectedCard = card;
             }
+
             refreshSelection();
             updateToolbarState();
         });
@@ -131,20 +142,91 @@ public class MenuManagerController {
         return card;
     }
 
+    private VBox selectedCard = null;
+    private boolean editMode = false;
+
     private void refreshSelection() {
-        for (var node : centerMenuGrid.getChildren()) {
-            if (node instanceof VBox card) {
-                boolean isSel = selectedItem != null &&
-                        card == itemCardMap.get(selectedItem.idProperty().get());
-                if (isSel) {
-                    if (!card.getStyleClass().contains("selected")) card.getStyleClass().add("selected");
-                } else {
-                    card.getStyleClass().remove("selected");
-                }
+
+        for (Node node : centerMenuGrid.getChildren()) {
+            VBox card = (VBox) node;
+            MenuItemWrapper item = (MenuItemWrapper) card.getUserData();
+
+            boolean isSelected = (selectedItem != null &&
+                    item.idProperty().get().equals(selectedItem.idProperty().get()));
+
+            card.getStyleClass().remove("selected");
+
+            if (isSelected) {
+                selectedCard = card;
+                card.getStyleClass().add("selected");
+
+                // Animation phóng to
+                animateScale(card, 1.07, 1.07);
+
+            } else {
+                // Các card không chọn trở về scale chuẩn
+                animateScale(card, 1.0, 1.0);
+            }
+        }
+
+        if (editMode) {
+            applyDimmedEffect();
+        } else {
+            clearDimmedEffect();
+        }
+    }
+    // hiệu ứng cho click card
+    private void applyDimmedEffect() {
+        for (Node node : centerMenuGrid.getChildren()) {
+            if (node != selectedCard) {
+                animateFade(node, 0.5);
+            } else {
+                animateFade(node, 1.0);
             }
         }
     }
+    private void clearDimmedEffect() {
+        for (Node node : centerMenuGrid.getChildren()) {
+            animateFade(node, 1.0);
+        }
+    }
 
+    private void handleClickOutside(MouseEvent e) {
+
+        // Nếu đang click vào 1 card thì không làm gì
+        Node clicked = e.getPickResult().getIntersectedNode();
+
+        while (clicked != null) {
+            if (clicked.getStyleClass().contains("product-card")) {
+                return; // click vào card -> bỏ qua
+            }
+            clicked = clicked.getParent();
+        }
+
+        // Click đúng vào vùng trống -> reset
+        selectedItem = null;
+        selectedCard = null;
+        editMode = false;
+
+        refreshSelection();   // bỏ selected + scale
+        clearDimmedEffect();  // bỏ mờ
+        updateToolbarState(); // disable edit/delete nút
+    }
+
+    private void animateScale(Node node, double toX, double toY) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(130), node);
+        st.setToX(toX);
+        st.setToY(toY);
+        st.setInterpolator(Interpolator.EASE_BOTH);
+        st.play();
+    }
+    private void animateFade(Node node, double to) {
+        FadeTransition ft = new FadeTransition(Duration.millis(150), node);
+        ft.setToValue(to);
+        ft.setInterpolator(Interpolator.EASE_BOTH);
+        ft.play();
+    }
+    // hiêu ứng cho click card
     private void updateToolbarState() {
         boolean has = selectedItem != null;
         btnEdit.setDisable(!has);
@@ -202,6 +284,8 @@ public class MenuManagerController {
     }
 
     @FXML private void onEdit() throws IOException {
+        editMode = true;
+        applyDimmedEffect();
         if (selectedItem == null) return;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"));

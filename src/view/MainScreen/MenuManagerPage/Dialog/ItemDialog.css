@@ -185,6 +185,7 @@
 }
 
 /* --- Animation --- */
+
 .fade-in {
     -fx-opacity: 1;
     -fx-transition: -fx-opacity 0.3s linear,
