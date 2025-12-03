@@ -50,6 +50,10 @@ public class Staff extends User {
         return currentShift;
     }
 
+    public String getRole() {
+        return "Staff"; 
+    }
+
     public void setCurrentShift(String currentShift) {
         this.currentShift = currentShift;
     }

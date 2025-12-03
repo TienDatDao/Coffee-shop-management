@@ -257,8 +257,6 @@ public class MenuManagerController {
 
         // 3. Tải Root Node
         Parent root = loader.load();
-        MainController mainController = loader.getController();
-        mainController.loadData();
         // 4. Tạo Scene mới và thiết lập Stage
         Scene scene = new Scene(root);
         scene.getStylesheets().add(

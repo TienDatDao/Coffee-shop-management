@@ -313,8 +313,4 @@ public class MainController {
             throw new RuntimeException(e);
         }
     }
-    public void loadData() {
-        fullMenu = menuService.getAllItems();
-        renderMenuGrid(fullMenu);
-    }
 }

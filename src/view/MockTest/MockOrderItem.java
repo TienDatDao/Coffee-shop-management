@@ -35,11 +35,6 @@ public class MockOrderItem implements IOrderItem {
     }
 
     @Override
-    public String getMenuItemId() {
-        return MenuItem.getId(); // từ MockMenuItem
-    }
-
-    @Override
     public int getQuantity() {
         return quantity;
     }
@@ -55,6 +50,6 @@ public class MockOrderItem implements IOrderItem {
     }
 
     public String getName() { return MenuItem.getName(); }
-    public Double getPrice() { return MenuItem.getPrice(); }
+    public double getPrice() { return MenuItem.getPrice(); }
     public String getCategory() { return MenuItem.getCategory(); }
 }

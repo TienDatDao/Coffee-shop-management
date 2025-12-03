@@ -55,10 +55,6 @@ public class OrderItemWrapper implements IOrderItem {
         return menuItem.getId();
     }
 
-    @Override
-    public String getMenuItemId() {
-        return menuItem.getId();
-    }
 
     @Override
     public int getQuantity() {
@@ -76,7 +72,7 @@ public class OrderItemWrapper implements IOrderItem {
     }
 
     @Override
-    public Double getPrice() {
+    public double getPrice() {
         return price.get();
     }
 

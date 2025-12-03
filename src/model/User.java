@@ -1,6 +1,8 @@
 package model;
 
-public class User {
+import Interface.IUser;
+
+public class User implements IUser {
     private int id;
     private String username;
     private String password;
@@ -58,6 +60,11 @@ public class User {
         return username;
     }
 
+    @Override
+    public String getPassWord() {
+        return null;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -80,6 +87,10 @@ public class User {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getRole() {
+        return "Manager";
     }
 
     public void setPhoneNumber(String phoneNumber) {
