@@ -30,7 +30,7 @@
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="⚙   Cài đặt" />
                 <Region VBox.vgrow="ALWAYS" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="🚪   Đăng xuất" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="🚪   Đăng xuất" onAction="#logout" />
             </children>
         </VBox>
     </left>

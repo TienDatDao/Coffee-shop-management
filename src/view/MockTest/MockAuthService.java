@@ -42,7 +42,7 @@ public class MockAuthService implements IAuthService {
     }
 
     // SỬA ĐỂ TRẢ VỀ NGƯỜI DÙNG ĐÃ LƯU TRONG BIẾN PHIÊN
-    public static IUser getCurrentUser() {
+    public IUser getCurrentUser() {
         return currentUser; // Trả về người dùng đang đăng nhập (có thể là null)
     }
 }

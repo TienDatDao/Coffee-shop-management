@@ -37,7 +37,7 @@ public class RegisterController {
         }
 
         // thông báo thành công
-        showMessage("Đăng ký thành công: " + username + " (" + role + ")");
+        showMessage("Đăng ký thành công");
         // cập nhật dữ liệu
         user = new MockUser(username, password, role);
         MainTest.MOCK_AUTH_SERVICE.setUser(user);

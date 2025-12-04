@@ -292,31 +292,36 @@ public class MainController {
     }
     @FXML
     private void menuManager(){
-        // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
-        try {
-            // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
-            Stage currentStage = (Stage) menuGrid.getScene().getWindow();
+        if(MainTest.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
+            // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
+            try {
+                // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
+                Stage currentStage = (Stage) menuGrid.getScene().getWindow();
 
-            // 2. Tải FXML của màn hình chính
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"));
+                // 2. Tải FXML của màn hình chính
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"));
 
-            // 3. Tải Root Node
-            Parent root = loader.load();
+                // 3. Tải Root Node
+                Parent root = loader.load();
 
-            // 4. Tạo Scene mới và thiết lập Stage
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(
-                    getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.css").toExternalForm()
-            );
+                // 4. Tạo Scene mới và thiết lập Stage
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(
+                        getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.css").toExternalForm()
+                );
 
-            //  Đặt tiêu đề mới cho cửa sổ
-            currentStage.setTitle("Coffee Shop Management - Welcome ");
-            currentStage.setMaximized(true);
-            currentStage.setScene(scene);
-            currentStage.show();
+                //  Đặt tiêu đề mới cho cửa sổ
+                currentStage.setTitle("Coffee Shop Management - Welcome ");
+                currentStage.setMaximized(true);
+                currentStage.setScene(scene);
+                currentStage.show();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            System.err.println("Bạn không có quyền truy cập!");
         }
     }
     @FXML

@@ -353,4 +353,22 @@ public class MenuManagerController {
         currentStage.setScene(scene);
         currentStage.show();
     }
+    @FXML
+    private void logout(){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/Login.fxml"));
+            Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
+
+            Scene scene = new Scene(root, 1000, 600);
+            scene.getStylesheets().add(
+                    getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
+            );
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Không thể tải trang đăng nhập.");
+        }
+    }
 }
