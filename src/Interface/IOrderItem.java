@@ -3,7 +3,7 @@ package Interface;
 import javafx.scene.image.Image;
 
 /* Đại diện cho 1 dòng chi tiết order */
-public interface IOrderItem {
+public interface IOrderItem extends IMenuItem {
     int getQuantity();
     double getSubtotal();
     String getId();

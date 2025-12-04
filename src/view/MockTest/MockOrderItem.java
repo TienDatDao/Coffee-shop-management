@@ -30,6 +30,37 @@ public class MockOrderItem implements IOrderItem {
     public Image getImage(){
         return MenuItem.getImage();
     }
+
+    @Override
+    public Image setImage(Image image) {
+        return null;
+    }
+
+    @Override
+    public void setId(String id) {
+
+    }
+
+    @Override
+    public void setName(String name) {
+
+    }
+
+    @Override
+    public void setPrice(double price) {
+
+    }
+
+    @Override
+    public void setCategory(String category) {
+
+    }
+
+    @Override
+    public void updateFromOriginal() {
+
+    }
+
     public void setImage(String imagePath){
         this.imagePath = imagePath;
     }

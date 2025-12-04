@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/Register.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/Register.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/Login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockAuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockUser.java" afterDir="false" />
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="add register, add logout">
+      <change beforePath="$PROJECT_DIR$/src/Interface/IOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Wrapper/OrderItemWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Wrapper/OrderItemWrapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1764777484095</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="add register, add logout">
+      <created>1764851268755</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1764851268755</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -305,7 +304,8 @@
     <MESSAGE value="add managePage, add st in interface, yeu cau ae them class" />
     <MESSAGE value="update merge" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="add register, add logout" />
+    <option name="LAST_COMMIT_MESSAGE" value="add register, add logout" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
