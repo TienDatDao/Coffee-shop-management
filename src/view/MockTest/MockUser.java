@@ -19,16 +19,25 @@ public class MockUser implements IUser {
 
     @Override
     public String getUsername() {
-        return null;
+        return name;
     }
 
     @Override
     public String getPassWord() {
-        return null;
+        return password;
     }
 
     @Override
     public String getRole() {
-        return null;
+        return role;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setPassword(String password){
+        this.password = password;
+    }
+    public void setRole(String role){
+        this.role =role ;
     }
 }

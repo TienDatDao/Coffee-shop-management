@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import view.MockTest.MockAuthService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 //import Service.AuthServiceMock;
@@ -31,7 +32,20 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Có thể thực hiện các thiết lập ban đầu tại đây (nếu cần)
     }
-    //
+    // sự kiện khi nhấn đăng kí dạng hyperlink
+    @FXML
+    private void handleRegisterAction() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/RegisterPage/Register.fxml"));
+        Stage stage = (Stage) btnLogin.getScene().getWindow();
+        // 4. Tạo Scene mới và thiết lập Stage
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add(
+                getClass().getResource("/view/LoginPage/RegisterPage/Register.css").toExternalForm()
+        );
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 
     //Xử lý sự kiện khi nhấp vào nút Đăng nhập.

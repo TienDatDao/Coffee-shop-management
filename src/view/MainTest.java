@@ -8,12 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import view.MockTest.MockAuthService;
 import view.MockTest.MockMenuService;
 
 import java.io.IOException;
 import java.net.URL;
 
 public class MainTest extends Application {
+    public static final MockAuthService MOCK_AUTH_SERVICE = new MockAuthService();
     public static final IMenuService SHARED_MENU_SERVICE = new MockMenuService();
 
     @Override

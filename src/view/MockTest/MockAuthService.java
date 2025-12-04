@@ -5,17 +5,23 @@ import Interface.IUser;
 
 public class MockAuthService implements IAuthService {
 
-    // 1. NGƯỜI DÙNG CỨNG DÙNG ĐỂ SO SÁNH
-    private static IUser MOCK_USER_CREDENTIALS = new MockUser("admin", "123", "Quản lý");
+    // 1. NGƯỜI DÙNG ĐỂ SO SÁNH
+    private static IUser MOCK_USER_CREDENTIALS;
 
     // 2. BIẾN TĨNH ĐỂ LƯU PHIÊN (USER ĐANG ĐĂNG NHẬP)
     private static IUser currentUser = null;
+    private MockUser user;
+    public  MockAuthService(){}
 
-    public MockAuthService(){}
+    public void setUser(MockUser user){
+        MOCK_USER_CREDENTIALS =user;
+    }
 
-    // SỬA ĐỂ TRẢ VỀ IUser:
-    // Tên phương thức nên là 'login' (như bạn đã đặt), nhưng tôi sẽ thêm logic lưu phiên vào đây.
+    // Tên phương thức nên là 'login'
     public static boolean login(String username, String password) {
+        if(MOCK_USER_CREDENTIALS==null){
+            return false;
+        }
         // Kiểm tra xem username và password có khớp không
         if (username.equals(MOCK_USER_CREDENTIALS.getUsername()) && password.equals(MOCK_USER_CREDENTIALS.getPassWord())) {
 
@@ -26,7 +32,7 @@ public class MockAuthService implements IAuthService {
         }
 
         // Đăng nhập thất bại, trả về null
-        return true;
+        return false;
     }
 
     @Override

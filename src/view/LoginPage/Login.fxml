@@ -56,5 +56,11 @@
                id="message"
                alignment="CENTER"
                maxWidth="1.7976931348623157E308" />
+
+        <Hyperlink fx:id="linkRegister"
+                   text="Đăng ký"
+                   onAction="#handleRegisterAction"
+                   alignment="CENTER"
+                   maxWidth="1.7976931348623157E308"/>
     </VBox>
 </StackPane>

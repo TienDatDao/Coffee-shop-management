@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="update merge">
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/Register.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/Register.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/IMenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IMenuItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/MenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/Login.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/Dialog/ItemDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/Dialog/ItemDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockMenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockMenuItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Wrapper/MenuItemWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Wrapper/MenuItemWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockAuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockUser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -262,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1764772018639</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="update">
+      <created>1764777484095</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1764777484095</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -293,7 +304,8 @@
     <MESSAGE value="fix bug, merge with fe-chinh" />
     <MESSAGE value="add managePage, add st in interface, yeu cau ae them class" />
     <MESSAGE value="update merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="update merge" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
