@@ -4,26 +4,30 @@ import Interface.IMenuItem;
 import Interface.IMenuService;
 import Interface.IOrder;
 import Interface.IOrderItem;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import model.OrderItemWrapper;
-import view.MockTest.MockMenuService;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import view.MainTest;
+import view.MockTest.MockMenuService;
 import view.MockTest.MockOrder;
 import view.MockTest.MockOrderItem;
 import view.PaymentPage.PaymentController;
+import view.Wrapper.OrderItemWrapper;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -31,6 +35,7 @@ import java.util.stream.Collectors;
 public class MainController {
 
     // --- FXML UI COMPONENTS ---
+    @FXML private Label dateLabel;
     @FXML private TextField searchField;
     @FXML private FlowPane menuGrid;
 
@@ -57,19 +62,23 @@ public class MainController {
     @FXML
     public void initialize() {
         // 1. Khởi tạo Service
-        menuService = new MockMenuService();
+        menuService = MainTest.SHARED_MENU_SERVICE;
 
-        // 2. Lấy dữ liệu từ Service
-        fullMenu = menuService.getAllItems();
+            // 2. Lấy dữ liệu từ Service
+            fullMenu = menuService.getAllItems();
 
-        // 3. Setup giao diện
-        setupTable();
-        renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
+            // lấy ngày hiện tại
+            dateLabel.setText(LocalDate.now().format(
+                DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", Locale.forLanguageTag("vi-VN"))));
+            // 3. Setup giao diện
+            setupTable();
+            renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
 
-        // 4. Listener tìm kiếm
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            handleSearch(newValue);
-        });
+            // 4. Listener tìm kiếm
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                handleSearch(newValue);
+            });
+
     }
 
     private void setupTable() {
@@ -111,12 +120,12 @@ public class MainController {
     // Tạo thẻ sản phẩm từ Interface
     private VBox createProductCard(IMenuItem item) {
         VBox card = new VBox(10); //
-        double cardWidth = 170;   // Tăng độ rộng thẻ một chút
+        double cardWidth = 190;   // Tăng độ rộng thẻ một chút
         card.setPrefWidth(cardWidth);
         card.setMaxWidth(cardWidth);
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new javafx.geometry.Insets(10)); // Padding nội bộ thẻ
+        card.setPadding(new javafx.geometry.Insets(15)); // Padding nội bộ thẻ
 
         // --- XỬ LÝ ẢNH ---
         ImageView imageView = new ImageView();
@@ -129,8 +138,8 @@ public class MainController {
         }
 
         imageView.setFitWidth(130);
-        imageView.setFitHeight(100);
-        imageView.setPreserveRatio(false); // Giữ tỷ lệ ảnh
+        imageView.setFitHeight(130);
+        imageView.setPreserveRatio(true); // Giữ tỷ lệ ảnh
 
         // Bo tròn ảnh (Soft square)
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
@@ -197,7 +206,7 @@ public class MainController {
         // Kiểm tra xem món đã có trong giỏ chưa
         for (OrderItemWrapper orderItem : currentOrder) {
             // So sánh ID thông qua Interface
-            if (orderItem.getMenuItemId().equals(item.getId())) {
+            if (orderItem.getId().equals(item.getId())) {
                 orderItem.increaseQuantity();
                 refreshOrderState();
                 return;
@@ -205,7 +214,7 @@ public class MainController {
         }
         // Nếu chưa có, tạo mới OrderItem (OrderItem nhận vào IMenuItem trong constructor)
         OrderItemWrapper newItem = new OrderItemWrapper(item, 1);
-        currentOrder.add(newItem);
+        currentOrder.add( newItem);
         refreshOrderState();
     }
 
@@ -262,7 +271,6 @@ public class MainController {
             alert.showAndWait();
             return;
         }
-        // Chuyển sang Màn hình thanh toán...
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentPage/Payment.fxml"));
         Parent root = loader.load();
@@ -281,5 +289,60 @@ public class MainController {
 
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
+    }
+    @FXML
+    private void menuManager(){
+        if(MainTest.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
+            // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
+            try {
+                // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
+                Stage currentStage = (Stage) menuGrid.getScene().getWindow();
+
+                // 2. Tải FXML của màn hình chính
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"));
+
+                // 3. Tải Root Node
+                Parent root = loader.load();
+
+                // 4. Tạo Scene mới và thiết lập Stage
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(
+                        getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.css").toExternalForm()
+                );
+
+                //  Đặt tiêu đề mới cho cửa sổ
+                currentStage.setTitle("Coffee Shop Management - Welcome ");
+                currentStage.setMaximized(true);
+                currentStage.setScene(scene);
+                currentStage.show();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn không có quyền truy cập!");
+            alert.showAndWait();        }
+    }
+    @FXML
+    private void logout(){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/Login.fxml"));
+            Stage stage = (Stage) menuGrid.getScene().getWindow();
+
+            Scene scene = new Scene(root, 1000, 600);
+            scene.getStylesheets().add(
+                    getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
+            );
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Không thể tải trang đăng nhập.");
+        }
     }
 }

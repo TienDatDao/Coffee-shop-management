@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@Main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController">
+<BorderPane stylesheets="@Main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController" >
 
     <left>
         <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="202.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
@@ -27,23 +27,23 @@
                 <Button maxWidth="Infinity" styleClass="nav-btn, active-nav" text="🛒   Bán hàng" />
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="📊   Thống kê" />
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="👥   Khách hàng" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="👪 Quản lý thực đơn" onAction="#menuManager" />
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="⚙   Cài đặt" />
 
                 <Region VBox.vgrow="ALWAYS" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="🚪   Đăng xuất" />
+                <Button maxWidth="Infinity" styleClass="nav-btn" text="🚪   Đăng xuất" onAction="#logout" />
             </children>
         </VBox>
     </left>
 
     <center>
-        <VBox fx:id="centerBox" prefHeight="756.0" prefWidth="706.0" spacing="20.0" styleClass="center-pane">
+        <VBox prefHeight="756.0" prefWidth="706.0" spacing="20.0" style="-fx-background-color: #f3f4f6;">
             <padding> <Insets bottom="20" left="25" right="25" top="25" /> </padding>
 
             <HBox alignment="CENTER_LEFT">
                 <VBox>
                     <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d3436;" text="Thực đơn" />
-                    <Label style="-fx-text-fill: #9ca3af;" text="Thứ Ba, 30 Tháng 11 2025" />
+                    <Label fx:id="dateLabel" style="-fx-text-fill: #9ca3af;" text="Ngày" />
                 </VBox>
                 <Region HBox.hgrow="ALWAYS" />
                 <TextField fx:id="searchField" prefHeight="45.0" prefWidth="300.0" promptText="🔍 Tìm kiếm món..." styleClass="search-bar" />

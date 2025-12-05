@@ -12,6 +12,10 @@ public class MockOrderService implements IOrderService {
         return new MockOrder(tableId, items, orderId);
     }
 
+    public IOrder createOrder(List<IOrderItem> items, String orderId) {
+        return new MockOrder( items, orderId);
+    }
+
     @Override
     public IOrder getOrderById(String orderId) {
         return null;

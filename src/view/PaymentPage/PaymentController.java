@@ -206,17 +206,20 @@ public class PaymentController implements Initializable {
         // Tạo order mới (lưu vào hệ thống)
         iOrderService.createOrder(iOrder.getTableId(), iOrder.getItems(), iOrder.getOrderId());
 
-        lblMessage.setText("Thanh toán thành công qua phương thức " + selected.getText() + "!");
-        lblMessage.setStyle("-fx-text-fill: green;");
-
-        // Chuyển trang sau khi thanh toán xong
-        delayThenRun(1, () -> {
-            try {
-                goToPage("/view/MainScreen/MainView.fxml", "/view/MainScreen/Main.css");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        if(selected.getText().equals("Thanh toán bằng QR code")){
+            showConfirmationDialog();
+        }
+        else{
+            lblMessage.setText("Thanh toán thành công qua phương thức " + selected.getText() + "!");
+            lblMessage.setStyle("-fx-text-fill: green;");
+            delayThenRun(1, () -> {
+                try {
+                    goToPage("/view/MainScreen/MainView.fxml", "/view/MainScreen/Main.css");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
         });
+        }
     }
 
     @FXML
@@ -229,7 +232,7 @@ public class PaymentController implements Initializable {
         }
     }
 
-    // --- PHƯƠNG THỨC PHỤ TRỢ ---
+    // --- PHƯƠNG THỨC PHỤ TRỢ ĐỂ QUAY LẠI MÀN HÌNH MENU CHÍNH---
 
     private void delayThenRun(double seconds, Runnable action) {
         PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
@@ -251,5 +254,77 @@ public class PaymentController implements Initializable {
                     getClass().getResource(cssPath).toExternalForm()
             );
         }
+    }
+    // ô hiển thị QRCode
+    private void showConfirmationDialog() {
+        // 1. Tạo hộp thoại
+        Dialog<ButtonType> dialog = new Dialog<>();
+
+        // Tải CSS và áp dụng kiểu dáng hiện đại (dùng ItemDialog.css)
+        URL cssUrl = getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.css");
+        if (cssUrl != null) {
+            dialog.getDialogPane().getStylesheets().add(cssUrl.toExternalForm());
+            // Áp dụng lớp dialog-root để có bóng đổ, bo góc và nền trắng
+            dialog.getDialogPane().getStyleClass().add("dialog-root");
+
+            // Bỏ header mặc định để chỉ dùng label tùy chỉnh
+            dialog.setHeaderText(null);
+        }
+
+        // 2. Tải ảnh QR Code
+        // Đảm bảo tệp QRPay.jpg tồn tại trong đường dẫn /view/PaymentPage/
+        ImageView qrImage = new ImageView(getClass().getResource("/view/PaymentPage/QRPay.jpg").toExternalForm());
+        qrImage.setFitWidth(300);
+        qrImage.setFitHeight(300);
+        qrImage.setPreserveRatio(true);
+
+        // 3. Tạo layout cho nội dung hộp thoại (VBox)
+        VBox content = new VBox(15);
+        content.setAlignment(javafx.geometry.Pos.CENTER);
+        content.setPadding(new Insets(30));
+
+        // Tiêu đề tùy chỉnh với màu Accent (Indigo)
+        Label title = new Label("Tạo Đơn Thành Công");
+        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #4F46E5;"); // Màu Indigo
+
+        Label instruction = new Label("Vui lòng quét mã QR để hoàn tất giao dịch");
+        instruction.setStyle("-fx-text-fill: #475569;"); // Màu chữ xám/đậm
+
+        content.getChildren().addAll(
+                title,
+                instruction,
+                qrImage
+        );
+
+        dialog.getDialogPane().setContent(content);
+
+        // 4. Thêm nút "Đóng & Quay lại Menu"
+        ButtonType closeButton = new ButtonType("Đóng & Quay lại Menu", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(closeButton);
+
+        // Áp dụng kiểu dáng CSS cho nút
+        final Button finishButton = (Button) dialog.getDialogPane().lookupButton(closeButton);
+        finishButton.getStyleClass().addAll("dialog-button", "confirm");
+
+        // 5. Xử lý sự kiện khi nhấn nút
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == closeButton || dialogButton == ButtonType.CLOSE) {
+                delayThenRun(1, () -> {
+                    try {
+                        goToPage("/view/MainScreen/MainView.fxml", "/view/MainScreen/Main.css");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+            return null;
+        });
+
+        // 6. Hiển thị hộp thoại (và chặn các thao tác khác)
+        dialog.showAndWait();
+
+        // Cập nhật lại lblMessage sau khi đóng dialog
+        lblMessage.setText("Thanh toán thành công!");
+        lblMessage.setStyle("-fx-text-fill: green;");
     }
 }

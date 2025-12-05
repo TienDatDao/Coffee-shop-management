@@ -1,21 +1,18 @@
 package view.LoginPage;
-import Interface.IUser;
+
+import Interface.IAuthService;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import view.MockTest.MockAuthService;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-
-// Import các Interface Dịch vụ
-import Interface.IAuthService;
 //import Service.AuthServiceMock;
 // Thay thế bằng AuthService thực tế khi cần
 
@@ -35,7 +32,20 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Có thể thực hiện các thiết lập ban đầu tại đây (nếu cần)
     }
-    //
+    // sự kiện khi nhấn đăng kí dạng hyperlink
+    @FXML
+    private void handleRegisterAction() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/RegisterPage/Register.fxml"));
+        Stage stage = (Stage) btnLogin.getScene().getWindow();
+        // 4. Tạo Scene mới và thiết lập Stage
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add(
+                getClass().getResource("/view/LoginPage/RegisterPage/Register.css").toExternalForm()
+        );
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 
     //Xử lý sự kiện khi nhấp vào nút Đăng nhập.
@@ -74,17 +84,12 @@ public class LoginController implements Initializable {
                         getClass().getResource("/view/MainScreen/Main.css").toExternalForm()
                 );
 
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
-                // Set Stage bằng kích thước màn hình
-                currentStage.setX(screenBounds.getMinX());
-                currentStage.setY(screenBounds.getMinY());
-                currentStage.setWidth(screenBounds.getWidth());
-                currentStage.setHeight(screenBounds.getHeight());
                 //  Đặt tiêu đề mới cho cửa sổ
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
+
                 currentStage.setScene(scene);
                 currentStage.show();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 // Xử lý lỗi nếu không tải được FXML
@@ -134,7 +139,7 @@ public class LoginController implements Initializable {
     }
 
 
-    // Xóa nội dung của cả hai trường mật khẩu.
+     // Xóa nội dung của cả hai trường mật khẩu.
 
     private void clearPasswordFields() {
         txtPassword.clear();

@@ -9,4 +9,10 @@ public interface IMenuItem {
     double getPrice();      // giá món
     String getCategory();   // loại món: coffee – tea – food – drink
     Image getImage();  // thuộc tính ảnh của món ăn
+    Image setImage(Image image);
+    void setId(String id);
+    void setName(String name);
+    void setPrice(double price);
+    void setCategory(String category);
+    void updateFromOriginal();
 }
