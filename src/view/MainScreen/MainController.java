@@ -321,8 +321,11 @@ public class MainController {
             }
         }
         else{
-            System.err.println("Bạn không có quyền truy cập!");
-        }
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn không có quyền truy cập!");
+            alert.showAndWait();        }
     }
     @FXML
     private void logout(){

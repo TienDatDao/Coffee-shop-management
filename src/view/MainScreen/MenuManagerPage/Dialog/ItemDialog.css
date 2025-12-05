@@ -143,10 +143,13 @@
 /* ======================================= */
 /* 5. DIALOGPANE BUTTONS  */
 /* ======================================= */
+/* ======================================= */
+/* 5. DIALOGPANE BUTTONS  */
+/* ======================================= */
 
 /* --- Confirm Button (DialogPane) --- */
-.dialog-pane .button.confirm {
-    -fx-background-color: #6366F1;
+.dialog-button.confirm {
+    -fx-background-color: #4CAF50;
     -fx-background-radius: 14;
     -fx-padding: 12 24;
     -fx-text-fill: white;
@@ -155,14 +158,14 @@
     -fx-cursor: hand;
 }
 
-.dialog-pane .button.confirm:hover {
-    -fx-background-color: #4F46E5;
+.dialog-button.confirm:hover { /* Cần sửa cả trạng thái hover */
+    -fx-background-color: #18f218;
     -fx-translate-y: -2;
     -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.5), 12, 0.4, 0, 4);
 }
 
 /* --- Cancel Button (DialogPane) --- */
-.dialog-pane .button.cancel {
+.dialog-button.cancel { /* ĐÃ SỬA: Bỏ khoảng trắng giữa .dialog-button và .cancel */
     -fx-background-color: transparent;
     -fx-text-fill: #64748B;
     -fx-font-weight: 600;
@@ -174,7 +177,7 @@
     -fx-cursor: hand;
 }
 
-.dialog-pane .button.cancel:hover {
+.dialog-button.cancel:hover { /* Cần sửa cả trạng thái hover */
     -fx-background-color: #F8FAFC;
 }
 
