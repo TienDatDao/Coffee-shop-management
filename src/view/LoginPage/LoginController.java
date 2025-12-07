@@ -4,9 +4,11 @@ import Interface.IAuthService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.MockTest.MockAuthService;
 
@@ -85,9 +87,16 @@ public class LoginController implements Initializable {
                 );
 
                 //  Đặt tiêu đề mới cho cửa sổ
-                currentStage.setTitle("Coffee Shop Management - Welcome ");
+                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
+                // Set Stage bằng kích thước màn hình
+                currentStage.setX(screenBounds.getMinX());
+                currentStage.setY(screenBounds.getMinY());
+                currentStage.setWidth(screenBounds.getWidth());
+                currentStage.setHeight(screenBounds.getHeight());
+                currentStage.setTitle("Coffee Shop Management - Welcome ");
                 currentStage.setScene(scene);
+
                 currentStage.show();
 
             } catch (Exception e) {
@@ -139,7 +148,7 @@ public class LoginController implements Initializable {
     }
 
 
-     // Xóa nội dung của cả hai trường mật khẩu.
+    // Xóa nội dung của cả hai trường mật khẩu.
 
     private void clearPasswordFields() {
         txtPassword.clear();

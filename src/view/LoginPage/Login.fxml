@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<StackPane fx:controller="view.LoginPage.LoginController"
-           xmlns:fx="http://javafx.com/fxml/1"
-           alignment="CENTER"
-           styleClass="root-pane">
-    <ImageView fx:id="imgLogo" fitWidth="120" fitHeight="120"
-               StackPane.alignment="TOP_CENTER"> <image>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane alignment="CENTER" styleClass="root-pane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginPage.LoginController">
+    <ImageView fx:id="imgLogo" fitHeight="120" fitWidth="120" StackPane.alignment="TOP_CENTER"> <image>
         <Image url="@LoginLogo.png" />
     </image>
         <StackPane.margin>
             <Insets top="50" />
         </StackPane.margin>
     </ImageView>
-    <VBox id="login-pane" alignment="CENTER" spacing="10" maxWidth="350">
+    <VBox id="login-pane" alignment="CENTER" maxWidth="370.0" prefHeight="209.0" prefWidth="342.0" spacing="10">
         <padding>
-            <Insets top="40" right="40" bottom="40" left="40"  />
+            <Insets bottom="40" left="40" right="40" top="40" />
         </padding>
 
         <Label id="title" text="W E L C O M E   A D M I N" />
@@ -30,37 +32,19 @@
         <StackPane>
             <PasswordField fx:id="txtPassword" promptText="Password" styleClass="password-field" />
 
-            <TextField fx:id="txtPasswordVisible"
-                       promptText="Password"
-                       styleClass="text-field"
-                       visible="false" managed="false" />
+            <TextField fx:id="txtPasswordVisible" managed="false" promptText="Password" styleClass="text-field" visible="false" />
 
-            <CheckBox fx:id="chkShowPassword"
-                      id="show-password-checkbox"
-                      onAction="#handleShowPasswordToggle"
-                      StackPane.alignment="CENTER_RIGHT">
+            <CheckBox id="show-password-checkbox" fx:id="chkShowPassword" onAction="#handleShowPasswordToggle" StackPane.alignment="CENTER_RIGHT">
                 <StackPane.margin>
                     <Insets right="10" />
                 </StackPane.margin>
             </CheckBox>
         </StackPane>
 
-        <Button fx:id="btnLogin"
-                text="Login"
-                id="login-button"
-                maxWidth="1.7976931348623157E308"
-                onAction="#handleLoginAction" />
+        <Button id="login-button" fx:id="btnLogin" maxWidth="1.7976931348623157E308" onAction="#handleLoginAction" text="Login" />
 
-        <Label fx:id="lblMessage"
-               text="Please enter your user name and password"
-               id="message"
-               alignment="CENTER"
-               maxWidth="1.7976931348623157E308" />
+        <Label id="message" fx:id="lblMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Please enter your user name and password" />
 
-        <Hyperlink fx:id="linkRegister"
-                   text="Đăng ký"
-                   onAction="#handleRegisterAction"
-                   alignment="CENTER"
-                   maxWidth="1.7976931348623157E308"/>
+        <Hyperlink fx:id="linkRegister" alignment="CENTER" maxWidth="1.7976931348623157E308" onAction="#handleRegisterAction" text="Đăng ký" />
     </VBox>
 </StackPane>

@@ -66,6 +66,11 @@ public class MockOrderItem implements IOrderItem {
     }
 
     @Override
+    public String getMenuItemId() {
+        return null;
+    }
+
+    @Override
     public int getQuantity() {
         return quantity;
     }

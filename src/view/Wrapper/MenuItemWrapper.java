@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 
 public class MenuItemWrapper implements IMenuItem{
     private final IMenuItem original; // Tham chiếu đến object gốc
-
     private final StringProperty id;
     private final StringProperty name;
     private final DoubleProperty price;
@@ -50,7 +49,6 @@ public class MenuItemWrapper implements IMenuItem{
     public String getId() { return id.get(); }
     public StringProperty idProperty() { return id; }
 
-    // Sửa lỗi: Triển khai từ IMenuItem
     @Override
     public void setId(String id) {
         this.id.set(id);
@@ -59,7 +57,6 @@ public class MenuItemWrapper implements IMenuItem{
 
     public String getName() { return name.get(); }
 
-    // Sửa lỗi: Triển khai từ IMenuItem
     @Override
     public void setName(String name) { this.name.set(name); }
 
@@ -67,7 +64,6 @@ public class MenuItemWrapper implements IMenuItem{
 
     public double getPrice() { return price.get(); }
 
-    // Sửa lỗi: Triển khai từ IMenuItem và chỉnh sửa phương thức
     @Override
     public void setPrice(double price) { this.price.set(price); }
 
@@ -75,14 +71,12 @@ public class MenuItemWrapper implements IMenuItem{
 
     public String getCategory() { return category.get(); }
 
-    // Sửa lỗi: Triển khai từ IMenuItem
     @Override
     public void setCategory(String category) { this.category.set(category); }
     public StringProperty categoryProperty() { return category; }
 
     public Image getImage() { return this.image.get(); }
 
-    // Sửa lỗi: Triển khai từ IMenuItem (Trả về void)
     @Override
     public Image setImage(Image image) { this.image.set(image);
     return image;
