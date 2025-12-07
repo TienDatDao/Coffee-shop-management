@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import view.MainTest;
+import view.Main;
 import view.MockTest.MockUser;
 
 public class RegisterController {
@@ -40,7 +40,7 @@ public class RegisterController {
         showMessage("Đăng ký thành công");
         // cập nhật dữ liệu
         user = new MockUser(username, password, role);
-        MainTest.MOCK_AUTH_SERVICE.setUser(user);
+        Main.MOCK_AUTH_SERVICE.setUser(user);
     }
 
     @FXML

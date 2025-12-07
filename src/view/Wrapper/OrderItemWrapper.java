@@ -57,6 +57,11 @@ public class OrderItemWrapper implements IOrderItem {
 
 
     @Override
+    public String getMenuItemId() {
+        return "";
+    }
+
+    @Override
     public int getQuantity() {
         return quantity.get();
     }

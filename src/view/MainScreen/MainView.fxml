@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@Main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController" >
+<BorderPane stylesheets="@Main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController">
 
     <left>
         <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="202.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
@@ -25,19 +25,17 @@
                 <Region prefHeight="20.0" />
 
                 <Button maxWidth="Infinity" styleClass="nav-btn, active-nav" text="🛒   Bán hàng" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="📊   Thống kê" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="👥   Khách hàng" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="👪 Quản lý thực đơn" onAction="#menuManager" />
+                <Button onAction="#menuManager" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
                 <Button maxWidth="Infinity" styleClass="nav-btn" text="⚙   Cài đặt" />
 
                 <Region VBox.vgrow="ALWAYS" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="🚪   Đăng xuất" onAction="#logout" />
+                <Button maxWidth="Infinity" onAction="#logout" styleClass="nav-btn" text="🚪   Đăng xuất" />
             </children>
         </VBox>
     </left>
 
     <center>
-        <VBox prefHeight="756.0" prefWidth="706.0" spacing="20.0" style="-fx-background-color: #f3f4f6;">
+        <VBox prefHeight="756.0" prefWidth="692.0" spacing="20.0" style="-fx-background-color: #f3f4f6;">
             <padding> <Insets bottom="20" left="25" right="25" top="25" /> </padding>
 
             <HBox alignment="CENTER_LEFT">

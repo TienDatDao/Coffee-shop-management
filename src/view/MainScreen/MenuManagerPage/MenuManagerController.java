@@ -7,7 +7,6 @@ import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,8 +19,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import view.Main;
 import view.MainScreen.MenuManagerPage.Dialog.ItemDialogController;
-import view.MainTest;
 import view.Wrapper.MenuItemWrapper;
 
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class MenuManagerController {
 
     @FXML
     public void initialize() {
-        menuService = MainTest.SHARED_MENU_SERVICE;
+        menuService = Main.SHARED_MENU_SERVICE;
         root.setOnMouseClicked(e -> handleClickOutside(e));
         // Bao dữ liệu gốc trong wrapper
         fullMenu = new ArrayList<>();
@@ -95,16 +94,18 @@ public class MenuManagerController {
     }
 
     private VBox createProductCard(MenuItemWrapper w) {
-        VBox card = new VBox(8);
-        card.setAlignment(Pos.CENTER);
-        card.setPadding(new Insets(12));
-        card.setPrefWidth(170);
+        VBox card = new VBox(10); //
+        double cardWidth = 170;   // Tăng độ rộng thẻ một chút
+        card.setPrefWidth(cardWidth);
+        card.setMaxWidth(cardWidth);
         card.getStyleClass().add("product-card");
+        card.setAlignment(Pos.CENTER);
+        card.setPadding(new javafx.geometry.Insets(10)); // Padding nội bộ thẻ
 
         ImageView iv = new ImageView();
         iv.setFitWidth(130);
-        iv.setFitHeight(130);
-        iv.setPreserveRatio(true);
+        iv.setFitHeight(100);
+        iv.setPreserveRatio(false);
 
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
         clip.setArcWidth(30);

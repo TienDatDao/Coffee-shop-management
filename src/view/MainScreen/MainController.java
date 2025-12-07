@@ -17,8 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import view.MainTest;
-import view.MockTest.MockMenuService;
+import view.Main;
 import view.MockTest.MockOrder;
 import view.MockTest.MockOrderItem;
 import view.PaymentPage.PaymentController;
@@ -62,7 +61,7 @@ public class MainController {
     @FXML
     public void initialize() {
         // 1. Khởi tạo Service
-        menuService = MainTest.SHARED_MENU_SERVICE;
+        menuService = Main.SHARED_MENU_SERVICE;
 
             // 2. Lấy dữ liệu từ Service
             fullMenu = menuService.getAllItems();
@@ -120,12 +119,12 @@ public class MainController {
     // Tạo thẻ sản phẩm từ Interface
     private VBox createProductCard(IMenuItem item) {
         VBox card = new VBox(10); //
-        double cardWidth = 190;   // Tăng độ rộng thẻ một chút
+        double cardWidth = 170;   // Tăng độ rộng thẻ một chút
         card.setPrefWidth(cardWidth);
         card.setMaxWidth(cardWidth);
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new javafx.geometry.Insets(15)); // Padding nội bộ thẻ
+        card.setPadding(new javafx.geometry.Insets(10)); // Padding nội bộ thẻ
 
         // --- XỬ LÝ ẢNH ---
         ImageView imageView = new ImageView();
@@ -138,8 +137,8 @@ public class MainController {
         }
 
         imageView.setFitWidth(130);
-        imageView.setFitHeight(130);
-        imageView.setPreserveRatio(true); // Giữ tỷ lệ ảnh
+        imageView.setFitHeight(100);
+        imageView.setPreserveRatio(false); // Giữ tỷ lệ ảnh
 
         // Bo tròn ảnh (Soft square)
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
@@ -292,7 +291,7 @@ public class MainController {
     }
     @FXML
     private void menuManager(){
-        if(MainTest.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
+        if(Main.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
             // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
             try {
                 // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
@@ -312,7 +311,6 @@ public class MainController {
 
                 //  Đặt tiêu đề mới cho cửa sổ
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
-                currentStage.setMaximized(true);
                 currentStage.setScene(scene);
                 currentStage.show();
 
