@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="update payment page">
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="merge with fe-chinh">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/StatisticsPage/Statistics.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/StatisticsPage/Statistics.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/StatisticsPage/StatisticsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/IOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/Login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrderItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Wrapper/MenuItemWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Wrapper/MenuItemWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Wrapper/OrderItemWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Wrapper/OrderItemWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/IOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrderService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -36,6 +41,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="35x5xDcmXHxqz9Azy1skMV4CicZ" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -44,19 +52,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hieuv/IdeaProjects/Coffee-shop-management/src/view/LoginPage&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15546875&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.20331186&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/hieuv/IdeaProjects/test",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15546875",
+    "project.structure.side.proportion": "0.20331186",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\LoginPage" />
@@ -283,7 +291,14 @@
       <option name="project" value="LOCAL" />
       <updated>1764855818214</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="merge with fe-chinh">
+      <created>1765123831437</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1765123831437</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -317,7 +332,8 @@
     <MESSAGE value="update" />
     <MESSAGE value="add register, add logout" />
     <MESSAGE value="fix a little" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix a little" />
+    <MESSAGE value="merge with fe-chinh" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge with fe-chinh" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
