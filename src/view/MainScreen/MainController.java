@@ -63,20 +63,26 @@ public class MainController {
         // 1. Khởi tạo Service
         menuService = Main.SHARED_MENU_SERVICE;
 
-            // 2. Lấy dữ liệu từ Service
-            fullMenu = menuService.getAllItems();
+        menuGrid.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                view.AppConfig.applyTheme(newScene);
+            }
+        });
 
-            // lấy ngày hiện tại
-            dateLabel.setText(LocalDate.now().format(
+        // 2. Lấy dữ liệu từ Service
+        fullMenu = menuService.getAllItems();
+
+        // lấy ngày hiện tại
+        dateLabel.setText(LocalDate.now().format(
                 DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", Locale.forLanguageTag("vi-VN"))));
-            // 3. Setup giao diện
-            setupTable();
-            renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
+        // 3. Setup giao diện
+        setupTable();
+        renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
 
-            // 4. Listener tìm kiếm
-            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-                handleSearch(newValue);
-            });
+        // 4. Listener tìm kiếm
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            handleSearch(newValue);
+        });
 
     }
 
@@ -305,6 +311,7 @@ public class MainController {
 
                 // 4. Tạo Scene mới và thiết lập Stage
                 Scene scene = new Scene(root);
+                view.AppConfig.applyTheme(scene);
                 scene.getStylesheets().add(
                         getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.css").toExternalForm()
                 );
@@ -341,6 +348,27 @@ public class MainController {
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Không thể tải trang đăng nhập.");
+        }
+    }
+
+    @FXML
+    private void openSettings() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) menuGrid.getScene().getWindow();
+
+            // Giữ kích thước cũ
+            Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+
+            // >>> THÊM DÒNG NÀY <<<
+            view.AppConfig.applyTheme(scene);
+
+            stage.setTitle("Cài đặt hệ thống");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
