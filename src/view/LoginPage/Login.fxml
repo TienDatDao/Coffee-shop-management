@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane alignment="CENTER" styleClass="root-pane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginPage.LoginController">
+<StackPane alignment="CENTER" styleClass="root-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginPage.LoginController">
     <ImageView fx:id="imgLogo" fitHeight="120" fitWidth="120" StackPane.alignment="TOP_CENTER"> <image>
         <Image url="@LoginLogo.png" />
     </image>
@@ -25,14 +25,14 @@
             <Insets bottom="40" left="40" right="40" top="40" />
         </padding>
 
-        <Label id="title" text="W E L C O M E   A D M I N" />
+        <Label id="title" text="%login.title" />
 
-        <TextField fx:id="txtUsername" promptText="User name" styleClass="text-field" />
+        <TextField fx:id="txtUsername" promptText="%login.user" styleClass="text-field" />
 
         <StackPane>
-            <PasswordField fx:id="txtPassword" promptText="Password" styleClass="password-field" />
+            <PasswordField fx:id="txtPassword" promptText="%login.pass" styleClass="password-field" />
 
-            <TextField fx:id="txtPasswordVisible" managed="false" promptText="Password" styleClass="text-field" visible="false" />
+            <TextField fx:id="txtPasswordVisible" managed="false" promptText="%login.pass" styleClass="text-field" visible="false" />
 
             <CheckBox id="show-password-checkbox" fx:id="chkShowPassword" onAction="#handleShowPasswordToggle" StackPane.alignment="CENTER_RIGHT">
                 <StackPane.margin>
@@ -41,10 +41,10 @@
             </CheckBox>
         </StackPane>
 
-        <Button id="login-button" fx:id="btnLogin" maxWidth="1.7976931348623157E308" onAction="#handleLoginAction" text="Login" />
+        <Button id="login-button" fx:id="btnLogin" maxWidth="1.7976931348623157E308" onAction="#handleLoginAction" text="%login.btn" />
 
         <Label id="message" fx:id="lblMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Please enter your user name and password" />
 
-        <Hyperlink fx:id="linkRegister" alignment="CENTER" maxWidth="1.7976931348623157E308" onAction="#handleRegisterAction" text="Đăng ký" />
+        <Hyperlink fx:id="linkRegister" alignment="CENTER" maxWidth="1.7976931348623157E308" onAction="#handleRegisterAction" text="%login.register" />
     </VBox>
 </StackPane>

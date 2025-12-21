@@ -1,71 +1,45 @@
 package view;
 
-import Interface.IMenuService;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.css.PseudoClass;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import view.Helper.LanguageManager;
 import view.MockTest.MockAuthService;
 import view.MockTest.MockMenuService;
 
-import java.io.IOException;
-import java.net.URL;
+import java.util.ResourceBundle;
 
 public class MainTest extends Application {
+
+    // Giả lập Service toàn cục (như code cũ của bạn)
+    public static final MockMenuService SHARED_MENU_SERVICE = new MockMenuService();
     public static final MockAuthService MOCK_AUTH_SERVICE = new MockAuthService();
-    public static final IMenuService SHARED_MENU_SERVICE = new MockMenuService();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //  trang đăng nhập
-        URL fxmlUrl = getClass().getResource("/view/LoginPage/Login.fxml");
-        if (fxmlUrl == null) {
-            throw new IOException("Không tìm thấy file FXML: Login.fxml");
-        }
+        // 1. Lấy ngôn ngữ hiện tại (Việt hoặc Anh)
+        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
-        StackPane root = FXMLLoader.load(fxmlUrl);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginPage/Login.fxml"));
 
+        // 3. Cài đặt ResourceBundle cho loader
+        loader.setResources(bundle);
+
+        // 4. Load giao diện
+        Parent root = loader.load();
+
+        // 5. Thiết lập Scene
         Scene scene = new Scene(root, 1000, 600);
 
-        scene.getStylesheets()
-                .add(getClass().getResource("/view/LoginPage/Login.css").toExternalForm());
+        // Add CSS
+        String css = this.getClass().getResource("/view/LoginPage/Login.css").toExternalForm();
+        scene.getStylesheets().add(css);
 
-        primaryStage.setTitle("Quản lý Quán Cà phê - Đăng nhập");
+        primaryStage.setTitle(bundle.getString("app.title")); // Lấy title từ file ngôn ngữ luôn
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        // === Kích hoạt animation trong css ===
-        Platform.runLater(() -> {
-            root.pseudoClassStateChanged(
-                    PseudoClass.getPseudoClass("shown"),
-                    true
-            );
-        });
-        // trang đăng nhập
-//        // trang thanh toán cuối cùng
-//        BorderPane root = FXMLLoader.load(getClass().getResource("/view/PaymentPage/Payment.fxml"));
-//        Scene scene = new Scene(root, 1000, 600);
-//        primaryStage.setTitle("Payment Page - POS");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//        // Giả sử 'scene' là đối tượng Scene của bạn
-//        scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
-//        // trang thanh toán cuối cùng
-//        StackPane root = FXMLLoader.load(getClass().getResource("/view/MenuManagerPage/MenuManager.fxml"));
-//        Scene scene = new Scene(root, 1000, 600);
-//        primaryStage.setTitle("Coffee management app");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//        scene.getStylesheets().add(getClass().getResource("/view/MenuManagerPage/MenuManager.css").toExternalForm());
-//        BorderPane root = FXMLLoader.load(getClass().getResource("/view/MainScreen/MainView.fxml"));
-//        Scene scene = new Scene(root, 1000, 600);
-//        primaryStage.setTitle("Coffee management app");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//        scene.getStylesheets().add(getClass().getResource("/view/MainScreen/Main.css").toExternalForm());
     }
 
     public static void main(String[] args) {

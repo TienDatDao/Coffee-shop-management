@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import view.Helper.LanguageManager;
 import view.MockTest.MockOrderService;
 
 import java.io.IOException;
@@ -242,6 +243,8 @@ public class PaymentController implements Initializable {
 
     private void goToPage(String fxmlPath, String cssPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+        loader.setResources(bundle);
         Parent root = loader.load();
 
         Scene scene = btnPay.getScene();

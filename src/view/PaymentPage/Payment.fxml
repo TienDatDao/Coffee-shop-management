@@ -24,22 +24,22 @@
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
-                <Label fx:id="lblTotal" text="Tổng tiền: 0.00"
+                <Label fx:id="lblTotal" text="%pay.subtotal"
                        styleClass="total-label"/>
-                <Label fx:id="lblDiscount" text="Ưu đãi: -0.00"
+                <Label fx:id="lblDiscount" text="%pay.discount"
                        styleClass="discount-label" />
-                <Label fx:id="lblSubTotal" text="Thành tiền: 0.00"
+                <Label fx:id="lblSubTotal" text="%pay.total"
                        styleClass="subtotal-label" />
-                <Label text="Phương thức thanh toán:" styleClass="section-header"/>
+                <Label text="%pay.method" styleClass="section-header"/>
 
-                <RadioButton fx:id="rbCash" text="Thanh toán bằng tiền mặt" styleClass="pay-radio"/>
-                <RadioButton fx:id="rbCard" text="Thanh toán bằng QR code" styleClass="pay-radio"/>
-                <RadioButton fx:id="rbWallet" text="Thanh toán bằng thẻ ATM" styleClass="pay-radio"/>
+                <RadioButton fx:id="rbCash" text="%pay.methodcash" styleClass="pay-radio"/>
+                <RadioButton fx:id="rbCard" text="%pay.methodcode" styleClass="pay-radio"/>
+                <RadioButton fx:id="rbWallet" text="%pay.methodcard" styleClass="pay-radio"/>
                 <FlowPane fx:id="flowImages"
                           hgap="15" vgap="15"
                           prefWrapLength="400"
                           xmlns:fx="http://javafx.com/fxml/1" />
-                <Button fx:id="btnPay" text="Thanh toán" onAction="#handlePay"
+                <Button fx:id="btnPay" text="%pay.btn" onAction="#handlePay"
                         styleClass="pay-button"/>
                 <Label fx:id="lblMessage" text="" wrapText="true"/>
             </VBox>

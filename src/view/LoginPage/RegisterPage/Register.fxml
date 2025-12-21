@@ -17,23 +17,23 @@
     </padding>
 
     <!-- TIÊU ĐỀ -->
-    <Label text="ĐĂNG KÝ TÀI KHOẢN" styleClass="register-title"/>
+    <Label text="%re.title" styleClass="register-title"/>
 
     <!-- NHẬP TÊN -->
     <TextField fx:id="txtUsername"
-               promptText="Tên đăng nhập"
+               promptText="%re.username"
                styleClass="input-field"
                maxWidth="260"/>
 
     <!-- NHẬP MẬT KHẨU -->
     <PasswordField fx:id="txtPassword"
-                   promptText="Mật khẩu"
+                   promptText="%re.password"
                    styleClass="input-field"
                    maxWidth="260"/>
 
     <!-- CHỌN QUYỀN -->
     <HBox alignment="CENTER_LEFT" spacing="10" maxWidth="260">
-        <Label text="Quyền truy cập:" styleClass="label-role"/>
+        <Label text="%re.role" styleClass="label-role"/>
 
         <ChoiceBox fx:id="choiceRole" styleClass="choice-role">
             <items>
@@ -48,12 +48,12 @@
     <!-- NÚT -->
     <HBox alignment="CENTER" spacing="12">
         <Button fx:id="btnRegister"
-                text="Đăng ký"
+                text="%re.re"
                 styleClass="btn-register"
                 onAction="#handleRegister"/>
 
         <Button fx:id="btnCancel"
-                text="Thoát"
+                text="%re.cancel"
                 styleClass="btn-cancel"
                 onAction="#handleCancel"/>
     </HBox>

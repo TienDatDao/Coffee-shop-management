@@ -11,8 +11,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import view.Helper.LanguageManager;
 import view.MainTest;
 import view.MockTest.MockUser;
+
+import java.util.ResourceBundle;
 
 public class RegisterController {
 
@@ -63,9 +66,14 @@ public class RegisterController {
 
     private void loadLoginPage() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/Login.fxml"));
-            Stage stage = (Stage) txtUsername.getScene().getWindow();
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginPage/Login.fxml"));
+
+            loader.setResources(bundle);
+
+            Parent root = loader.load();
+            Stage stage = (Stage) txtUsername.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             scene.getStylesheets().add(
                     getClass().getResource("/view/LoginPage/Login.css").toExternalForm()

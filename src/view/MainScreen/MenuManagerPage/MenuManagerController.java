@@ -19,7 +19,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import view.MainTest;
+import view.Helper.LanguageManager;
 import view.MainScreen.MenuManagerPage.Dialog.ItemDialogController;
 import view.MainTest;
 import view.Wrapper.MenuItemWrapper;
@@ -205,7 +205,7 @@ public class MenuManagerController {
             clicked = clicked.getParent();
         }
 
-        // Click đúng vào vùng trống -> reset
+        // Click vào vùng trống -> reset
         selectedItem = null;
         selectedCard = null;
         editMode = false;
@@ -334,12 +334,13 @@ public class MenuManagerController {
     @FXML
     private void mainScreen() throws IOException {
 
-        // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
+        // 1. Lấy Stage hiện tại
         Stage currentStage = (Stage) centerMenuGrid.getScene().getWindow();
 
         // 2. Tải FXML của màn hình chính
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MainView.fxml"));
-
+        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+        loader.setResources(bundle);
 
         // 3. Tải Root Node
         Parent root = loader.load();
@@ -356,11 +357,40 @@ public class MenuManagerController {
         currentStage.show();
     }
     @FXML
+    private void settingScreen() throws IOException {
+        // 1. Lấy Stage hiện tại
+        Stage currentStage = (Stage) centerMenuGrid.getScene().getWindow();
+
+        // 2. Tải FXML của màn hình chính
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"));
+        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+        loader.setResources(bundle);
+
+        // 3. Tải Root Node
+        Parent root = loader.load();
+        // 4. Tạo Scene mới và thiết lập Stage
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(
+                getClass().getResource("/view/MainScreen/SettingsPage/Settings.css").toExternalForm()
+        );
+
+        //  Đặt tiêu đề mới cho cửa sổ
+        currentStage.setTitle("Coffee Shop Management - Welcome ");
+        currentStage.setMaximized(true);
+        currentStage.setScene(scene);
+        currentStage.show();
+    }
+    @FXML
     private void logout(){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/Login.fxml"));
-            Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginPage/Login.fxml"));
+
+            loader.setResources(bundle);
+
+            Parent root = loader.load();
+            Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             scene.getStylesheets().add(
                     getClass().getResource("/view/LoginPage/Login.css").toExternalForm()

@@ -1,35 +1,35 @@
+/* =======================
+   GLOBAL ROOT
+======================= */
 .root {
-    /* Chuyển từ trắng sữa sang xám ấm nhẹ */
-    -fx-background-color: linear-gradient(to bottom right, #FFFCF5, #F1F5F9);
-}
-/* --- GLOBAL VARIABLES & FONTS --- */
-* {
-    -fx-font-family: 'Segoe UI', 'Roboto', sans-serif;
-    -fx-text-fill: #334155; /* Slate 700 */
+    -fx-background-color: #F8FAFC;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #334155;
 }
 
-.root {
-    -fx-background-color: #F8FAFC; /* Slate 50 */
+.center-background {
+    -fx-background-color: #FFFFFF;
 }
 
-/* --- SIDEBAR (LEFT) --- */
+/* =======================
+   SIDEBAR
+======================= */
 .sidebar {
-    -fx-background-color: #1E293B; /* Slate 800 */
+    -fx-background-color: #1E293B;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
 }
 
 .app-logo {
     -fx-font-size: 28px;
     -fx-font-weight: 800;
-    -fx-text-fill: #F1F5F9; /* Slate 100 */
+    -fx-text-fill: #F1F5F9;
     -fx-padding: 0 0 10 0;
     -fx-alignment: CENTER;
 }
 
-/* Navigation Buttons */
 .nav-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #94A3B8; /* Slate 400 */
+    -fx-text-fill: #94A3B8;
     -fx-font-size: 15px;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 12 20;
@@ -38,20 +38,22 @@
 }
 
 .nav-btn:hover {
-    -fx-background-color: #5b79ab;
+    -fx-background-color: #5B79AB;
     -fx-text-fill: #F1F5F9;
 }
 
 .active-nav {
-    -fx-background-color: #3B82F6; /* Blue 500 */
-    -fx-text-fill: white;
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.4), 10, 0, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.4), 10, 0, 0, 5);
 }
 
-/* --- CENTER CONTENT --- */
+/* =======================
+   SEARCH BAR
+======================= */
 .search-bar {
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 30;
     -fx-border-radius: 30;
     -fx-border-color: #E2E8F0;
@@ -64,9 +66,11 @@
     -fx-border-color: #3B82F6;
 }
 
-/* Filter Buttons */
+/* =======================
+   FILTER BUTTON
+======================= */
 .filter-btn {
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-text-fill: #64748B;
     -fx-background-radius: 20;
     -fx-border-color: #E2E8F0;
@@ -81,19 +85,18 @@
     -fx-border-color: #3B82F6;
 }
 
-/* PRODUCT CARD (Được tạo trong Controller) */
+/* =======================
+   PRODUCT CARD
+======================= */
 .product-card {
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 16;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
     -fx-padding: 15;
     -fx-cursor: hand;
-    -fx-transition: all 0.3s;
 }
 
 .product-card:hover {
-    -fx-scale-x: 1.03;
-    -fx-scale-y: 1.03;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 8);
 }
 
@@ -105,13 +108,15 @@
 
 .card-price {
     -fx-font-size: 14px;
-    -fx-text-fill: #10B981; /* Emerald 500 */
+    -fx-text-fill: #10B981;
     -fx-font-weight: bold;
 }
 
-/* --- RIGHT PANE (ORDER) --- */
+/* =======================
+   RIGHT PANE
+======================= */
 .right-pane-light {
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), -5, 0, 0, 0);
 }
 
@@ -121,42 +126,69 @@
     -fx-text-fill: #1E293B;
 }
 
-/* TABLE VIEW STYLING - Phần khó nhất để làm đẹp */
+/* =======================
+   TABLE VIEW
+======================= */
 .table-view {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 8, 0, 0, 4);
 }
 
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-
+.table-view .column-header-background,
 .table-view .column-header {
     -fx-background-color: transparent;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: #E2E8F0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #94A3B8;
     -fx-font-weight: bold;
-    -fx-text-fill: #64748B;
+    -fx-font-size: 11px;
 }
 
 .table-row-cell {
     -fx-background-color: transparent;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: #F1F5F9;
-    -fx-cell-size: 50px;
+    -fx-cell-size: 60px;
+    -fx-border-color: transparent transparent #F1F5F9 transparent;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #F8FAFC;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #EFF6FF; /* Blue 50 */
+    -fx-background-color: #EFF6FF;
+    -fx-border-color: transparent transparent transparent #3B82F6;
+    -fx-border-width: 0 0 0 3;
 }
 
-/* Scrollbar đẹp hơn */
+.table-cell {
+    -fx-text-fill: #334155;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* =======================
+   SCROLL BAR (SAFE)
+======================= */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
 .scroll-bar:vertical .thumb {
     -fx-background-color: #CBD5E1;
     -fx-background-radius: 10;
 }
 
-/* BUTTONS ACTION */
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #94A3B8;
+}
+
+/* =======================
+   ACTION BUTTONS
+======================= */
 .qty-btn {
     -fx-background-color: #F1F5F9;
     -fx-text-fill: #1E293B;
@@ -164,20 +196,25 @@
     -fx-background-radius: 8;
     -fx-min-width: 32px;
     -fx-min-height: 32px;
-    -fx-cursor: hand;
 }
-.qty-btn:hover { -fx-background-color: #E2E8F0; }
+
+.qty-btn:hover {
+    -fx-background-color: #E2E8F0;
+}
 
 .danger-btn {
-    -fx-background-color: #FEE2E2; /* Red 100 */
-    -fx-text-fill: #EF4444; /* Red 500 */
+    -fx-background-color: #FEE2E2;
+    -fx-text-fill: #EF4444;
     -fx-background-radius: 8;
-    -fx-cursor: hand;
-    -fx-padding: 8 16;
 }
-.danger-btn:hover { -fx-background-color: #FECACA; }
 
-/* TOTAL & CHECKOUT */
+.danger-btn:hover {
+    -fx-background-color: #FECACA;
+}
+
+/* =======================
+   TOTAL
+======================= */
 .total-label {
     -fx-font-size: 14px;
     -fx-text-fill: #64748B;
@@ -191,123 +228,13 @@
 
 .checkout-btn {
     -fx-background-color: linear-gradient(to right, #10B981, #059669);
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-background-radius: 12;
-    -fx-effect: dropshadow(three-pass-box, rgba(16, 185, 129, 0.4), 10, 0, 0, 5);
-    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(16,185,129,0.4), 10, 0, 0, 5);
 }
 
 .checkout-btn:hover {
     -fx-background-color: linear-gradient(to right, #34D399, #10B981);
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-}
-/* --- TABLE VIEW CAO CẤP --- */
-
-/* 1. Tổng thể bảng: Bo tròn, đổ bóng nhẹ, nền trắng */
-.table-view {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-padding: 0; /* Xóa viền thừa */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 8, 0, 0, 4);
-}
-
-/* 2. Tiêu đề cột (Header): Ẩn nền xám mặc định, chỉ hiện chữ in hoa nhỏ */
-.table-view .column-header-background {
-    -fx-background-color: transparent; /* Trong suốt */
-    -fx-background-radius: 12 12 0 0; /* Bo 2 góc trên */
-}
-
-.table-view .column-header {
-    -fx-background-color: transparent;
-    -fx-size: 45px; /* Chiều cao header */
-    -fx-border-color: transparent transparent #E2E8F0 transparent; /* Chỉ kẻ gạch dưới */
-    -fx-border-width: 1px;
-}
-
-.table-view .column-header .label {
-    -fx-text-fill: #94A3B8; /* Màu chữ xám nhạt sang trọng */
-    -fx-font-weight: bold;
-    -fx-font-size: 11px;
-    -fx-alignment: CENTER_LEFT;
-}
-
-/* 3. Dòng dữ liệu (Rows): Cao hơn, thoáng hơn */
-.table-row-cell {
-    -fx-background-color: transparent;
-    -fx-cell-size: 60px; /* Tăng chiều cao mỗi dòng lên 60px (Rất quan trọng để nhìn thoáng) */
-    -fx-border-color: transparent transparent #F1F5F9 transparent; /* Gạch dưới mờ */
-    -fx-border-width: 1px;
-    -fx-padding: 0 10 0 10; /* Cách lề trái phải */
-}
-
-/* Hiệu ứng khi di chuột vào dòng -> Đổi màu nhẹ */
-.table-row-cell:hover {
-    -fx-background-color: #F8FAFC;
-    -fx-cursor: hand;
-}
-
-/* Hiệu ứng khi dòng được chọn -> Màu xanh rất nhạt + Viền xanh bên trái */
-.table-row-cell:selected {
-    -fx-background-color: #EFF6FF; /* Blue 50 */
-    -fx-background-insets: 0;
-    -fx-border-color: transparent transparent transparent #3B82F6;
-    -fx-border-width: 0 0 0 3; /* Viền xanh 3px bên trái */
-}
-
-/* 4. Text trong ô */
-.table-cell {
-    -fx-alignment: CENTER_LEFT;
-    -fx-text-fill: #334155;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-border-color: transparent; /* Xóa viền ô */
-}
-/* --- SCROLL PANE & MENU BACKGROUND --- */
-
-/* 1. Nền của vùng cuộn */
-.scroll-pane {
-    -fx-background-color: transparent; /* Trong suốt hoàn toàn */
-}
-
-.scroll-pane > .viewport {
-    -fx-background-color: transparent; /* Trong suốt hoàn toàn */
-}
-
-/* 2. CUSTOM SCROLLBAR (Phần quan trọng nhất để đẹp) */
-
-/* Thanh cuộn dọc */
-.scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-pref-width: 10px; /* Làm thanh cuộn mảnh đi */
-}
-
-/* Phần rãnh trượt (Track) -> Ẩn đi */
-.scroll-bar:vertical .track {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-/* Phần cục trượt (Thumb) -> Bo tròn, màu xám nhạt */
-.scroll-bar:vertical .thumb {
-    -fx-background-color: #CBD5E1; /* Màu xám nhạt */
-    -fx-background-insets: 2; /* Tạo khoảng hở 2 bên */
-    -fx-background-radius: 10; /* Bo tròn hoàn toàn */
-}
-
-/* Khi di chuột vào thanh cuộn -> Đậm lên xíu */
-.scroll-bar:vertical .thumb:hover {
-    -fx-background-color: #94A3B8;
-}
-
-/* Ẩn các nút mũi tên lên xuống của thanh cuộn */
-.scroll-bar:vertical .increment-button,
-.scroll-bar:vertical .decrement-button {
-    -fx-padding: 0;
-    -fx-pref-height: 0;
-    -fx-pref-width: 0;
-    -fx-shape: " "; /* Hack để ẩn hình mũi tên */
 }

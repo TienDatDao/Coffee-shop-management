@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="root" stylesheets="@Statistics.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.StatisticsPage.StatisticsController">
+
+    <left>
+        <VBox fx:id="sidebarBox" prefWidth="200.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="20" left="15" right="15" top="20" /></padding>
+            <children>
+                <Label styleClass="app-logo" text="COFFEE POS" />
+                <Separator opacity="0.1" />
+                <Region prefHeight="20.0" />
+                <Button maxWidth="Infinity" onAction="#mainScreen" styleClass="nav-btn" text="🛒   Bán hàng" />
+                <Button maxWidth="Infinity" onAction="#statisticsScreen" styleClass="nav-btn active-nav" text="📊   Thống kê" />
+                <Button maxWidth="Infinity" onAction="#menuManagerScreen" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
+                <Button maxWidth="Infinity" onAction="#settingsScreen" styleClass="nav-btn" text="⚙   Cài đặt" />
+                <Region VBox.vgrow="ALWAYS" />
+                <Button maxWidth="Infinity" onAction="#logout" styleClass="nav-btn" text="🚪   Đăng xuất" />
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="15.0" style="-fx-background-color: #F3F4F6;" VBox.vgrow="ALWAYS">
+            <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d3436;" text="Thống kê Doanh thu" />
+
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="Thống kê theo:" />
+                <ComboBox fx:id="timeGranularityComboBox" onAction="#updateChart" prefWidth="150" promptText="Chọn" />
+                <ComboBox fx:id="filterComboBox" onAction="#updateChart" prefWidth="200" promptText="Chọn Ngày/Tháng/Năm" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button onAction="#refreshData" styleClass="secondary-btn" text="Tải lại Dữ liệu" />
+            </HBox>
+
+            <BarChart fx:id="revenueChart" VBox.vgrow="ALWAYS">
+                <xAxis>
+                    <CategoryAxis fx:id="xAxis" label="Thời gian" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="yAxis" label="Doanh thu (VNĐ)" side="LEFT" />
+                </yAxis>
+            </BarChart>
+
+        </VBox>
+    </center>
+</BorderPane>

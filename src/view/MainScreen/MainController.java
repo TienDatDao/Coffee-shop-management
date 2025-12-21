@@ -17,8 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import view.Helper.LanguageManager;
 import view.MainTest;
-import view.MockTest.MockMenuService;
 import view.MockTest.MockOrder;
 import view.MockTest.MockOrderItem;
 import view.PaymentPage.PaymentController;
@@ -30,6 +30,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class MainController {
@@ -64,20 +65,26 @@ public class MainController {
         // 1. Khởi tạo Service
         menuService = MainTest.SHARED_MENU_SERVICE;
 
-            // 2. Lấy dữ liệu từ Service
-            fullMenu = menuService.getAllItems();
+        menuGrid.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                view.AppConfig.applyTheme(newScene);
+            }
+        });
 
-            // lấy ngày hiện tại
-            dateLabel.setText(LocalDate.now().format(
+        // 2. Lấy dữ liệu từ Service
+        fullMenu = menuService.getAllItems();
+
+        // lấy ngày hiện tại
+        dateLabel.setText(LocalDate.now().format(
                 DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", Locale.forLanguageTag("vi-VN"))));
-            // 3. Setup giao diện
-            setupTable();
-            renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
+        // 3. Setup giao diện
+        setupTable();
+        renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
 
-            // 4. Listener tìm kiếm
-            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-                handleSearch(newValue);
-            });
+        // 4. Listener tìm kiếm
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            handleSearch(newValue);
+        });
 
     }
 
@@ -120,12 +127,12 @@ public class MainController {
     // Tạo thẻ sản phẩm từ Interface
     private VBox createProductCard(IMenuItem item) {
         VBox card = new VBox(10); //
-        double cardWidth = 190;   // Tăng độ rộng thẻ một chút
+        double cardWidth = 170;   // Tăng độ rộng thẻ một chút
         card.setPrefWidth(cardWidth);
         card.setMaxWidth(cardWidth);
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new javafx.geometry.Insets(15)); // Padding nội bộ thẻ
+        card.setPadding(new javafx.geometry.Insets(10)); // Padding nội bộ thẻ
 
         // --- XỬ LÝ ẢNH ---
         ImageView imageView = new ImageView();
@@ -138,8 +145,8 @@ public class MainController {
         }
 
         imageView.setFitWidth(130);
-        imageView.setFitHeight(130);
-        imageView.setPreserveRatio(true); // Giữ tỷ lệ ảnh
+        imageView.setFitHeight(100);
+        imageView.setPreserveRatio(false); // Giữ tỷ lệ ảnh
 
         // Bo tròn ảnh (Soft square)
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
@@ -272,7 +279,12 @@ public class MainController {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentPage/Payment.fxml"));
+        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/PaymentPage/Payment.fxml"),
+                bundle
+        );
         Parent root = loader.load();
 
         IOrder orderToSend = new MockOrder();
@@ -297,22 +309,23 @@ public class MainController {
             try {
                 // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
                 Stage currentStage = (Stage) menuGrid.getScene().getWindow();
+                ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
                 // 2. Tải FXML của màn hình chính
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"));
-
+                loader.setResources(bundle);
                 // 3. Tải Root Node
                 Parent root = loader.load();
 
                 // 4. Tạo Scene mới và thiết lập Stage
                 Scene scene = new Scene(root);
+                view.AppConfig.applyTheme(scene);
                 scene.getStylesheets().add(
                         getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.css").toExternalForm()
                 );
 
                 //  Đặt tiêu đề mới cho cửa sổ
                 currentStage.setTitle("Coffee Shop Management - Welcome ");
-                currentStage.setMaximized(true);
                 currentStage.setScene(scene);
                 currentStage.show();
 
@@ -330,7 +343,13 @@ public class MainController {
     @FXML
     private void logout(){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/Login.fxml"));
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/LoginPage/Login.fxml"),
+                    bundle
+            );
+            Parent root = loader.load();
             Stage stage = (Stage) menuGrid.getScene().getWindow();
 
             Scene scene = new Scene(root, 1000, 600);
@@ -343,6 +362,29 @@ public class MainController {
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Không thể tải trang đăng nhập.");
+        }
+    }
+
+    @FXML
+    private void openSettings() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"));
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+            loader.setResources(bundle);
+            Parent root = loader.load();
+            Stage stage = (Stage) menuGrid.getScene().getWindow();
+
+            // Giữ kích thước cũ
+            Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+
+            // >>> THÊM DÒNG NÀY <<<
+            view.AppConfig.applyTheme(scene);
+
+            stage.setTitle("Cài đặt hệ thống");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

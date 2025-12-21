@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import view.Helper.LanguageManager;
 import view.MockTest.MockAuthService;
 
 import java.io.IOException;
@@ -37,7 +38,14 @@ public class LoginController implements Initializable {
     // sự kiện khi nhấn đăng kí dạng hyperlink
     @FXML
     private void handleRegisterAction() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/RegisterPage/Register.fxml"));
+        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/LoginPage/RegisterPage/Register.fxml"),
+                bundle
+        );
+
+        Parent root = loader.load();
         Stage stage = (Stage) btnLogin.getScene().getWindow();
         // 4. Tạo Scene mới và thiết lập Stage
         Scene scene = new Scene(root, 1000, 600);
@@ -71,13 +79,14 @@ public class LoginController implements Initializable {
 
             // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
             try {
-                // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
                 Stage currentStage = (Stage) txtUsername.getScene().getWindow();
+                ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
-                // 2. Tải FXML của màn hình chính
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MainView.fxml"));
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/view/MainScreen/MainView.fxml"),
+                        bundle
+                );
 
-                // 3. Tải Root Node
                 Parent root = loader.load();
 
                 // 4. Tạo Scene mới và thiết lập Stage

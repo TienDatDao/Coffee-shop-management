@@ -4,18 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="merge with fe-chinh">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/pom.xml" afterDir="false" />
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="update registercController">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/i18n/message_en.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/i18n/message_vi.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/AppConfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/Helper/LanguageManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/DarkMode.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/SettingsPage/ChangePassword.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/SettingsPage/ChangePasswordController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/SettingsPage/Settings.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/SettingsPage/Settings.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/MainScreen/SettingsPage/SettingsController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/view/MainScreen/StatisticsPage/Statistics.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/view/MainScreen/StatisticsPage/Statistics.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/view/MainScreen/StatisticsPage/StatisticsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/IOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/IOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/Login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/Register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/Register.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MockTest/MockOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MockTest/MockOrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/Main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/Main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManager.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManager.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManager.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/Payment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/Payment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,11 +78,11 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/hieuv/IdeaProjects/test",
+    "last_opened_file_path": "C:/Users/hieuv/IdeaProjects/Coffee-shop-management",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15546875",
     "project.structure.side.proportion": "0.20331186",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
+    "settings.editor.selected.configurable": "File.Encoding"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -71,10 +91,11 @@
       <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\MainScreen" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\I18NN" />
+      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\i18n\message" />
       <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\PaymentPage" />
       <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\MainScreen\MainScreenImages" />
       <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\MainScreen" />
-      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\LoginPage" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="view.MainScreen" />
@@ -84,7 +105,7 @@
     <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="view.MainTest" />
       <module name="Coffee-shop-management" />
-      <option name="VM_PARAMETERS" value="--module-path C:\javafx-sdk-25.0.1\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\Java\javafx-sdk-21.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.graphics --enable-native-access=ALL-UNNAMED --enable-native-access=javafx.graphics" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="view.LoginPage.*" />
@@ -298,7 +319,14 @@
       <option name="project" value="LOCAL" />
       <updated>1765123831437</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="update registercController">
+      <created>1765248111408</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1765248111408</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -333,7 +361,8 @@
     <MESSAGE value="add register, add logout" />
     <MESSAGE value="fix a little" />
     <MESSAGE value="merge with fe-chinh" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge with fe-chinh" />
+    <MESSAGE value="update registercController" />
+    <option name="LAST_COMMIT_MESSAGE" value="update registercController" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
