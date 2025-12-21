@@ -292,7 +292,7 @@ public class MenuManagerController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"));
         Parent root = loader.load();
         ItemDialogController dc = loader.getController();
-// Truyền đối tượng gốc cho Dialog để nó cập nhật các thuộc tính của nó
+        // Truyền đối tượng gốc cho Dialog để nó cập nhật các thuộc tính của nó
         IMenuItem itemToEdit = selectedItem.getOriginal();
         dc.setEditing(itemToEdit);
 
@@ -350,10 +350,10 @@ public class MenuManagerController {
 
         //  Đặt tiêu đề mới cho cửa sổ
         currentStage.setTitle("Coffee Shop Management - Welcome ");
-        currentStage.setMaximized(true);
         currentStage.setScene(scene);
         currentStage.show();
     }
+
     @FXML
     private void logout(){
         try {
@@ -372,4 +372,24 @@ public class MenuManagerController {
             System.err.println("Không thể tải trang đăng nhập.");
         }
     }
+
+    @FXML
+    private void openSettings() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
+            Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+
+            // >>> SỬA DÒNG NÀY: Truyền thêm đường dẫn Settings.css
+            view.AppConfig.applyTheme(scene, "/view/MainScreen/SettingsPage/Settings.css");
+
+            stage.setTitle("Coffee Shop Management - Welcome ");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

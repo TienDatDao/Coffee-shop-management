@@ -17,7 +17,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController">
 
     <left>
-        <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="202.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+        <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="220.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
             <padding> <Insets bottom="20" left="15" right="15" top="20" /> </padding>
             <children>
                 <Label maxWidth="Infinity" styleClass="app-logo" text="COFFEE POS" />
@@ -25,7 +25,7 @@
                 <Region prefHeight="20.0" />
 
                 <Button maxWidth="Infinity" styleClass="nav-btn, active-nav" text="🛒   Bán hàng" />
-                <Button onAction="#menuManager" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
+                <Button onAction="#menuManager" prefHeight="25.0" prefWidth="189.0" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
                 <Button maxWidth="Infinity" onAction="#openSettings" styleClass="nav-btn" text="⚙  Cài đặt" />
                 <Region VBox.vgrow="ALWAYS" />
                 <Button maxWidth="Infinity" onAction="#logout" styleClass="nav-btn" text="🚪   Đăng xuất" />

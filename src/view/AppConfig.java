@@ -4,20 +4,23 @@ import javafx.scene.Scene;
 import java.util.Locale;
 
 public class AppConfig {
-    // Biến lưu trạng thái
     public static boolean isDarkMode = false;
     public static Locale currentLocale = new Locale("vi", "VN");
 
-    public static void applyTheme(Scene scene) {
-        // 1. Xóa sạch các CSS hiện có để tránh chồng chéo sai lệch
+    // Sửa hàm này: Thêm tham số 'extraCss'
+    public static void applyTheme(Scene scene, String extraCss) {
+        // 1. Xóa sạch CSS cũ
         scene.getStylesheets().clear();
 
-        // 2. LUÔN LUÔN add Main.css trước (chứa layout, size, padding cơ bản)
-        // Lưu ý: Đảm bảo đường dẫn tới file css là chính xác
+        // 2. Add Main.css (Cơ bản)
         scene.getStylesheets().add(AppConfig.class.getResource("/view/MainScreen/Main.css").toExternalForm());
 
-        // 3. Nếu là Dark Mode, add thêm DarkMode.css vào SAU
-        // (CSS add sau sẽ ghi đè CSS add trước nếu trùng selector)
+        // 3. Add CSS phụ (Ví dụ: Settings.css) nếu có
+        if (extraCss != null && !extraCss.isEmpty()) {
+            scene.getStylesheets().add(AppConfig.class.getResource(extraCss).toExternalForm());
+        }
+
+        // 4. Add DarkMode.css CUỐI CÙNG (Để đè lên tất cả)
         if (isDarkMode) {
             scene.getStylesheets().add(AppConfig.class.getResource("/view/MainScreen/DarkMode.css").toExternalForm());
         }

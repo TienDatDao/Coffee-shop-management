@@ -47,10 +47,10 @@ public class SettingsController {
 
     @FXML
     private void handleDarkModeToggle() {
-        // Lưu trạng thái vào Config
         AppConfig.isDarkMode = darkModeToggle.isSelected();
-        // Áp dụng ngay lập tức
-        AppConfig.applyTheme(darkModeToggle.getScene());
+
+        // >>> SỬA DÒNG NÀY: Khi toggle ở trang Settings, phải nạp lại cả Settings.css
+        AppConfig.applyTheme(darkModeToggle.getScene(), "/view/MainScreen/SettingsPage/Settings.css");
     }
 
     @FXML
@@ -66,7 +66,7 @@ public class SettingsController {
 
             Scene scene = new Scene(root);
             // Quan trọng: Popup cũng phải theo chế độ Sáng/Tối
-            AppConfig.applyTheme(scene);
+            AppConfig.applyTheme(scene, null);
 
             modalStage.setScene(scene);
             modalStage.showAndWait();
@@ -80,16 +80,32 @@ public class SettingsController {
     }
 
     @FXML
-    private void goBack() {
+    private void mainScreen() {
         try {
-            // Quay về MainView
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MainView.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) darkModeToggle.getScene().getWindow();
-
             Scene scene = new Scene(root);
-            // Quan trọng: Áp dụng Theme đã cài đặt khi quay về
-            AppConfig.applyTheme(scene);
+
+            // >>> SỬA DÒNG NÀY: Quay về Main thì tham số thứ 2 là null (không cần Settings.css)
+            AppConfig.applyTheme(scene, "/view/MainScreen/Main.css");
+
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void menuManager() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) darkModeToggle.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // >>> SỬA DÒNG NÀY: Quay về Main thì tham số thứ 2 là null (không cần Settings.css)
+            AppConfig.applyTheme(scene, "/view/MainScreen/MenuManagerPage/MenuManager.css");
 
             stage.setScene(scene);
         } catch (IOException e) {

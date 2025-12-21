@@ -65,7 +65,7 @@ public class MainController {
 
         menuGrid.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
-                view.AppConfig.applyTheme(newScene);
+                view.AppConfig.applyTheme(newScene, null);
             }
         });
 
@@ -295,43 +295,7 @@ public class MainController {
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
     }
-    @FXML
-    private void menuManager(){
-        if(Main.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
-            // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
-            try {
-                // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
-                Stage currentStage = (Stage) menuGrid.getScene().getWindow();
 
-                // 2. Tải FXML của màn hình chính
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"));
-
-                // 3. Tải Root Node
-                Parent root = loader.load();
-
-                // 4. Tạo Scene mới và thiết lập Stage
-                Scene scene = new Scene(root);
-                view.AppConfig.applyTheme(scene);
-                scene.getStylesheets().add(
-                        getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.css").toExternalForm()
-                );
-
-                //  Đặt tiêu đề mới cho cửa sổ
-                currentStage.setTitle("Coffee Shop Management - Welcome ");
-                currentStage.setScene(scene);
-                currentStage.show();
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Thông báo");
-            alert.setHeaderText(null);
-            alert.setContentText("Bạn không có quyền truy cập!");
-            alert.showAndWait();        }
-    }
     @FXML
     private void logout(){
         try {
@@ -352,19 +316,52 @@ public class MainController {
     }
 
     @FXML
+    private void menuManager(){
+        if(Main.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
+            // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
+            try {
+                // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
+                Stage currentStage = (Stage) menuGrid.getScene().getWindow();
+
+                // 2. Tải FXML của màn hình chính
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"));
+
+                // 3. Tải Root Node
+                Parent root = loader.load();
+
+                // 4. Tạo Scene mới và thiết lập Stage
+                Scene scene = new Scene(root);
+                view.AppConfig.applyTheme(scene, "/view/MainScreen/MenuManagerPage/MenuManager.css");
+
+                //  Đặt tiêu đề mới cho cửa sổ
+                currentStage.setTitle("Coffee Shop Management - Welcome ");
+                currentStage.setScene(scene);
+                currentStage.show();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn không có quyền truy cập!");
+            alert.showAndWait();        }
+    }
+
+    @FXML
     private void openSettings() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) menuGrid.getScene().getWindow();
-
-            // Giữ kích thước cũ
             Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
 
-            // >>> THÊM DÒNG NÀY <<<
-            view.AppConfig.applyTheme(scene);
+            // >>> SỬA DÒNG NÀY: Truyền thêm đường dẫn Settings.css
+            view.AppConfig.applyTheme(scene, "/view/MainScreen/SettingsPage/Settings.css");
 
-            stage.setTitle("Cài đặt hệ thống");
+            stage.setTitle("Coffee Shop Management - Welcome ");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

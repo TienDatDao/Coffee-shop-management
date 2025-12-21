@@ -172,3 +172,80 @@
 .center-background {
     -fx-background-color: #0F172A;
 }
+
+/* =======================
+   10. SETTINGS PAGE (BỔ SUNG)
+======================= */
+
+/* 1. Nền chính của trang Settings */
+.root-container {
+    -fx-background-color: #0F172A; /* Trùng màu nền global */
+}
+
+/* 2. Các thẻ Card chứa nội dung */
+.card {
+    -fx-background-color: #1E293B; /* Trùng màu Sidebar/Product Card */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 4);
+    -fx-border-color: #334155;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* 3. Text Tiêu đề (Header + Card Title) */
+.header-title,
+.card-title,
+.input-label {
+    -fx-text-fill: #F1F5F9; /* Màu trắng sáng */
+}
+
+/* 4. Text mô tả phụ (Subtitle) */
+.header-subtitle,
+.card-desc,
+.input-hint {
+    -fx-text-fill: #94A3B8; /* Màu xám xanh nhạt */
+}
+
+/* 5. Nút Back (<) */
+.btn-back {
+    -fx-text-fill: #F1F5F9;
+    -fx-border-color: #334155;
+    -fx-background-color: transparent;
+}
+
+.btn-back:hover {
+    -fx-background-color: #334155;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* 6. ComboBox (Ngôn ngữ) - Phần khó nhất của JavaFX CSS */
+.custom-combo {
+    -fx-background-color: #1E293B;
+    -fx-border-color: #334155;
+    -fx-text-fill: #F1F5F9;
+}
+
+/* Màu chữ hiển thị bên trong ô chọn */
+.custom-combo .list-cell {
+    -fx-text-fill: #F1F5F9;
+    -fx-background-color: transparent;
+}
+
+/* Mũi tên của ComboBox */
+.custom-combo .arrow-button .arrow {
+    -fx-background-color: #94A3B8;
+}
+
+/* Menu xổ xuống (Popup) */
+.custom-combo .list-view {
+    -fx-background-color: #1E293B;
+    -fx-border-color: #334155;
+}
+
+.custom-combo .list-view .list-cell {
+    -fx-text-fill: #F1F5F9;
+    -fx-background-color: #1E293B;
+}
+
+.custom-combo .list-view .list-cell:hover {
+    -fx-background-color: #334155; /* Màu khi di chuột vào item */
+}
