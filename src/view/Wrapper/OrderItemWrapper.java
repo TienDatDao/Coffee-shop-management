@@ -29,6 +29,7 @@ public class OrderItemWrapper implements IOrderItem {
         });
     }
 
+
     private double calculateSubtotal() {
         return this.quantity.get() * this.price.get();
     }
@@ -85,6 +86,8 @@ public class OrderItemWrapper implements IOrderItem {
     public String getCategory() {
         return menuItem.getCategory();
     }
+    public SimpleDoubleProperty priceProperty() { return price; }
+
 
     @Override
     public Image getImage() {

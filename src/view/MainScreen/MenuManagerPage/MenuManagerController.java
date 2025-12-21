@@ -45,10 +45,13 @@ public class MenuManagerController {
     private MenuItemWrapper selectedItem;
 
     private Map<String, VBox> itemCardMap = new HashMap<>();
+    private DateTimeFormatter formatter;
 
     @FXML
     public void initialize() {
         menuService = MainTest.SHARED_MENU_SERVICE;
+        Locale locale = LanguageManager.getInstance().getBundle().getLocale();
+        formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", locale);
         root.setOnMouseClicked(e -> handleClickOutside(e));
         // Bao dữ liệu gốc trong wrapper
         fullMenu = new ArrayList<>();

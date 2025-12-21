@@ -22,12 +22,14 @@ import view.MainTest;
 import view.MockTest.MockOrder;
 import view.MockTest.MockOrderItem;
 import view.PaymentPage.PaymentController;
+import view.Wrapper.MenuItemWrapper;
 import view.Wrapper.OrderItemWrapper;
 
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -49,7 +51,7 @@ public class MainController {
     @FXML private Label totalLabel;
 
     // --- DATA & SERVICES ---
-    private List<IMenuItem> fullMenu;
+    private List<MenuItemWrapper> fullMenu;
 
     // Gọi Service thông qua Interface
     private IMenuService menuService;
@@ -58,12 +60,15 @@ public class MainController {
     private ObservableList<OrderItemWrapper> currentOrder = FXCollections.observableArrayList();
 
     // Formatter tiền tệ VNĐ
-    private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-
+    private NumberFormat currencyFormatter;
+    private DateTimeFormatter formatter;
     @FXML
     public void initialize() {
         // 1. Khởi tạo Service
         menuService = MainTest.SHARED_MENU_SERVICE;
+        Locale locale = LanguageManager.getInstance().getBundle().getLocale();
+        currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", locale);
 
         menuGrid.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
@@ -72,11 +77,13 @@ public class MainController {
         });
 
         // 2. Lấy dữ liệu từ Service
-        fullMenu = menuService.getAllItems();
-
+        fullMenu = new ArrayList<>();
+        for (IMenuItem item : menuService.getAllItems()) {
+            fullMenu.add(new MenuItemWrapper(item));
+        }
         // lấy ngày hiện tại
         dateLabel.setText(LocalDate.now().format(
-                DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", Locale.forLanguageTag("vi-VN"))));
+                formatter));
         // 3. Setup giao diện
         setupTable();
         renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
@@ -116,16 +123,16 @@ public class MainController {
     // --- LOGIC GIAO DIỆN (MENU) ---
 
     // Hàm render nhận vào danh sách Interface IMenuItem
-    private void renderMenuGrid(List<IMenuItem> items) {
+    private void renderMenuGrid(List<MenuItemWrapper> items) {
         menuGrid.getChildren().clear();
-        for (IMenuItem item : items) {
+        for (MenuItemWrapper item : items) {
             VBox card = createProductCard(item);
             menuGrid.getChildren().add(card);
         }
     }
 
     // Tạo thẻ sản phẩm từ Interface
-    private VBox createProductCard(IMenuItem item) {
+    private VBox createProductCard(MenuItemWrapper item) {
         VBox card = new VBox(10); //
         double cardWidth = 170;   // Tăng độ rộng thẻ một chút
         card.setPrefWidth(cardWidth);
@@ -166,6 +173,8 @@ public class MainController {
 
         Label priceLabel = new Label(currencyFormatter.format(item.getPrice()));
         priceLabel.getStyleClass().add("card-price");
+        priceLabel.textProperty().bind(item.priceProperty().asString("%.0f VNĐ"));
+
 
         infoBox.getChildren().addAll(nameLabel, priceLabel);
         card.getChildren().addAll(imageView, infoBox);
@@ -191,7 +200,7 @@ public class MainController {
             return;
         }
         // Stream filter trên Interface
-        List<IMenuItem> filtered = fullMenu.stream()
+        List<MenuItemWrapper> filtered = fullMenu.stream()
                 .filter(m -> m.getName().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
         renderMenuGrid(filtered);
