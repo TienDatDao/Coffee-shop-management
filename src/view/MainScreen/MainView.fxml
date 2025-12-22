@@ -47,9 +47,9 @@
             </HBox>
 
             <HBox spacing="15.0">
-                <Button onAction="#filterAll" prefHeight="35" prefWidth="80" styleClass="filter-btn" text="Tất cả" />
-                <Button onAction="#filterDrink" prefHeight="35" prefWidth="90" styleClass="filter-btn" text="☕ Đồ uống" />
-                <Button onAction="#filterFood" prefHeight="35" prefWidth="80" styleClass="filter-btn" text="🍰 Đồ ăn" />
+                <Button onAction="#filterAll" styleClass="filter-btn" text="Tất cả" />
+                <Button onAction="#filterDrink" styleClass="filter-btn" text="☕ Đồ uống" />
+                <Button onAction="#filterFood" styleClass="filter-btn" text="🍰 Đồ ăn" />
             </HBox>
 
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">

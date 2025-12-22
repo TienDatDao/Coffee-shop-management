@@ -1,21 +1,20 @@
+/* MenuManager.css */
+
 /* =======================
-   1. GLOBAL ROOT (Đồng bộ Main)
+   1. GLOBAL ROOT
 ======================= */
 .root {
-    -fx-background-color: #F8FAFC; /* Màu nền xám xanh nhạt giống Main */
+    -fx-background-color: #F8FAFC;
     -fx-font-family: "Segoe UI";
     -fx-text-fill: #334155;
 }
 
-/* Nền cho vùng nội dung chính */
 .center-background {
     -fx-background-color: #FFFFFF;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 0);
-    -fx-background-radius: 8;
 }
 
 /* =======================
-   2. SIDEBAR (Copy y nguyên Main.css)
+   2. SIDEBAR
 ======================= */
 .sidebar {
     -fx-background-color: #1E293B;
@@ -45,7 +44,6 @@
     -fx-text-fill: #F1F5F9;
 }
 
-/* Class active-nav dùng chung để nút sáng lên khi đang ở trang đó */
 .active-nav {
     -fx-background-color: #3B82F6;
     -fx-text-fill: #FFFFFF;
@@ -54,25 +52,10 @@
 }
 
 /* =======================
-   3. SEARCH & INPUTS
+   3. TEXT FIELDS & SEARCH (Đã sửa lỗi bo tròn)
 ======================= */
-.search-bar {
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 30;
-    -fx-border-radius: 30;
-    -fx-border-color: #E2E8F0;
-    -fx-padding: 10 20;
-    -fx-font-size: 14px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);
-}
 
-.search-bar:focused,
-.text-field:focused {
-    -fx-border-color: #3B82F6;
-    -fx-background-color: #FFFFFF;
-}
-
-/* TextField thường cho form nhập liệu */
+/* Định nghĩa chung cho input thường trước */
 .text-field {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #CBD5E1;
@@ -81,54 +64,60 @@
     -fx-padding: 8;
 }
 
-/* =======================
-   4. TABLE VIEW (Đồng bộ Main.css)
-======================= */
-.table-view {
+/* Định nghĩa search-bar sau để ghi đè thuộc tính radius */
+.search-bar {
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 8, 0, 0, 4);
-}
-
-.table-view .column-header-background,
-.table-view .column-header {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header .label {
-    -fx-text-fill: #94A3B8;
-    -fx-font-weight: bold;
-    -fx-font-size: 11px;
-}
-
-.table-row-cell {
-    -fx-background-color: transparent;
-    -fx-cell-size: 55px; /* Giảm nhẹ so với Main để hiển thị được nhiều dòng hơn */
-    -fx-border-color: transparent transparent #F1F5F9 transparent;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: #F8FAFC;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #EFF6FF;
-    -fx-border-color: transparent transparent transparent #3B82F6;
-    -fx-border-width: 0 0 0 3;
-}
-
-.table-cell {
-    -fx-text-fill: #334155;
+    -fx-background-radius: 30; /* Bo tròn mạnh */
+    -fx-border-radius: 30;
+    -fx-border-color: #E2E8F0;
+    -fx-padding: 10 20;
     -fx-font-size: 14px;
-    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);
+}
+
+.search-bar:focused {
+    -fx-border-color: #3B82F6;
 }
 
 /* =======================
-   5. BUTTONS (Style theo Main Design)
+   4. PRODUCT CARD (Đã thêm mới cho giống Main)
 ======================= */
+.product-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
+    -fx-padding: 15;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-radius: 16;
+}
 
-/* Nút chính (Thêm mới/Lưu) - Dùng màu xanh Main */
+.product-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 8);
+}
+
+/* Thêm class selected để hiển thị khi click chọn món để sửa/xóa */
+.product-card.selected {
+    -fx-border-color: #3B82F6;
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.4), 15, 0, 0, 5);
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+.card-price {
+    -fx-font-size: 14px;
+    -fx-text-fill: #10B981;
+    -fx-font-weight: bold;
+}
+
+/* =======================
+   5. BUTTONS & OTHERS
+======================= */
 .primary-btn {
     -fx-background-color: #3B82F6;
     -fx-text-fill: white;
@@ -143,7 +132,6 @@
     -fx-background-color: #2563EB;
 }
 
-/* Nút phụ (Hủy/Làm mới) - Dùng màu xám Main */
 .secondary-btn {
     -fx-background-color: #F1F5F9;
     -fx-text-fill: #1E293B;
@@ -157,7 +145,12 @@
     -fx-background-color: #E2E8F0;
 }
 
-/* Nút nguy hiểm (Xóa) - Dùng màu đỏ Main */
+/* Thêm trạng thái disable cho nút */
+.button:disabled {
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
+}
+
 .danger-btn {
     -fx-background-color: #FEE2E2;
     -fx-text-fill: #EF4444;
@@ -172,17 +165,33 @@
 }
 
 /* =======================
-   6. SCROLL BAR
+   FILTER BUTTON
 ======================= */
+.filter-btn {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #64748B;
+    -fx-background-radius: 20;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 20;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+
+    /* --- THÊM 2 DÒNG NÀY --- */
+    -fx-padding: 10 24;
+    -fx-font-size: 14px;
+}
+
+.filter-btn:hover {
+    -fx-background-color: #EFF6FF;
+    -fx-text-fill: #3B82F6;
+    -fx-border-color: #3B82F6;
+}
+
+/* ScrollPane fix */
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
-
 .scroll-bar:vertical .thumb {
     -fx-background-color: #CBD5E1;
     -fx-background-radius: 10;
-}
-
-.scroll-bar:vertical .thumb:hover {
-    -fx-background-color: #94A3B8;
 }

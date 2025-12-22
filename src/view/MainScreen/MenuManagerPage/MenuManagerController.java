@@ -5,6 +5,7 @@ import Interface.IMenuService;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -17,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import view.Main;
@@ -24,6 +26,7 @@ import view.MainScreen.MenuManagerPage.Dialog.ItemDialogController;
 import view.Wrapper.MenuItemWrapper;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -93,15 +96,22 @@ public class MenuManagerController {
         }
     }
 
+    // Khai báo formatter này ở đầu class hoặc trong hàm initialize đều được,
+// nhưng tốt nhất để ở đầu class để dùng chung.
+    private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
     private VBox createProductCard(MenuItemWrapper w) {
-        VBox card = new VBox(10); //
-        double cardWidth = 170;   // Tăng độ rộng thẻ một chút
+        VBox card = new VBox(10);
+        double cardWidth = 170;
         card.setPrefWidth(cardWidth);
         card.setMaxWidth(cardWidth);
+
+        // Thêm class style cho thẻ
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new javafx.geometry.Insets(10)); // Padding nội bộ thẻ
+        card.setPadding(new javafx.geometry.Insets(10));
 
+        // --- XỬ LÝ ẢNH ---
         ImageView iv = new ImageView();
         iv.setFitWidth(130);
         iv.setFitHeight(100);
@@ -112,21 +122,35 @@ public class MenuManagerController {
         clip.setArcHeight(30);
         iv.setClip(clip);
 
+        // Bind ảnh từ Wrapper
         iv.imageProperty().bind(w.imageProperty());
 
+        // --- XỬ LÝ TÊN MÓN (Sửa phần này để căn giữa) ---
         Label nameLbl = new Label();
         nameLbl.setWrapText(true);
         nameLbl.setMaxWidth(150);
+        nameLbl.setMinHeight(40); // Cố định chiều cao để các thẻ đều nhau
         nameLbl.textProperty().bind(w.nameProperty());
 
+        // Thêm class CSS và căn chỉnh
+        nameLbl.getStyleClass().add("card-title");
+        nameLbl.setTextAlignment(TextAlignment.CENTER); // Căn giữa các dòng text
+        nameLbl.setAlignment(Pos.CENTER); // Căn giữa label trong vùng chứa
+
+        // --- XỬ LÝ GIÁ TIỀN (Sửa phần này để dùng định dạng đ giống Main) ---
         Label priceLbl = new Label();
         priceLbl.getStyleClass().add("card-price");
-        priceLbl.textProperty().bind(w.priceProperty().asString("%.0f VNĐ"));
+
+        // Sử dụng Bindings để format số tiền theo chuẩn Việt Nam (có dấu chấm phân cách)
+        priceLbl.textProperty().bind(Bindings.createStringBinding(
+                () -> currencyFormatter.format(w.priceProperty().get()),
+                w.priceProperty()
+        ));
 
         card.getChildren().addAll(iv, nameLbl, priceLbl);
+        card.setUserData(w);
 
-        card.setUserData(w); // *** LIÊN KẾT CARD -> ITEM ***
-
+        // Sự kiện click chọn
         card.setOnMouseClicked(e -> {
             if (selectedItem != null && selectedItem.idProperty().get().equals(w.idProperty().get())) {
                 selectedItem = null;
@@ -135,7 +159,6 @@ public class MenuManagerController {
                 selectedItem = w;
                 selectedCard = card;
             }
-
             refreshSelection();
             updateToolbarState();
         });

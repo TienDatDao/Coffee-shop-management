@@ -77,6 +77,10 @@
     -fx-border-radius: 20;
     -fx-cursor: hand;
     -fx-font-weight: bold;
+
+    /* --- THÊM 2 DÒNG NÀY --- */
+    -fx-padding: 10 24;
+    -fx-font-size: 14px;
 }
 
 .filter-btn:hover {
