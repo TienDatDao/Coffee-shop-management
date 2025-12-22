@@ -8,6 +8,7 @@ import javafx.animation.ScaleTransition;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -57,6 +58,8 @@ public class MenuManagerController {
         for (IMenuItem item : menuService.getAllItems()) {
             fullMenu.add(new MenuItemWrapper(item));
         }
+        centerMenuGrid.setAlignment(Pos.CENTER_LEFT);
+        centerMenuGrid.setPadding(new Insets(20, 20, 50, 20));
 
         dateLabel.setText(LocalDate.now().format(
                 DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", Locale.forLanguageTag("vi-VN"))));
@@ -97,7 +100,7 @@ public class MenuManagerController {
     }
 
     // Khai báo formatter này ở đầu class hoặc trong hàm initialize đều được,
-// nhưng tốt nhất để ở đầu class để dùng chung.
+    // nhưng tốt nhất để ở đầu class để dùng chung.
     private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     private VBox createProductCard(MenuItemWrapper w) {
@@ -129,7 +132,7 @@ public class MenuManagerController {
         Label nameLbl = new Label();
         nameLbl.setWrapText(true);
         nameLbl.setMaxWidth(150);
-        nameLbl.setMinHeight(40); // Cố định chiều cao để các thẻ đều nhau
+        nameLbl.setMinHeight(40);
         nameLbl.textProperty().bind(w.nameProperty());
 
         // Thêm class CSS và căn chỉnh

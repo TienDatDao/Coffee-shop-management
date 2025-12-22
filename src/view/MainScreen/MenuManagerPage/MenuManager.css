@@ -86,8 +86,9 @@
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 16;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
-    -fx-padding: 15;
+    -fx-padding: 10;
     -fx-cursor: hand;
+
     -fx-border-color: transparent;
     -fx-border-width: 2px;
     -fx-border-radius: 16;

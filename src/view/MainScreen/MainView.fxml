@@ -37,9 +37,9 @@
         <VBox prefHeight="756.0" prefWidth="692.0" spacing="20.0" styleClass="center-background">
             <padding> <Insets bottom="20" left="25" right="25" top="25" /> </padding>
 
-            <HBox alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="15">
                 <VBox>
-                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d3436;" text="Thực đơn" />
+                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass="header-title" text="Thực đơn" />
                     <Label fx:id="dateLabel" style="-fx-text-fill: #9ca3af;" text="Ngày" />
                 </VBox>
                 <Region HBox.hgrow="ALWAYS" />

@@ -5,13 +5,14 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane styleClass="root-container" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.SettingsPage.SettingsController">
+<BorderPane fx:id="rootPane" styleClass="root-container" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.SettingsPage.SettingsController">
 
     <left>
         <VBox prefHeight="756.0" prefWidth="220.0" spacing="8.0" styleClass="sidebar">
@@ -22,9 +23,7 @@
                 <Region prefHeight="20.0" />
 
                 <Button maxWidth="Infinity" onAction="#mainScreen" styleClass="nav-btn" text="🛒   Bán hàng" />
-
                 <Button maxWidth="Infinity" onAction="#menuManager" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
-
                 <Button maxWidth="Infinity" styleClass="nav-btn, active-nav" text="⚙  Cài đặt" />
 
                 <Region VBox.vgrow="ALWAYS" />
@@ -34,51 +33,72 @@
     </left>
 
     <center>
-        <VBox spacing="20.0" styleClass="center-background">
-            <padding> <Insets bottom="30" left="40" right="40" top="30" /> </padding>
+        <ScrollPane fitToWidth="true" styleClass="main-scroll">
+            <content>
+                <VBox spacing="30.0" styleClass="center-background">
+                    <padding> <Insets bottom="40" left="50" right="50" top="40" /> </padding>
 
-            <VBox>
-                <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass="header-title" text="Cài Đặt Hệ Thống" />
-                <Label styleClass="header-subtitle" text="Quản lý giao diện và bảo mật tài khoản" />
-            </VBox>
-
-            <HBox alignment="TOP_LEFT" spacing="30.0">
-                <VBox prefWidth="400.0" styleClass="card">
-                    <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
-                    <Label styleClass="card-title" text="Giao diện &amp; Ứng dụng" />
-                    <Label styleClass="card-desc" text="Tuỳ chỉnh trải nghiệm người dùng" />
-                    <Region prefHeight="20" />
-
-                    <VBox styleClass="input-group">
-                        <Label styleClass="input-label" text="Ngôn ngữ hiển thị" />
-                        <ComboBox fx:id="languageComboBox" maxWidth="Infinity" styleClass="custom-combo" />
+                    <VBox spacing="5">
+                        <Label styleClass="page-title" text="Cài Đặt Hệ Thống" />
+                        <Label styleClass="page-subtitle" text="Quản lý cấu hình chung và bảo mật tài khoản" />
                     </VBox>
-                    <Region prefHeight="20" />
 
-                    <HBox alignment="CENTER_LEFT" styleClass="toggle-container">
-                        <VBox>
-                            <Label styleClass="input-label" text="Chế độ ban đêm" />
-                            <Label styleClass="input-hint" text="Giảm mỏi mắt khi làm việc tối" />
+                    <HBox alignment="TOP_LEFT" spacing="30.0">
+                        <VBox prefWidth="420.0" styleClass="setting-card" HBox.hgrow="ALWAYS">
+                            <padding><Insets bottom="25" left="25" right="25" top="25" /></padding>
+
+                            <HBox alignment="CENTER_LEFT" spacing="15">
+                                <Label styleClass="icon-container" text="🎨" />
+                                <VBox>
+                                    <Label styleClass="card-title" text="Giao diện &amp; Ứng dụng" />
+                                    <Label styleClass="card-desc" text="Tuỳ chỉnh trải nghiệm người dùng" />
+                                </VBox>
+                            </HBox>
+
+                            <Separator styleClass="card-separator" />
+
+                            <VBox spacing="20">
+                                <VBox styleClass="input-group">
+                                    <Label styleClass="input-label" text="Ngôn ngữ hiển thị" />
+                                    <ComboBox fx:id="languageComboBox" maxWidth="Infinity" styleClass="modern-combo" />
+                                </VBox>
+
+                                <HBox alignment="CENTER_LEFT" styleClass="toggle-row">
+                                    <VBox>
+                                        <Label styleClass="input-label" text="Chế độ ban đêm" />
+                                        <Label styleClass="input-hint" text="Giảm mỏi mắt khi làm việc tối" />
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <CheckBox fx:id="darkModeToggle" onAction="#handleDarkModeToggle" styleClass="ios-toggle" />
+                                </HBox>
+                            </VBox>
                         </VBox>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <CheckBox fx:id="darkModeToggle" onAction="#handleDarkModeToggle" styleClass="toggle-switch" />
+
+                        <VBox prefWidth="420.0" styleClass="setting-card" HBox.hgrow="ALWAYS">
+                            <padding><Insets bottom="25" left="25" right="25" top="25" /></padding>
+
+                            <HBox alignment="CENTER_LEFT" spacing="15">
+                                <Label styleClass="icon-container" style="-fx-background-color: #ECFDF5; -fx-text-fill: #059669;" text="🛡️" />
+                                <VBox>
+                                    <Label styleClass="card-title" text="Bảo Mật" />
+                                    <Label styleClass="card-desc" text="Bảo vệ tài khoản của bạn" />
+                                </VBox>
+                            </HBox>
+
+                            <Separator styleClass="card-separator" />
+
+                            <VBox alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS">
+                                <Region VBox.vgrow="ALWAYS" />
+                                <Label style="-fx-font-size: 60px; -fx-opacity: 0.8;" text="🔒" />
+                                <Label styleClass="input-hint" text="Tài khoản đang được bảo vệ" />
+                                <Button maxWidth="Infinity" onAction="#openChangePasswordModal" styleClass="btn-primary" text="Thay đổi mật khẩu" />
+                                <Region VBox.vgrow="ALWAYS" />
+                            </VBox>
+                        </VBox>
                     </HBox>
                 </VBox>
-
-                <VBox prefWidth="400.0" styleClass="card">
-                    <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
-                    <Label styleClass="card-title" text="Bảo Mật" />
-                    <Label styleClass="card-desc" text="Đổi mật khẩu định kỳ để bảo vệ tài khoản" />
-                    <Region prefHeight="40" />
-
-                    <VBox alignment="CENTER" spacing="15" VBox.vgrow="ALWAYS">
-                        <Label style="-fx-font-size: 48px;" text="🛡️" />
-                        <Label style="-fx-text-fill: #64748b; -fx-text-alignment: CENTER;" text="Tài khoản an toàn" />
-                        <Button maxWidth="Infinity" onAction="#openChangePasswordModal" styleClass="btn-primary" text="Thay đổi mật khẩu" />
-                    </VBox>
-                </VBox>
-            </HBox>
-        </VBox>
+            </content>
+        </ScrollPane>
     </center>
 
 </BorderPane>

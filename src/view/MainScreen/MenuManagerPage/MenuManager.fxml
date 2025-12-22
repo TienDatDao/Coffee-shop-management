@@ -44,10 +44,10 @@
                 <TextField fx:id="searchField" prefHeight="45.0" prefWidth="300" promptText="🔍 Tìm kiếm món..." styleClass="search-bar" />
             </HBox>
 
-            <HBox spacing="10">
+            <HBox prefHeight="28.0" prefWidth="507.0" spacing="15">
                 <Button onAction="#filterAll" styleClass="filter-btn" text="Tất cả" />
                 <Button onAction="#filterDrink" styleClass="filter-btn" text="☕ Đồ uống" />
-                <Button onAction="#filterFood"  styleClass="filter-btn" text="🍰 Đồ ăn" />
+                <Button onAction="#filterFood" styleClass="filter-btn" text="🍰 Đồ ăn" />
                 <Region prefHeight="35.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
                 <Button fx:id="btnAdd" onAction="#onAdd" styleClass="primary-btn" text="➕ Thêm món" />
                 <Button fx:id="btnEdit" disable="true" onAction="#onEdit" styleClass="secondary-btn" text="✏️ Sửa món" />

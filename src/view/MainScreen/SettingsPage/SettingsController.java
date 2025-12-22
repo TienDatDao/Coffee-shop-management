@@ -2,11 +2,13 @@ package view.MainScreen.SettingsPage;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import view.AppConfig; // Import file Config mới tạo
@@ -16,6 +18,7 @@ import java.util.Locale;
 
 public class SettingsController {
 
+    @FXML private BorderPane rootPane;
     @FXML private ComboBox<String> languageComboBox;
     @FXML private CheckBox darkModeToggle;
 
@@ -33,6 +36,11 @@ public class SettingsController {
 
         // 2. Setup Dark Mode
         darkModeToggle.setSelected(AppConfig.isDarkMode);
+        if (AppConfig.isDarkMode) {
+            rootPane.getStyleClass().add("dark-theme");
+        } else {
+            rootPane.getStyleClass().remove("dark-theme");
+        }
 
         // 3. Logic đổi ngôn ngữ
         languageComboBox.setOnAction(e -> {
@@ -49,7 +57,18 @@ public class SettingsController {
     private void handleDarkModeToggle() {
         AppConfig.isDarkMode = darkModeToggle.isSelected();
 
-        // >>> SỬA DÒNG NÀY: Khi toggle ở trang Settings, phải nạp lại cả Settings.css
+        // Lấy node gốc của scene (trong trường hợp này là BorderPane)
+        Node root = darkModeToggle.getScene().getRoot();
+
+        if (AppConfig.isDarkMode) {
+            if (!rootPane.getStyleClass().contains("dark-theme")) {
+                rootPane.getStyleClass().add("dark-theme");
+            }
+        } else {
+            rootPane.getStyleClass().remove("dark-theme");
+        }
+
+        //Khi toggle ở trang Settings, phải nạp lại cả Settings.css
         AppConfig.applyTheme(darkModeToggle.getScene(), "/view/MainScreen/SettingsPage/Settings.css");
     }
 
