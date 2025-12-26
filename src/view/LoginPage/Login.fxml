@@ -12,16 +12,19 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane alignment="CENTER" styleClass="root-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginPage.LoginController">
-    <ImageView fx:id="imgLogo" fitHeight="120" fitWidth="120" StackPane.alignment="TOP_CENTER"> <image>
+<StackPane fx:controller="view.LoginPage.LoginController"
+           xmlns:fx="http://javafx.com/fxml/1"
+           alignment="CENTER"
+           styleClass="root-pane">
+    <ImageView fx:id="imgLogo" fitWidth="120" fitHeight="120"
+               StackPane.alignment="TOP_CENTER"> <image>
         <Image url="@LoginLogo.png" />
     </image>
         <StackPane.margin>
             <Insets top="50" />
         </StackPane.margin>
     </ImageView>
-    <VBox id="login-pane" alignment="CENTER" maxWidth="370.0" prefHeight="209.0" prefWidth="342.0" spacing="10">
-        <padding>
+    <VBox id="login-pane" alignment="CENTER" spacing="10" maxWidth="350">        <padding>
             <Insets bottom="40" left="40" right="40" top="40" />
         </padding>
 

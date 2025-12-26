@@ -1,14 +1,26 @@
 package model;
 
 public class OrderItem {
+    private int orderItemId;
     private MenuItem menuItem;
     private int quantity;
     private String note;
 
-    public OrderItem(MenuItem menuItem, int quantity, String note) {
+    public OrderItem() {}
+
+    public OrderItem(MenuItem menuItem, int quantity, String note, int orderItemId) {
         this.menuItem = menuItem;
         this.quantity = quantity;
         this.note = note;
+        this.orderItemId = orderItemId;
+    }
+
+    public int getOrderItemId() {
+        return orderItemId;
+    }
+
+    public void setOrderItemId(int orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
     public String getName() {
@@ -16,7 +28,7 @@ public class OrderItem {
     }
 
     public double getPrice() {
-        return menuItem != null ? menuItem.getPrice() : null;
+        return menuItem != null ? menuItem.getPrice() : 0.0;
     }
 
     public int getQuantity() {
@@ -37,5 +49,9 @@ public class OrderItem {
 
     public MenuItem getMenuItem() {
         return menuItem;
+    }
+
+    public void setMenuItem(MenuItem menuItem) {
+        this.menuItem = menuItem;
     }
 }

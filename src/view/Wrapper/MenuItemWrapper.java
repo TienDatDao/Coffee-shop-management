@@ -85,5 +85,9 @@ public class MenuItemWrapper implements IMenuItem{
     public ObjectProperty<Image> imageProperty() { return this.image; }
 
     @Override
-    public String toString() { return getName(); }
+    public String toString() {
+        return getName();
+    }
+
+    public IMenuItem unwrap() { return original; }
 }

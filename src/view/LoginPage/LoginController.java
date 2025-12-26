@@ -22,12 +22,18 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
     // Ánh xạ các thành phần UI từ FXML
-    @FXML private TextField txtUsername;
-    @FXML private PasswordField txtPassword;
-    @FXML private TextField txtPasswordVisible;
-    @FXML private CheckBox chkShowPassword;
-    @FXML private Button btnLogin;
-    @FXML private Label lblMessage;
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private PasswordField txtPassword;
+    @FXML
+    private TextField txtPasswordVisible;
+    @FXML
+    private CheckBox chkShowPassword;
+    @FXML
+    private Button btnLogin;
+    @FXML
+    private Label lblMessage;
 
     private IAuthService authService = new MockAuthService();
 
@@ -35,6 +41,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Có thể thực hiện các thiết lập ban đầu tại đây (nếu cần)
     }
+
     // sự kiện khi nhấn đăng kí dạng hyperlink
     @FXML
     private void handleRegisterAction() throws IOException {
@@ -57,7 +64,6 @@ public class LoginController implements Initializable {
     }
 
 
-
     //Xử lý sự kiện khi nhấp vào nút Đăng nhập.
 
     @FXML
@@ -66,7 +72,7 @@ public class LoginController implements Initializable {
         String password = getPasswordInput();
         lblMessage.getStyleClass().removeAll("success-message", "error-message");
 
-        boolean success= MockAuthService.login(username, password);
+        boolean success = MockAuthService.login(username, password);
 
         if (success) {
 
@@ -146,6 +152,7 @@ public class LoginController implements Initializable {
             txtPasswordVisible.setManaged(false);
         }
     }
+
     // trả về mật khẩu trong textfield
     private String getPasswordInput() {
         if (txtPassword.isVisible()) {

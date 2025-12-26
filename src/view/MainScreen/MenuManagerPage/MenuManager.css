@@ -1,14 +1,24 @@
-/* ================= ROOT ================= */
+/* MenuManager.css */
+
+/* =======================
+   1. GLOBAL ROOT
+======================= */
 .root {
+    -fx-background-color: #F8FAFC;
     -fx-font-family: "Segoe UI";
     -fx-text-fill: #334155;
-    -fx-background-color: linear-gradient(to bottom right, #FFFCF5, #F1F5F9);
 }
 
-/* ================= SIDEBAR ================= */
+.center-background {
+    -fx-background-color: #FFFFFF;
+}
+
+/* =======================
+   2. SIDEBAR
+======================= */
 .sidebar {
     -fx-background-color: #1E293B;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0.2, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
 }
 
 .app-logo {
@@ -16,90 +26,84 @@
     -fx-font-weight: 800;
     -fx-text-fill: #F1F5F9;
     -fx-padding: 0 0 10 0;
-    -fx-alignment: center;
+    -fx-alignment: CENTER;
 }
 
-/* ================= NAV ================= */
 .nav-btn {
     -fx-background-color: transparent;
     -fx-text-fill: #94A3B8;
     -fx-font-size: 15px;
-    -fx-alignment: center-left;
+    -fx-alignment: CENTER_LEFT;
     -fx-padding: 12 20;
     -fx-cursor: hand;
     -fx-background-radius: 8;
 }
 
 .nav-btn:hover {
-    -fx-background-color: #334155;
+    -fx-background-color: #5B79AB;
     -fx-text-fill: #F1F5F9;
 }
 
 .active-nav {
     -fx-background-color: #3B82F6;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-background-radius: 8;
-    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.35), 10, 0.3, 0, 3);
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.4), 10, 0, 0, 5);
 }
 
-/* ================= SEARCH ================= */
+/* =======================
+   3. TEXT FIELDS & SEARCH (Đã sửa lỗi bo tròn)
+======================= */
+
+/* Định nghĩa chung cho input thường trước */
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+}
+
+/* Định nghĩa search-bar sau để ghi đè thuộc tính radius */
 .search-bar {
-    -fx-background-color: white;
-    -fx-background-radius: 30;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30; /* Bo tròn mạnh */
     -fx-border-radius: 30;
     -fx-border-color: #E2E8F0;
     -fx-padding: 10 20;
     -fx-font-size: 14px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 6, 0.2, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);
 }
 
 .search-bar:focused {
     -fx-border-color: #3B82F6;
 }
 
-/* ================= FILTER ================= */
-.filter-btn {
-    -fx-background-color: white;
-    -fx-text-fill: #64748B;
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
-    -fx-border-color: #E2E8F0;
-    -fx-font-weight: bold;
-    -fx-padding: 6 15;
-    -fx-cursor: hand;
-}
-
-.filter-btn:hover {
-    -fx-background-color: #EFF6FF;
-    -fx-text-fill: #3B82F6;
-    -fx-border-color: #3B82F6;
-}
-
-/* ================= PRODUCT CARD ================= */
+/* =======================
+   4. PRODUCT CARD (Đã thêm mới cho giống Main)
+======================= */
 .product-card {
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 16;
-    -fx-padding: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
+    -fx-padding: 10;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0.25, 0, 4);
+
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-radius: 16;
 }
 
 .product-card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 16, 0.35, 0, 8);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 8);
 }
 
+/* Thêm class selected để hiển thị khi click chọn món để sửa/xóa */
 .product-card.selected {
     -fx-border-color: #3B82F6;
-    -fx-border-radius: 16;
-    -fx-border-width: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.4), 15, 0, 0, 5);
 }
 
-.product-card.dimmed {
-    -fx-opacity: 0.45;
-}
-
-/* ================= CARD TEXT ================= */
 .card-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
@@ -108,18 +112,21 @@
 
 .card-price {
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
     -fx-text-fill: #10B981;
+    -fx-font-weight: bold;
 }
 
-/* ================= BUTTONS ================= */
+/* =======================
+   5. BUTTONS & OTHERS
+======================= */
 .primary-btn {
     -fx-background-color: #3B82F6;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 12;
-    -fx-padding: 8 16;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.3), 8, 0, 0, 3);
 }
 
 .primary-btn:hover {
@@ -130,69 +137,62 @@
     -fx-background-color: #F1F5F9;
     -fx-text-fill: #1E293B;
     -fx-font-weight: bold;
-    -fx-background-radius: 12;
-    -fx-padding: 8 16;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
 }
 
 .secondary-btn:hover {
     -fx-background-color: #E2E8F0;
 }
 
+/* Thêm trạng thái disable cho nút */
+.button:disabled {
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
+}
+
 .danger-btn {
     -fx-background-color: #FEE2E2;
     -fx-text-fill: #EF4444;
-    -fx-background-radius: 12;
+    -fx-background-radius: 8;
     -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
 }
 
 .danger-btn:hover {
     -fx-background-color: #FECACA;
 }
 
-/* ================= TABLE ================= */
-.table-view {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0.3, 0, 4);
+/* =======================
+   FILTER BUTTON
+======================= */
+.filter-btn {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #64748B;
+    -fx-background-radius: 20;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 20;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+
+    /* --- THÊM 2 DÒNG NÀY --- */
+    -fx-padding: 10 24;
+    -fx-font-size: 14px;
 }
 
-.table-row-cell {
-    -fx-cell-size: 60px;
-    -fx-border-color: transparent transparent #F1F5F9 transparent;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: #F8FAFC;
-}
-
-.table-row-cell:selected {
+.filter-btn:hover {
     -fx-background-color: #EFF6FF;
-    -fx-border-color: transparent transparent transparent #3B82F6;
-    -fx-border-width: 0 0 0 3;
+    -fx-text-fill: #3B82F6;
+    -fx-border-color: #3B82F6;
 }
 
-/* ================= SCROLLBAR ================= */
-.scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-pref-width: 10;
-}
-
-.scroll-bar:vertical .track {
+/* ScrollPane fix */
+.scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
-
 .scroll-bar:vertical .thumb {
     -fx-background-color: #CBD5E1;
     -fx-background-radius: 10;
-}
-
-.scroll-bar:vertical .thumb:hover {
-    -fx-background-color: #94A3B8;
-}
-
-.scroll-bar .increment-button,
-.scroll-bar .decrement-button {
-    -fx-pref-width: 0;
-    -fx-pref-height: 0;
 }

@@ -5,8 +5,10 @@ import Interface.IMenuService;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -17,14 +19,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import view.AppConfig;
 import view.Helper.LanguageManager;
 import view.MainScreen.MenuManagerPage.Dialog.ItemDialogController;
 import view.MainTest;
 import view.Wrapper.MenuItemWrapper;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -41,47 +46,61 @@ public class MenuManagerController {
     @FXML private Button btnDelete;
 
     private IMenuService menuService;
-    private List<MenuItemWrapper> fullMenu;
+    private List<MenuItemWrapper> fullMenu = new ArrayList<>();
     private MenuItemWrapper selectedItem;
+    private VBox selectedCard;
 
-    private Map<String, VBox> itemCardMap = new HashMap<>();
-    private DateTimeFormatter formatter;
+    private final Map<String, VBox> itemCardMap = new HashMap<>();
+    private boolean editMode = false;
 
+    private final NumberFormat currencyFormatter =
+            NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
+    private DateTimeFormatter dateFormatter;
+
+    // ================= INITIALIZE =================
     @FXML
     public void initialize() {
         menuService = MainTest.SHARED_MENU_SERVICE;
+
         Locale locale = LanguageManager.getInstance().getBundle().getLocale();
-        formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", locale);
-        root.setOnMouseClicked(e -> handleClickOutside(e));
-        // Bao dữ liệu gốc trong wrapper
-        fullMenu = new ArrayList<>();
+        dateFormatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", locale);
+
+        root.setOnMouseClicked(this::handleClickOutside);
+
         for (IMenuItem item : menuService.getAllItems()) {
             fullMenu.add(new MenuItemWrapper(item));
         }
 
-        dateLabel.setText(LocalDate.now().format(
-                DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", Locale.forLanguageTag("vi-VN"))));
+        centerMenuGrid.setAlignment(Pos.CENTER_LEFT);
+        centerMenuGrid.setPadding(new Insets(20, 20, 50, 20));
+
+        dateLabel.setText(LocalDate.now().format(dateFormatter));
 
         setupSearch();
         renderAll();
     }
 
+    // ================= SEARCH =================
     private void setupSearch() {
-        searchField.textProperty().addListener((obs, oldV, newV) ->
-                renderFiltered(searchMenu(newV))
+        searchField.textProperty().addListener((obs, o, n) ->
+                renderFiltered(searchMenu(n))
         );
     }
 
     private List<MenuItemWrapper> searchMenu(String keyword) {
-        if (keyword == null || keyword.isEmpty()) return fullMenu;
+        if (keyword == null || keyword.isBlank()) return fullMenu;
         String lower = keyword.toLowerCase();
         List<MenuItemWrapper> result = new ArrayList<>();
         for (MenuItemWrapper w : fullMenu) {
-            if (w.nameProperty().get().toLowerCase().contains(lower)) result.add(w);
+            if (w.nameProperty().get().toLowerCase().contains(lower)) {
+                result.add(w);
+            }
         }
         return result;
     }
 
+    // ================= RENDER =================
     private void renderAll() {
         renderFiltered(fullMenu);
     }
@@ -98,48 +117,53 @@ public class MenuManagerController {
     }
 
     private VBox createProductCard(MenuItemWrapper w) {
-        VBox card = new VBox(10); //
-        double cardWidth = 170;   // Tăng độ rộng thẻ một chút
-        card.setPrefWidth(cardWidth);
-        card.setMaxWidth(cardWidth);
-        card.getStyleClass().add("product-card");
+        VBox card = new VBox(10);
+        card.setPrefWidth(170);
+        card.setMaxWidth(170);
+        card.setPadding(new Insets(10));
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new javafx.geometry.Insets(10)); // Padding nội bộ thẻ
+        card.getStyleClass().add("product-card");
 
         ImageView iv = new ImageView();
         iv.setFitWidth(130);
         iv.setFitHeight(100);
         iv.setPreserveRatio(false);
+        iv.imageProperty().bind(w.imageProperty());
 
-        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
+        var clip = new javafx.scene.shape.Rectangle(130, 130);
         clip.setArcWidth(30);
         clip.setArcHeight(30);
         iv.setClip(clip);
 
-        iv.imageProperty().bind(w.imageProperty());
-
         Label nameLbl = new Label();
         nameLbl.setWrapText(true);
+        nameLbl.setMinHeight(40);
         nameLbl.setMaxWidth(150);
+        nameLbl.setAlignment(Pos.CENTER);
+        nameLbl.setTextAlignment(TextAlignment.CENTER);
+        nameLbl.getStyleClass().add("card-title");
         nameLbl.textProperty().bind(w.nameProperty());
 
         Label priceLbl = new Label();
         priceLbl.getStyleClass().add("card-price");
-        priceLbl.textProperty().bind(w.priceProperty().asString("%.0f VNĐ"));
+        priceLbl.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> currencyFormatter.format(w.priceProperty().get()),
+                        w.priceProperty()
+                )
+        );
 
         card.getChildren().addAll(iv, nameLbl, priceLbl);
-
-        card.setUserData(w); // *** LIÊN KẾT CARD -> ITEM ***
+        card.setUserData(w);
 
         card.setOnMouseClicked(e -> {
-            if (selectedItem != null && selectedItem.idProperty().get().equals(w.idProperty().get())) {
+            if (selectedItem == w) {
                 selectedItem = null;
                 selectedCard = null;
             } else {
                 selectedItem = w;
                 selectedCard = card;
             }
-
             refreshSelection();
             updateToolbarState();
         });
@@ -147,256 +171,241 @@ public class MenuManagerController {
         return card;
     }
 
-    private VBox selectedCard = null;
-    private boolean editMode = false;
-
+    // ================= SELECTION =================
     private void refreshSelection() {
-
         for (Node node : centerMenuGrid.getChildren()) {
             VBox card = (VBox) node;
             MenuItemWrapper item = (MenuItemWrapper) card.getUserData();
 
-            boolean isSelected = (selectedItem != null &&
-                    item.idProperty().get().equals(selectedItem.idProperty().get()));
+            boolean selected = selectedItem != null &&
+                    item.idProperty().get().equals(selectedItem.idProperty().get());
 
             card.getStyleClass().remove("selected");
 
-            if (isSelected) {
-                selectedCard = card;
+            if (selected) {
                 card.getStyleClass().add("selected");
-
-                // Animation phóng to
-                animateScale(card, 1.07, 1.07);
-
+                animateScale(card, 1.07);
             } else {
-                // Các card không chọn trở về scale chuẩn
-                animateScale(card, 1.0, 1.0);
+                animateScale(card, 1.0);
             }
         }
 
-        if (editMode) {
-            applyDimmedEffect();
-        } else {
-            clearDimmedEffect();
-        }
+        if (editMode) applyDimmedEffect();
+        else clearDimmedEffect();
     }
-    // hiệu ứng cho click card
+
     private void applyDimmedEffect() {
-        for (Node node : centerMenuGrid.getChildren()) {
-            if (node != selectedCard) {
-                animateFade(node, 0.5);
-            } else {
-                animateFade(node, 1.0);
-            }
+        for (Node n : centerMenuGrid.getChildren()) {
+            animateFade(n, n == selectedCard ? 1.0 : 0.5);
         }
     }
+
     private void clearDimmedEffect() {
-        for (Node node : centerMenuGrid.getChildren()) {
-            animateFade(node, 1.0);
+        for (Node n : centerMenuGrid.getChildren()) {
+            animateFade(n, 1.0);
         }
     }
 
     private void handleClickOutside(MouseEvent e) {
-
-        // Nếu đang click vào 1 card thì không làm gì
-        Node clicked = e.getPickResult().getIntersectedNode();
-
-        while (clicked != null) {
-            if (clicked.getStyleClass().contains("product-card")) {
-                return; // click vào card -> bỏ qua
-            }
-            clicked = clicked.getParent();
+        Node node = e.getPickResult().getIntersectedNode();
+        while (node != null) {
+            if (node.getStyleClass().contains("product-card")) return;
+            node = node.getParent();
         }
 
-        // Click vào vùng trống -> reset
         selectedItem = null;
         selectedCard = null;
         editMode = false;
-
-        refreshSelection();   // bỏ selected + scale
-        clearDimmedEffect();  // bỏ mờ
-        updateToolbarState(); // disable edit/delete nút
+        refreshSelection();
+        updateToolbarState();
     }
 
-    private void animateScale(Node node, double toX, double toY) {
-        ScaleTransition st = new ScaleTransition(Duration.millis(130), node);
-        st.setToX(toX);
-        st.setToY(toY);
+    // ================= ANIMATION =================
+    private void animateScale(Node n, double scale) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(130), n);
+        st.setToX(scale);
+        st.setToY(scale);
         st.setInterpolator(Interpolator.EASE_BOTH);
         st.play();
     }
-    private void animateFade(Node node, double to) {
-        FadeTransition ft = new FadeTransition(Duration.millis(150), node);
+
+    private void animateFade(Node n, double to) {
+        FadeTransition ft = new FadeTransition(Duration.millis(150), n);
         ft.setToValue(to);
         ft.setInterpolator(Interpolator.EASE_BOTH);
         ft.play();
     }
-    // hiêu ứng cho click card
+
     private void updateToolbarState() {
         boolean has = selectedItem != null;
         btnEdit.setDisable(!has);
         btnDelete.setDisable(!has);
     }
-    // ---------------- FILTER ----------------
-    @FXML
-    private void filterAll() {
-        renderFiltered(fullMenu);
+
+    // ================= FILTER =================
+    @FXML private void filterAll() { renderFiltered(fullMenu); }
+
+    @FXML private void filterDrink() {
+        renderFiltered(fullMenu.stream()
+                .filter(w -> "Drink".equalsIgnoreCase(w.categoryProperty().get()))
+                .toList());
     }
 
-    @FXML
-    private void filterDrink() {
-        List<MenuItemWrapper> drinks = new ArrayList<>();
-        for (MenuItemWrapper w : fullMenu) {
-            if ("Drink".equalsIgnoreCase(w.categoryProperty().get())) {
-                drinks.add(w);
-            }
-        }
-        renderFiltered(drinks);
+    @FXML private void filterFood() {
+        renderFiltered(fullMenu.stream()
+                .filter(w -> "Food".equalsIgnoreCase(w.categoryProperty().get()))
+                .toList());
     }
 
+    // ================= CRUD =================
     @FXML
-    private void filterFood() {
-        List<MenuItemWrapper> foods = new ArrayList<>();
-        for (MenuItemWrapper w : fullMenu) {
-            if ("Food".equalsIgnoreCase(w.categoryProperty().get())) {
-                foods.add(w);
-            }
-        }
-        renderFiltered(foods);
-    }
-
-
-    @FXML private void onAdd() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"));
+    private void onAdd() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"),
+                LanguageManager.getInstance().getBundle()
+        );
         Parent root = loader.load();
-        ItemDialogController dc = loader.getController();
-        dc.setEditing(null);
+        loader.<ItemDialogController>getController().setEditing(null);
 
-        StageHelper.showDialog(root, LanguageManager.getInstance().getString("mem.addDish"), btnAdd.getScene().getWindow());
+        StageHelper.showDialog(
+                root,
+                LanguageManager.getInstance().getString("mem.addDish"),
+                btnAdd.getScene().getWindow()
+        );
 
-        Object ud = root.getScene() != null ? root.getScene().getUserData() : null;
-        if (ud instanceof IMenuItem newItem) {
-            newItem.setId(UUID.randomUUID().toString());
-            menuService.addMenuItem(newItem);
+        Object ud = root.getScene().getUserData();
+        if (ud instanceof IMenuItem item) {
+            item.setId(UUID.randomUUID().toString());
+            menuService.addMenuItem(item);
 
-            MenuItemWrapper wrapper = new MenuItemWrapper(newItem);
-            fullMenu.add(wrapper);
-
-            VBox card = createProductCard(wrapper);
+            MenuItemWrapper w = new MenuItemWrapper(item);
+            fullMenu.add(w);
+            VBox card = createProductCard(w);
             centerMenuGrid.getChildren().add(card);
-            itemCardMap.put(wrapper.idProperty().get(), card);
+            itemCardMap.put(w.idProperty().get(), card);
         }
     }
 
-    @FXML private void onEdit() throws IOException {
+    @FXML
+    private void onEdit() throws IOException {
+        if (selectedItem == null) return;
         editMode = true;
         applyDimmedEffect();
-        if (selectedItem == null) return;
 
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"),
                 LanguageManager.getInstance().getBundle()
         );
         Parent root = loader.load();
-        ItemDialogController dc = loader.getController();
-// Truyền đối tượng gốc cho Dialog để nó cập nhật các thuộc tính của nó
-        IMenuItem itemToEdit = selectedItem.getOriginal();
-        dc.setEditing(itemToEdit);
+        loader.<ItemDialogController>getController()
+                .setEditing(selectedItem.getOriginal());
 
-        StageHelper.showDialog(root, LanguageManager.getInstance().getString("mem.editDish"), btnEdit.getScene().getWindow());
+        StageHelper.showDialog(
+                root,
+                LanguageManager.getInstance().getString("mem.editDish"),
+                btnEdit.getScene().getWindow()
+        );
 
-        // Sau khi Dialog đóng, các thuộc tính của 'itemToEdit' (là đối tượng gốc) ĐÃ được cập nhật.
-
-        System.out.println(itemToEdit.getName());
-        // 1. Cập nhật Service (lưu thay đổi vào cơ sở dữ liệu/mock)
-        menuService.updateMenuItem(itemToEdit);
+        menuService.updateMenuItem(selectedItem.getOriginal());
         selectedItem.updateFromOriginal();
         refreshSelection();
     }
 
-    @FXML private void onDelete() {
+    @FXML
+    private void onDelete() {
         if (selectedItem == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(LanguageManager.getInstance().getString("mem.acept"));
         alert.setHeaderText(LanguageManager.getInstance().getString("mem.deleteDish"));
-        alert.setContentText(LanguageManager.getInstance().getString("mem.realConfirm") + selectedItem.nameProperty().get() + " ?");
+        alert.setContentText(
+                LanguageManager.getInstance().getString("mem.realConfirm")
+                        + selectedItem.nameProperty().get() + " ?"
+        );
 
-        alert.showAndWait().ifPresent(bt -> {
-            if (bt == ButtonType.OK) {
-                menuService.deleteMenuItem(selectedItem.idProperty().get());
-
-                VBox card = itemCardMap.get(selectedItem.idProperty().get());
-                if (card != null) centerMenuGrid.getChildren().remove(card);
-                itemCardMap.remove(selectedItem.idProperty().get());
-                fullMenu.remove(selectedItem);
-
-                selectedItem = null;
-                refreshSelection();
-                updateToolbarState();
-            }
+        alert.showAndWait().filter(b -> b == ButtonType.OK).ifPresent(b -> {
+            menuService.deleteMenuItem(selectedItem.idProperty().get());
+            centerMenuGrid.getChildren().remove(itemCardMap.remove(selectedItem.idProperty().get()));
+            fullMenu.remove(selectedItem);
+            selectedItem = null;
+            refreshSelection();
+            updateToolbarState();
         });
     }
     @FXML
-    private void mainScreen() throws IOException {
+    private void menuManager() {
+        try {
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
-        // 1. Lấy Stage hiện tại
-        Stage currentStage = (Stage) centerMenuGrid.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"),
+                    bundle
+            );
+            Parent root = loader.load();
+            Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
+            Scene scene = new Scene(root);
 
-        // 2. Tải FXML của màn hình chính
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MainView.fxml"));
-        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
-        loader.setResources(bundle);
+            // >>> SỬA DÒNG NÀY: Quay về Main thì tham số thứ 2 là null (không cần Settings.css)
+            AppConfig.applyTheme(scene, "/view/MainScreen/MenuManagerPage/MenuManager.css");
 
-        // 3. Tải Root Node
-        Parent root = loader.load();
-        // 4. Tạo Scene mới và thiết lập Stage
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(
-                getClass().getResource("/view/MainScreen/Main.css").toExternalForm()
-        );
-
-        //  Đặt tiêu đề mới cho cửa sổ
-        currentStage.setTitle("Coffee Shop Management - Welcome ");
-        currentStage.setMaximized(true);
-        currentStage.setScene(scene);
-        currentStage.show();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
-    private void settingScreen() throws IOException {
-        // 1. Lấy Stage hiện tại
-        Stage currentStage = (Stage) centerMenuGrid.getScene().getWindow();
+    private void mainScreen() {
+        try {
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
-        // 2. Tải FXML của màn hình chính
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"));
-        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
-        loader.setResources(bundle);
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/MainScreen/MainView.fxml"),
+                    bundle
+            );
+            Parent root = loader.load();
+            Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
+            Scene scene = new Scene(root);
 
-        // 3. Tải Root Node
-        Parent root = loader.load();
-        // 4. Tạo Scene mới và thiết lập Stage
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(
-                getClass().getResource("/view/MainScreen/SettingsPage/Settings.css").toExternalForm()
-        );
+            AppConfig.applyTheme(scene, "/view/MainScreen/Main.css");
 
-        //  Đặt tiêu đề mới cho cửa sổ
-        currentStage.setTitle("Coffee Shop Management - Welcome ");
-        currentStage.setMaximized(true);
-        currentStage.setScene(scene);
-        currentStage.show();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void openSettings() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"));
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+            loader.setResources(bundle);
+            Parent root = loader.load();
+            Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
+
+            // Giữ kích thước cũ
+            Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+
+            view.AppConfig.applyTheme(scene, "/view/MainScreen/SettingsPage/Settings.css");
+
+            stage.setTitle(LanguageManager.getInstance().getString("mainc.setting_system"));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     private void logout(){
         try {
             ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginPage/Login.fxml"));
-
-            loader.setResources(bundle);
-
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/LoginPage/Login.fxml"),
+                    bundle
+            );
             Parent root = loader.load();
             Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
+
             Scene scene = new Scene(root, 1000, 600);
             scene.getStylesheets().add(
                     getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
@@ -406,7 +415,7 @@ public class MenuManagerController {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Không thể tải trang đăng nhập.");
+            System.err.println(LanguageManager.getInstance().getString("mainc.notnot"));
         }
     }
 }

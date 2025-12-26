@@ -77,6 +77,10 @@
     -fx-border-radius: 20;
     -fx-cursor: hand;
     -fx-font-weight: bold;
+
+    /* --- THÊM 2 DÒNG NÀY --- */
+    -fx-padding: 10 24;
+    -fx-font-size: 14px;
 }
 
 .filter-btn:hover {
@@ -237,4 +241,57 @@
 
 .checkout-btn:hover {
     -fx-background-color: linear-gradient(to right, #34D399, #10B981);
+}
+/* =========================
+   LIGHT MODE FIX (BỔ SUNG)
+   ========================= */
+
+/* Root */
+.root-container {
+    -fx-background-color: linear-gradient(
+        to bottom right,
+        #F8FAFF,
+        #EEF2FF
+    );
+}
+
+/* Card */
+.setting-card {
+    -fx-background-color: white;
+    -fx-background-radius: 24;
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0,0,0,0.08),
+        20, 0, 0, 8
+    );
+}
+
+/* Card title */
+.setting-card .card-title {
+    -fx-text-fill: #0F172A;
+    -fx-font-weight: bold;
+}
+
+/* Card subtitle */
+.setting-card .card-subtitle {
+    -fx-text-fill: #475569;
+}
+
+/* Icon container */
+.icon-container {
+    -fx-background-color: #EFF6FF;
+    -fx-text-fill: #2563EB;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+/* Toggle */
+.toggle-switch:selected .thumb {
+    -fx-background-color: #2563EB;
 }

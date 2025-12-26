@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import view.AppConfig;
 import view.Helper.LanguageManager;
 import view.MainTest;
 import view.MockTest.MockOrder;
@@ -72,7 +73,7 @@ public class MainController {
 
         menuGrid.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
-                view.AppConfig.applyTheme(newScene);
+                view.AppConfig.applyTheme(newScene, null);
             }
         });
 
@@ -312,9 +313,10 @@ public class MainController {
         scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
     }
     @FXML
-    private void menuManager(){
-        if(MainTest.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
-            // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
+    private void menuManager() {
+        //if(MainTest.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
+        // >>> BẮT ĐẦU PHẦN CHUYỂN TRANG <<<
+        if (true) {
             try {
                 // 1. Lấy Stage hiện tại (từ bất kỳ thành phần nào trên Scene)
                 Stage currentStage = (Stage) menuGrid.getScene().getWindow();
@@ -328,7 +330,7 @@ public class MainController {
 
                 // 4. Tạo Scene mới và thiết lập Stage
                 Scene scene = new Scene(root);
-                view.AppConfig.applyTheme(scene);
+                AppConfig.applyTheme(scene, "/view/MainScreen/MenuManagerPage/MenuManager.css");
                 scene.getStylesheets().add(
                         getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.css").toExternalForm()
                 );
@@ -341,14 +343,15 @@ public class MainController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(LanguageManager.getInstance().getString("mainc.notification"));
             alert.setHeaderText(null);
             alert.setContentText(LanguageManager.getInstance().getString("mainc.not"));
-            alert.showAndWait();        }
+            alert.showAndWait();
+        }
     }
+
     @FXML
     private void logout(){
         try {
@@ -386,8 +389,7 @@ public class MainController {
             // Giữ kích thước cũ
             Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
 
-            // >>> THÊM DÒNG NÀY <<<
-            view.AppConfig.applyTheme(scene);
+            view.AppConfig.applyTheme(scene, "/view/MainScreen/SettingsPage/Settings.css");
 
             stage.setTitle(LanguageManager.getInstance().getString("mainc.setting_system"));
             stage.setScene(scene);

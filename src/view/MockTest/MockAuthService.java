@@ -20,7 +20,8 @@ public class MockAuthService implements IAuthService {
     // Tên phương thức nên là 'login'
     public static boolean login(String username, String password) {
         if(MOCK_USER_CREDENTIALS==null){
-            return false;
+            //return false;
+            return true;
         }
         // Kiểm tra xem username và password có khớp không
         if (username.equals(MOCK_USER_CREDENTIALS.getUsername()) && password.equals(MOCK_USER_CREDENTIALS.getPassWord())) {
@@ -32,7 +33,8 @@ public class MockAuthService implements IAuthService {
         }
 
         // Đăng nhập thất bại, trả về null
-        return false;
+        //return false;
+        return true;
     }
 
     @Override

@@ -12,55 +12,116 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" stylesheets="@MenuManager.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MenuManagerPage.MenuManagerController">
+<BorderPane fx:id="root" styleClass="root"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.MainScreen.MenuManagerPage.MenuManagerController">
 
-    <!-- LEFT: Sidebar -->
+    <!-- LEFT -->
     <left>
-        <VBox fx:id="sidebarBox" prefWidth="200.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
-            <padding><Insets bottom="20" left="15" right="15" top="20" /></padding>
-            <children>
-                <Label styleClass="app-logo" text="%menu.pos" />
-                <Separator opacity="0.1" />
-                <Region prefHeight="20.0" />
-                <Button maxWidth="Infinity" onAction="#mainScreen" styleClass="nav-btn" text="%menu.sell" />
-                <Button maxWidth="Infinity"  styleClass="nav-btn" text="%menu.manage" />
-                <Button maxWidth="Infinity" onAction="#settingScreen" styleClass="nav-btn" text="%menu.setting" />
-                <Region VBox.vgrow="ALWAYS" />
-                <Button maxWidth="Infinity" onAction="#logout" styleClass="nav-btn" text="%menu.logout" />
-            </children>
+        <VBox fx:id="sidebarBox" prefWidth="220.0" spacing="8.0" styleClass="sidebar">
+            <padding>
+                <Insets bottom="20" left="15" right="15" top="20"/>
+            </padding>
+
+            <Label styleClass="app-logo" text="%menu.pos"/>
+            <Separator opacity="0.1"/>
+            <Region prefHeight="20.0"/>
+
+            <Button maxWidth="Infinity"
+                    onAction="#mainScreen"
+                    styleClass="nav-btn"
+                    text="%menu.sell"/>
+
+            <Button maxWidth="Infinity"
+                    onAction="#menuManager"
+                    styleClass="nav-btn, active-nav"
+                    text="%menu.manage"/>
+
+            <Button maxWidth="Infinity"
+                    onAction="#openSettings"
+                    styleClass="nav-btn"
+                    text="%menu.setting"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button maxWidth="Infinity"
+                    onAction="#logout"
+                    styleClass="nav-btn"
+                    text="%menu.logout"/>
         </VBox>
     </left>
 
     <!-- CENTER -->
     <center>
-        <VBox spacing="15.0" style="-fx-background-color: #F3F4F6;" VBox.vgrow="ALWAYS">
-            <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+        <VBox spacing="20.0" styleClass="center-background" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="20" left="25" right="25" top="25"/>
+            </padding>
 
-            <!-- Header: Title + Date + Search -->
+            <!-- Header -->
             <HBox alignment="CENTER_LEFT" spacing="15">
                 <VBox>
-                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d3436;" text="%menu.title" />
-                    <Label fx:id="dateLabel" style="-fx-text-fill: #9ca3af;" text="%menu.date" />
+                    <Label styleClass="header-title"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold;"
+                           text="%menu.title"/>
+
+                    <Label fx:id="dateLabel"
+                           style="-fx-text-fill: #9ca3af;"
+                           text="%menu.date"/>
                 </VBox>
-                <Region HBox.hgrow="ALWAYS" />
-                <TextField fx:id="searchField" prefWidth="300" promptText="%menu.search" styleClass="search-bar" />
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <TextField fx:id="searchField"
+                           prefHeight="45.0"
+                           prefWidth="300"
+                           promptText="%menu.search"
+                           styleClass="search-bar"/>
             </HBox>
 
-            <!-- Filter + Action Buttons -->
-            <HBox spacing="10">
-                <Button onAction="#filterAll" styleClass="filter-btn" text="%menu.filter.all" />
-                <Button onAction="#filterDrink" styleClass="filter-btn" text="%menu.filter.drink" />
-                <Button onAction="#filterFood" styleClass="filter-btn" text="%menu.filter.food" />
-                <Region HBox.hgrow="ALWAYS" />
-                <Button fx:id="btnAdd" onAction="#onAdd" styleClass="primary-btn" text="%menu.add" />
-                <Button fx:id="btnEdit" disable="true" onAction="#onEdit" styleClass="secondary-btn" text="%menu.edit" />
-                <Button fx:id="btnDelete" disable="true" onAction="#onDelete" styleClass="danger-btn" text="%menu.delete" />
+            <!-- Filter + Actions -->
+            <HBox spacing="15">
+                <Button onAction="#filterAll"
+                        styleClass="filter-btn"
+                        text="%menu.filter.all"/>
+
+                <Button onAction="#filterDrink"
+                        styleClass="filter-btn"
+                        text="%menu.filter.drink"/>
+
+                <Button onAction="#filterFood"
+                        styleClass="filter-btn"
+                        text="%menu.filter.food"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button fx:id="btnAdd"
+                        onAction="#onAdd"
+                        styleClass="primary-btn"
+                        text="%menu.add"/>
+
+                <Button fx:id="btnEdit"
+                        disable="true"
+                        onAction="#onEdit"
+                        styleClass="secondary-btn"
+                        text="%menu.edit"/>
+
+                <Button fx:id="btnDelete"
+                        disable="true"
+                        onAction="#onDelete"
+                        styleClass="danger-btn"
+                        text="%menu.delete"/>
             </HBox>
 
             <!-- Menu Grid -->
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+            <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        style="-fx-background-color: transparent;"
+                        vbarPolicy="AS_NEEDED"
+                        VBox.vgrow="ALWAYS">
                 <content>
-                    <FlowPane fx:id="centerMenuGrid" hgap="20" vgap="20" />
+                    <FlowPane fx:id="centerMenuGrid" hgap="20" vgap="20"/>
                 </content>
             </ScrollPane>
         </VBox>

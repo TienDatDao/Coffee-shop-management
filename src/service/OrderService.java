@@ -1,84 +1,75 @@
 package service;
-import java.util.Map;
 
+import DAO.OrderDAO;
 import Interface.IMenuItem;
 import model.MenuItem;
 import model.Order;
 import model.OrderItem;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class OrderService {
-    // Map lưu trữ đơn hàng với Key là OrderId (String)
-    private Map<String, Order> orders;
     private MenuService menuService;
+    private OrderDAO orderDAO;
 
-    // Constructor
+    private Order currentOrder;
+
     public OrderService(MenuService menuService) {
-        this.orders = new HashMap<>();
         this.menuService = menuService;
+        this.orderDAO = new OrderDAO();
     }
 
-    // Tạo đơn hàng mới
-    public Order createOrder(String tableId, List<OrderItem> items) {
-        // Giả lập tạo ID ngẫu nhiên hoặc tăng dần
-        int newIdInt = orders.size() + 1;
-        
-        // Cần đối tượng Staff, tạm thời để null hoặc truyền vào nếu logic yêu cầu
-        Order newOrder = new Order(newIdInt, null, tableId);
-        
-        // Thêm các món vào đơn hàng
-        if (items != null) {
-            for (OrderItem item : items) {
-                newOrder.addOrderItem(item);
-            }
+    public void createOrder(String tableId, List<OrderItem> items) {
+        this.currentOrder = new Order();
+        this.currentOrder.setTableId(tableId);
+        this.currentOrder.setCreatedTime(new Date());
+        this.currentOrder.setStatus("Pending");
+        this.currentOrder.setItems(new ArrayList<>());
+
+        System.out.println("Đã khởi tạo đơn hàng tạm cho bàn: " + tableId);
+    }
+
+    public void addItem(MenuItem item, int quantity, String note) {
+        if (this.currentOrder == null) {
+            System.err.println("Chưa khởi tạo đơn hàng! Hãy gọi createOrder trước.");
+            return;
         }
-        
-        // Lưu vào Map
-        orders.put(newOrder.getOrderId(), newOrder);
-        
-        return newOrder;
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setMenuItem(item);
+        orderItem.setQuantity(quantity);
+        orderItem.setNote(note);
+
+        this.currentOrder.addOrderItem(orderItem);
+        System.out.println("Đã thêm món: " + item.getName());
     }
 
-    // Các hàm dưới đây trong UML có vẻ như đang ủy quyền (delegate) cho MenuService
-    // Vì tham số là MenuItem chứ không phải OrderId
-    
-    public void addItem(MenuItem item) {
-        if (menuService != null) {
-            menuService.addMenuItem(item);
-        }
+    public Order getCurrentOrder() {
+        return this.currentOrder;
     }
 
-    public void removeItem(String itemId) {
-        if (menuService != null) {
-            menuService.deleteMenuItem(itemId);
+    public Order getOrderById(String orderIdStr) {
+        return null;
+    }
+
+    public void removeItem(int itemId) {
+        if (this.currentOrder != null && itemId >= 0 && itemId < this.currentOrder.getItems().size()) {
+            this.currentOrder.getItems().remove(itemId);
+            System.out.println("Đã xóa món tại vị trí: " + itemId);
         }
     }
 
     public void updateItem(MenuItem item) {
-        if (menuService != null) {
-            menuService.updateMenuItem(item);
-        }
+        if (menuService != null) menuService.updateMenuItem(item);
     }
 
     public List<IMenuItem> getAllItems() {
-        if (menuService != null) {
-            return menuService.getAllItems();
-        }
-        return new ArrayList<>();
-    }
-
-    // Lấy Order theo ID. UML trả về IOrder, ở đây mình trả về Order
-    public Order getOrderById(String orderId) {
-        return orders.get(orderId);
+        return (menuService != null) ? menuService.getAllItems() : new ArrayList<>();
     }
 
     public IMenuItem getItemById(String itemId) {
-        if (menuService != null) {
-            return menuService.getItemById(itemId);
-        }
-        return null;
+        return (menuService != null) ? menuService.getItemById(itemId) : null;
     }
 }

@@ -45,17 +45,14 @@ public class SettingsController {
         // Xác định mã ngôn ngữ
         String langCode = selected.contains("English") ? "en" : "vi";
 
-        // Bước 1: Cập nhật LanguageManager
         LanguageManager.getInstance().setLanguage(langCode);
 
-        // Bước 2: Quan trọng - Load lại giao diện để áp dụng ngôn ngữ mới ngay lập tức
-        // Chúng ta sẽ load lại MainView để toàn bộ Menu được dịch lại
         reloadMainScreen();
     }
 
     private void reloadMainScreen() {
         try {
-            // Lấy Bundle MỚI (vừa được setLanguage ở trên)
+            // Lấy Bundle
             ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
             // Load lại MainView
@@ -68,7 +65,7 @@ public class SettingsController {
             Scene scene = new Scene(root);
 
             // Giữ nguyên trạng thái theme (Sáng/Tối)
-            AppConfig.applyTheme(scene);
+            AppConfig.applyTheme(scene, "/view/MainScreen/Main.css");
 
             stage.setScene(scene);
 
@@ -82,10 +79,11 @@ public class SettingsController {
 
     @FXML
     private void handleDarkModeToggle() {
+
         // Lưu trạng thái vào Config
         AppConfig.isDarkMode = darkModeToggle.isSelected();
         // Áp dụng ngay lập tức cho Scene hiện tại
-        AppConfig.applyTheme(darkModeToggle.getScene());
+        AppConfig.applyTheme(darkModeToggle.getScene(), "/view/MainScreen/SettingsPage/Settings.css");
     }
 
     @FXML
@@ -105,7 +103,7 @@ public class SettingsController {
             modalStage.initOwner(darkModeToggle.getScene().getWindow());
 
             Scene scene = new Scene(root);
-            AppConfig.applyTheme(scene);
+            AppConfig.applyTheme(scene, null);
 
             modalStage.setScene(scene);
             modalStage.showAndWait();
@@ -116,7 +114,45 @@ public class SettingsController {
     }
 
     @FXML
-    private void goBack() {
-        reloadMainScreen();
+    private void menuManager() {
+        try {
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"),
+                    bundle
+            );
+            Parent root = loader.load();
+            Stage stage = (Stage) darkModeToggle.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // >>> SỬA DÒNG NÀY: Quay về Main thì tham số thứ 2 là null (không cần Settings.css)
+            AppConfig.applyTheme(scene, "/view/MainScreen/MenuManagerPage/MenuManager.css");
+
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void mainScreen() {
+        try {
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/MainScreen/MainView.fxml"),
+                    bundle
+            );
+            Parent root = loader.load();
+            Stage stage = (Stage) darkModeToggle.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // >>> SỬA DÒNG NÀY: Quay về Main thì tham số thứ 2 là null (không cần Settings.css)
+            AppConfig.applyTheme(scene, "/view/MainScreen/Main.css");
+
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

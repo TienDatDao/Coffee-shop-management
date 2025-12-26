@@ -5,7 +5,7 @@ public class Manager extends User {
     private int hoursWorked;
     private String currentShift;
 
-    public Manager(int id, String username, String password, String fullName, String phoneNumber, 
+    public Manager(int id, String username, String password, String fullName, String phoneNumber,
                    int hourlyRate, String currentShift) {
         super(id, username, password, fullName, phoneNumber);
         this.hourlyRate = hourlyRate;
@@ -15,7 +15,7 @@ public class Manager extends User {
 
     public boolean deleteMenuItem(MenuItem item) {
         System.out.println("Manager deleted item: " + item.getName());
-        return true; 
+        return true;
     }
 
     public boolean addMenuItem(MenuItem item) {

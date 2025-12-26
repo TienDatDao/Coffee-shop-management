@@ -13,16 +13,27 @@ public class Order {
     private String tableId;
     private List<OrderItem> items;
 
-    public Order(int orderId, Staff staff, String tableId) {
-        this.orderId = orderId;
+    public Order() {
+        this.items = new ArrayList<>();
+        this.createdTime = new Date();
+        this.status = "PENDING";
+    }
+
+    public Order(Staff staff, String tableId) {
         this.staff = staff;
         this.tableId = tableId;
         this.createdTime = new Date();
-        this.status = "PENDING";  // "PENDING", "PREPARING", "SERVED", "CANCELLED"
+        this.status = "PENDING";
         this.items = new ArrayList<>();
     }
 
+    public Order(int orderId, Staff staff, String tableId) {
+        this(staff, tableId);
+        this.orderId = orderId;
+    }
+
     public String getCreatedAt() {
+        if (this.createdTime == null) return "";
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return formatter.format(this.createdTime);
     }
@@ -36,15 +47,18 @@ public class Order {
         }
         return total;
     }
-    
+
     public void addOrderItem(OrderItem item) {
+        if (this.items == null) {
+            this.items = new ArrayList<>();
+        }
         this.items.add(item);
     }
 
-    public String getOrderId() {
-        return String.valueOf(orderId);
+    public int getOrderId() {
+        return orderId;
     }
-    
+
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
