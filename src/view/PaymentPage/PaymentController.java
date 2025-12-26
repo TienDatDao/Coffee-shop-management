@@ -127,7 +127,7 @@ public class PaymentController implements Initializable {
                     Label lblDescription = new Label(item.getCategory());
                     lblDescription.getStyleClass().add("item-description");
                     // Sử dụng formatter
-                    Label lblPrice = new Label("Giá: " + currencyFormatter.format(item.getPrice()));
+                    Label lblPrice = new Label( LanguageManager.getInstance().getString("pay.price") + currencyFormatter.format(item.getPrice()));
                     lblPrice.getStyleClass().add("item-price");
                     nameAndDescBox.getChildren().addAll(lblName, lblDescription, lblPrice);
 
@@ -137,11 +137,11 @@ public class PaymentController implements Initializable {
                     VBox detailVBox = new VBox(5);
                     detailVBox.getStyleClass().add("item-detail-vbox");
 
-                    Label lblQty = new Label("Số lượng: x" + item.getQuantity());
+                    Label lblQty = new Label(LanguageManager.getInstance().getString("pay.quantity") + item.getQuantity());
                     lblQty.getStyleClass().add("item-quantity");
 
                     // Thành tiền sau ưu đãi/subtotal
-                    Label lblSubtotal = new Label("Thành tiền: " + currencyFormatter.format(item.getSubtotal()));
+                    Label lblSubtotal = new Label(LanguageManager.getInstance().getString("pay.subtotal") + currencyFormatter.format(item.getSubtotal()));
                     lblSubtotal.getStyleClass().add("item-subtotal");
 
                     detailVBox.getChildren().addAll(lblQty, lblSubtotal);
@@ -170,7 +170,7 @@ public class PaymentController implements Initializable {
                 iv.setPreserveRatio(true);
                 flowImages.getChildren().add(iv);
             } catch (Exception e) {
-                System.err.println("Không thể load ảnh: " + file);
+                System.err.println(LanguageManager.getInstance().getString("pay.warningpt") + file);
             }
         }
     }
@@ -190,7 +190,7 @@ public class PaymentController implements Initializable {
         lblTotal.setText(currencyFormatter.format(sumTotal));
 
         double discount = sumSubtotal - sumTotal;
-        lblDiscount.setText(String.format("Ưu đãi: -%s", currencyFormatter.format(discount)));
+        lblDiscount.setText(String.format(LanguageManager.getInstance().getString("pay.discount"), currencyFormatter.format(discount)));
     }
 
     // --- LOGIC XỬ LÝ SỰ KIỆN ---
@@ -199,7 +199,7 @@ public class PaymentController implements Initializable {
     private void handlePay() {
         RadioButton selected = (RadioButton) paymentGroup.getSelectedToggle();
         if (selected == null) {
-            lblMessage.setText("Chọn phương thức thanh toán!");
+            lblMessage.setText(LanguageManager.getInstance().getString("pay.choicePay"));
             lblMessage.setStyle("-fx-text-fill: red;");
             return;
         }
@@ -207,11 +207,11 @@ public class PaymentController implements Initializable {
         // Tạo order mới (lưu vào hệ thống)
         iOrderService.createOrder(iOrder.getTableId(), iOrder.getItems(), iOrder.getOrderId());
 
-        if(selected.getText().equals("Thanh toán bằng QR code")){
+        if(selected.getText().equals(LanguageManager.getInstance().getString("pay.methodcode"))){
             showConfirmationDialog();
         }
         else{
-            lblMessage.setText("Thanh toán thành công qua phương thức " + selected.getText() + "!");
+            lblMessage.setText(LanguageManager.getInstance().getString("pay.success") + selected.getText() + "!");
             lblMessage.setStyle("-fx-text-fill: green;");
             delayThenRun(1, () -> {
                 try {
@@ -287,10 +287,10 @@ public class PaymentController implements Initializable {
         content.setPadding(new Insets(30));
 
         // Tiêu đề tùy chỉnh với màu Accent (Indigo)
-        Label title = new Label("Tạo Đơn Thành Công");
+        Label title = new Label(LanguageManager.getInstance().getString("pay.createOrder"));
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #4F46E5;"); // Màu Indigo
 
-        Label instruction = new Label("Vui lòng quét mã QR để hoàn tất giao dịch");
+        Label instruction = new Label(LanguageManager.getInstance().getString("pay.goiY"));
         instruction.setStyle("-fx-text-fill: #475569;"); // Màu chữ xám/đậm
 
         content.getChildren().addAll(
@@ -302,7 +302,7 @@ public class PaymentController implements Initializable {
         dialog.getDialogPane().setContent(content);
 
         // 4. Thêm nút "Đóng & Quay lại Menu"
-        ButtonType closeButton = new ButtonType("Đóng & Quay lại Menu", ButtonBar.ButtonData.OK_DONE);
+        ButtonType closeButton = new ButtonType(LanguageManager.getInstance().getString("pay.close"), ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(closeButton);
 
         // Áp dụng kiểu dáng CSS cho nút
@@ -327,7 +327,7 @@ public class PaymentController implements Initializable {
         dialog.showAndWait();
 
         // Cập nhật lại lblMessage sau khi đóng dialog
-        lblMessage.setText("Thanh toán thành công!");
+        lblMessage.setText(LanguageManager.getInstance().getString("pay.sc"));
         lblMessage.setStyle("-fx-text-fill: green;");
     }
 }

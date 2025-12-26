@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
+import view.Helper.LanguageManager;
 
 public class ChangePasswordController {
 
@@ -18,7 +19,7 @@ public class ChangePasswordController {
         String cfm = confirmPassField.getText();
 
         if (cur.isEmpty() || newP.isEmpty()) {
-            showAlert("Vui lòng điền đầy đủ thông tin!", Alert.AlertType.WARNING);
+            showAlert(LanguageManager.getInstance().getString("cPass.warning"), Alert.AlertType.WARNING);
             return;
         }
 
@@ -26,14 +27,14 @@ public class ChangePasswordController {
         // if (!MockAuthService.checkPassword(cur)) { ... }
 
         if (!newP.equals(cfm)) {
-            showAlert("Mật khẩu xác nhận không khớp!", Alert.AlertType.ERROR);
+            showAlert(LanguageManager.getInstance().getString("cPass.warningPass"), Alert.AlertType.ERROR);
             return;
         }
 
         // TODO: Gọi Service để cập nhật mật khẩu mới
         // AuthService.updatePassword(newP);
 
-        showAlert("Đổi mật khẩu thành công!", Alert.AlertType.INFORMATION);
+        showAlert(LanguageManager.getInstance().getString("cPass.success"), Alert.AlertType.INFORMATION);
         closeWindow();
     }
 
@@ -49,7 +50,7 @@ public class ChangePasswordController {
 
     private void showAlert(String msg, Alert.AlertType type) {
         Alert alert = new Alert(type);
-        alert.setTitle("Thông báo");
+        alert.setTitle(LanguageManager.getInstance().getString("cPass.tb"));
         alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();

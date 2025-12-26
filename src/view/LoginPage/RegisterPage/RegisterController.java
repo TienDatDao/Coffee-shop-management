@@ -37,20 +37,20 @@ public class RegisterController {
         String role = choiceRole.getValue();
 
         if (username.isEmpty() || password.isEmpty()) {
-            showMessage("Vui lòng nhập đầy đủ thông tin!");
+            showMessage(LanguageManager.getInstance().getString("re.warning"));
             return;
         }
         if(password.length()<8){
-            showMessage("Mật khẩu phải từ 8 kí tự trở lên, vui lòng nhập lại!");
+            showMessage(LanguageManager.getInstance().getString("re.waringPass"));
             return;
         }
 
         // thông báo thành công
-        showMessage("Đăng ký thành công");
+        showMessage(LanguageManager.getInstance().getString("re.success"));
         // cập nhật dữ liệu
         user = new MockUser(username, password, role);
         MainTest.MOCK_AUTH_SERVICE.setUser(user);
-        delayThenRun(1, ()->loadLoginPage());
+        delayThenRun(0.5, ()->loadLoginPage());
 
     }
 

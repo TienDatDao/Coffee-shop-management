@@ -70,7 +70,7 @@ public class LoginController implements Initializable {
 
         if (success) {
 
-            lblMessage.setText("Login successful!");
+            lblMessage.setText(LanguageManager.getInstance().getString("lo.success"));
             lblMessage.getStyleClass().add("success-message");
 
             // Xóa dữ liệu sau khi thành công

@@ -60,7 +60,7 @@ public class SettingsController {
 
             // Load lại MainView
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MainView.fxml"));
-            loader.setResources(bundle); // <-- Quan trọng: Truyền Bundle mới vào
+            loader.setResources(bundle); // Truyền Bundle mới vào
 
             Parent root = loader.load();
             Stage stage = (Stage) languageComboBox.getScene().getWindow();
@@ -75,7 +75,7 @@ public class SettingsController {
         } catch (IOException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Lỗi khi tải lại ngôn ngữ: " + ex.getMessage());
+            alert.setContentText("ERROR: " + ex.getMessage());
             alert.show();
         }
     }
@@ -100,7 +100,7 @@ public class SettingsController {
             Parent root = loader.load();
 
             Stage modalStage = new Stage();
-            modalStage.setTitle(bundle.getString("settings.change_password")); // Tiêu đề lấy từ file properties
+            modalStage.setTitle(bundle.getString("setting.change")); // Tiêu đề lấy từ file properties
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.initOwner(darkModeToggle.getScene().getWindow());
 

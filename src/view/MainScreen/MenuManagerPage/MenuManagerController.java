@@ -272,7 +272,7 @@ public class MenuManagerController {
         ItemDialogController dc = loader.getController();
         dc.setEditing(null);
 
-        StageHelper.showDialog(root, "Thêm món", btnAdd.getScene().getWindow());
+        StageHelper.showDialog(root, LanguageManager.getInstance().getString("mem.addDish"), btnAdd.getScene().getWindow());
 
         Object ud = root.getScene() != null ? root.getScene().getUserData() : null;
         if (ud instanceof IMenuItem newItem) {
@@ -293,14 +293,17 @@ public class MenuManagerController {
         applyDimmedEffect();
         if (selectedItem == null) return;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"),
+                LanguageManager.getInstance().getBundle()
+        );
         Parent root = loader.load();
         ItemDialogController dc = loader.getController();
 // Truyền đối tượng gốc cho Dialog để nó cập nhật các thuộc tính của nó
         IMenuItem itemToEdit = selectedItem.getOriginal();
         dc.setEditing(itemToEdit);
 
-        StageHelper.showDialog(root, "Sửa món", btnEdit.getScene().getWindow());
+        StageHelper.showDialog(root, LanguageManager.getInstance().getString("mem.editDish"), btnEdit.getScene().getWindow());
 
         // Sau khi Dialog đóng, các thuộc tính của 'itemToEdit' (là đối tượng gốc) ĐÃ được cập nhật.
 
@@ -315,9 +318,9 @@ public class MenuManagerController {
         if (selectedItem == null) return;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Xác nhận");
-        alert.setHeaderText("Xóa món");
-        alert.setContentText("Bạn chắc chắn muốn xóa: " + selectedItem.nameProperty().get() + " ?");
+        alert.setTitle(LanguageManager.getInstance().getString("mem.acept"));
+        alert.setHeaderText(LanguageManager.getInstance().getString("mem.deleteDish"));
+        alert.setContentText(LanguageManager.getInstance().getString("mem.realConfirm") + selectedItem.nameProperty().get() + " ?");
 
         alert.showAndWait().ifPresent(bt -> {
             if (bt == ButtonType.OK) {

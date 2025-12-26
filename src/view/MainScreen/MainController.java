@@ -283,7 +283,7 @@ public class MainController {
     private void handleCheckout() throws IOException {
         if (currentOrder.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Giỏ hàng đang trống!");
+            alert.setContentText(LanguageManager.getInstance().getString("mainc.warning"));
             alert.showAndWait();
             return;
         }
@@ -344,9 +344,9 @@ public class MainController {
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Thông báo");
+            alert.setTitle(LanguageManager.getInstance().getString("mainc.notification"));
             alert.setHeaderText(null);
-            alert.setContentText("Bạn không có quyền truy cập!");
+            alert.setContentText(LanguageManager.getInstance().getString("mainc.not"));
             alert.showAndWait();        }
     }
     @FXML
@@ -370,7 +370,7 @@ public class MainController {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Không thể tải trang đăng nhập.");
+            System.err.println(LanguageManager.getInstance().getString("mainc.notnot"));
         }
     }
 
@@ -389,7 +389,7 @@ public class MainController {
             // >>> THÊM DÒNG NÀY <<<
             view.AppConfig.applyTheme(scene);
 
-            stage.setTitle("Cài đặt hệ thống");
+            stage.setTitle(LanguageManager.getInstance().getString("mainc.setting_system"));
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

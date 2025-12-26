@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import view.Helper.LanguageManager;
 import view.MockTest.MockMenuItem;
 
 import java.io.File;
@@ -42,14 +43,14 @@ public class ItemDialogController {
     public void setEditing(IMenuItem item) {
         this.editing = item;
         if (item != null) {
-            titleLabel.setText("✏️ Sửa món");
+            titleLabel.setText(LanguageManager.getInstance().getString("dia.edit"));
             nameField.setText(item.getName());
             priceField.setText(String.valueOf(item.getPrice()));
             // Đảm bảo giá trị Category tồn tại trong danh sách để tránh lỗi
             if (categoryChoice.getItems().contains(item.getCategory())) {
                 categoryChoice.setValue(item.getCategory());
             } else {
-                categoryChoice.setValue("Khác"); // Giá trị mặc định nếu không tìm thấy
+                categoryChoice.setValue(LanguageManager.getInstance().getString("dia.dif")); // Giá trị mặc định nếu không tìm thấy
             }
 
             // Lưu trữ ảnh hiện tại để không cần tải lại
@@ -58,7 +59,7 @@ public class ItemDialogController {
                 imagePreview.setImage(chosenImage);
             }
         } else {
-            titleLabel.setText("➕ Thêm món mới");
+            titleLabel.setText(LanguageManager.getInstance().getString("dia.add"));
             // Giá trị mặc định đã được đặt trong initialize()
         }
     }
@@ -69,7 +70,7 @@ public class ItemDialogController {
     @FXML
     private void onUploadImage() {
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Chọn ảnh món");
+        chooser.setTitle(LanguageManager.getInstance().getString("dia.choiceP"));
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
@@ -133,7 +134,6 @@ public class ItemDialogController {
             dialogRoot.getScene().setUserData(newItem);
         }
 
-        System.out.println("da thuc hien confirm!");
         dialogRoot.getScene().getWindow().hide();
     }
 
