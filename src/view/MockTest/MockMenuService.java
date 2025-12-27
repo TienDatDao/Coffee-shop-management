@@ -14,10 +14,15 @@ public class MockMenuService implements IMenuService {
         menuList = new ArrayList<>();
         menuList.add(new MockMenuItem("1", "Cà phê đen", 25000.0, "Drink", "/view/MainScreen/MainScreenImages/ca_phe_den.png"));
         menuList.add(new MockMenuItem("2", "Cà phê sữa", 30000.0, "Drink", "/view/MainScreen/MainScreenImages/ca_phe_sua.png"));
-        menuList.add(new MockMenuItem("3", "Bạc xỉu", 35000.0, "Drink", "/view/MainScreen/MainScreenImages/bac_xiu.png"));
-        menuList.add(new MockMenuItem("4", "Trà đào", 40000.0, "Drink", "/view/MainScreen/MainScreenImages/tra_dao.png"));
-        menuList.add(new MockMenuItem("5", "Bánh Croissant", 20000.0, "Food", "/view/MainScreen/MainScreenImages/banh_croissant.png"));
-        menuList.add(new MockMenuItem("6", "Bánh Tiramisu", 45000.0, "Food", "/view/MainScreen/MainScreenImages/banh_tiramisu.png"));
+        menuList.add(new MockMenuItem("3", "Cappuchino", 35000.0, "Drink", "/view/MainScreen/MainScreenImages/cappuchino.png"));
+        menuList.add(new MockMenuItem("4", "Bạc xỉu", 35000.0, "Drink", "/view/MainScreen/MainScreenImages/bac_xiu.png"));
+        menuList.add(new MockMenuItem("5", "Trà chanh", 25000.0, "Drink", "/view/MainScreen/MainScreenImages/tra_chanh.png"));
+        menuList.add(new MockMenuItem("6", "Trà đào", 40000.0, "Drink", "/view/MainScreen/MainScreenImages/tra_dao.png"));
+        menuList.add(new MockMenuItem("7", "Trà vai", 30000.0, "Drink", "/view/MainScreen/MainScreenImages/tra_vai.png"));
+        menuList.add(new MockMenuItem("8", "Bánh Croissant", 20000.0, "Food", "/view/MainScreen/MainScreenImages/banh_croissant.png"));
+        menuList.add(new MockMenuItem("9", "Bánh Tiramisu", 45000.0, "Food", "/view/MainScreen/MainScreenImages/banh_tiramisu.png"));
+        menuList.add(new MockMenuItem("10", "Bánh Flan", 40000.0, "Food", "/view/MainScreen/MainScreenImages/banh_flan.png"));
+        menuList.add(new MockMenuItem("11", "Bánh Muffin", 40000.0, "Food", "/view/MainScreen/MainScreenImages/banh_muffin.png"));
     }
 
 

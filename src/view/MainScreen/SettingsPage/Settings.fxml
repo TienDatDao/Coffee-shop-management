@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="rootPane" styleClass="root-container" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.SettingsPage.SettingsController">
+<BorderPane fx:id="rootPane" styleClass="root-container" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.SettingsPage.SettingsController">
 
     <left>
         <VBox prefHeight="756.0" prefWidth="220.0" spacing="8.0" styleClass="sidebar">
@@ -27,7 +27,7 @@
                 <Button maxWidth="Infinity" styleClass="nav-btn, active-nav" text="⚙  Cài đặt" />
 
                 <Region VBox.vgrow="ALWAYS" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="🚪   Đăng xuất" />
+                <Button maxWidth="Infinity" onAction="#logout" styleClass="nav-btn" text="🚪   Đăng xuất" />
             </children>
         </VBox>
     </left>
@@ -78,7 +78,7 @@
                             <padding><Insets bottom="25" left="25" right="25" top="25" /></padding>
 
                             <HBox alignment="CENTER_LEFT" spacing="15">
-                                <Label styleClass="icon-container" style="-fx-background-color: #ECFDF5; -fx-text-fill: #059669;" text="🛡️" />
+                                <Label style="-fx-background-color: #ECFDF5; -fx-text-fill: #059669;" styleClass="icon-container" text="🛡️" />
                                 <VBox>
                                     <Label styleClass="card-title" text="Bảo Mật" />
                                     <Label styleClass="card-desc" text="Bảo vệ tài khoản của bạn" />

@@ -40,7 +40,7 @@ public class LoginController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/RegisterPage/Register.fxml"));
         Stage stage = (Stage) btnLogin.getScene().getWindow();
         // 4. Tạo Scene mới và thiết lập Stage
-        Scene scene = new Scene(root, 1000, 600);
+        Scene scene = new Scene(root, 700, 475);
         scene.getStylesheets().add(
                 getClass().getResource("/view/LoginPage/RegisterPage/Register.css").toExternalForm()
         );

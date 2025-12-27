@@ -53,7 +53,7 @@ public class RegisterController {
             Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPage/Login.fxml"));
             Stage stage = (Stage) txtUsername.getScene().getWindow();
 
-            Scene scene = new Scene(root, 1000, 600);
+            Scene scene = new Scene(root, 700, 475);
             scene.getStylesheets().add(
                     getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
             );

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class PaymentController implements Initializable {
@@ -272,8 +273,15 @@ public class PaymentController implements Initializable {
         }
 
         // 2. Tải ảnh QR Code
-        // Đảm bảo tệp QRPay.jpg tồn tại trong đường dẫn /view/PaymentPage/
-        ImageView qrImage = new ImageView(getClass().getResource("/view/PaymentPage/QRPay.jpg").toExternalForm());
+        Random random = new Random();
+        int x = random.nextInt(1, 3);
+        ImageView qrImage;
+        if(x==1) {
+            qrImage = new ImageView(getClass().getResource("/view/PaymentPage/QRPay1.jpg").toExternalForm());
+        }
+        else {
+            qrImage = new ImageView(getClass().getResource("/view/PaymentPage/QRPay2.jpg").toExternalForm());
+        }
         qrImage.setFitWidth(300);
         qrImage.setFitHeight(300);
         qrImage.setPreserveRatio(true);

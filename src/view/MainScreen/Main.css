@@ -231,7 +231,11 @@
 }
 
 .checkout-btn {
-    -fx-background-color: linear-gradient(to right, #10B981, #059669);
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 0%,
+        #10B981,
+        #059669
+    );
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
@@ -240,5 +244,9 @@
 }
 
 .checkout-btn:hover {
-    -fx-background-color: linear-gradient(to right, #34D399, #10B981);
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 100% 0%,
+        #34D399,
+        #10B981
+    );
 }

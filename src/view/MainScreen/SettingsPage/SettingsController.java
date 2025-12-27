@@ -131,4 +131,32 @@ public class SettingsController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void logout() {
+        try {
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("/view/LoginPage/Login.fxml")
+            );
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+
+            Scene scene = new Scene(root, 700, 475);
+            scene.getStylesheets().add(
+                    getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
+            );
+
+            stage.setMaximized(false);
+            stage.setFullScreen(false);
+
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.centerOnScreen();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Không thể tải trang đăng nhập.");
+        }
+    }
+
 }
