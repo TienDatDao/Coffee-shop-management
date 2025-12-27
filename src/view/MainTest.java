@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 public class MainTest extends Application {
 
     // Giả lập Service toàn cục (như code cũ của bạn)
-    public static final MenuService SHARED_MENU_SERVICE = new MenuService();
+    public static final MenuService MENU_SERVICE = MenuService.getInstance();
     public static final MockAuthService MOCK_AUTH_SERVICE = new MockAuthService();
 
     @Override

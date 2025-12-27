@@ -26,32 +26,13 @@ public class MockMenuItem implements IMenuItem {
         this(id, name, price, category);
         this.image = image;
     }
-    public Image getImage() {
-        if(image!=null){
-        return this.image;
-        }
-        if (imagePath == null || imagePath.isEmpty()) {
-            return null;
-        }
-        // Load từ resources
-        var url = getClass().getResource(imagePath);
-        if (url != null) {
-            return new Image(url.toExternalForm());
-        }
 
-        // Load từ đường dẫn file tuyệt đối
-        return new Image("file:" + imagePath);
-    }
 
     @Override
-    public Image setImage(Image image) {
-        this.image=image;
-        return image;
+    public void setImagePath(String imp) {
+        this.imagePath = imp;
     }
 
-    public void setImage(String imagePath){
-        this.imagePath = imagePath;
-    }
 
     @Override
     public String getId() {
@@ -93,7 +74,7 @@ this.category =category;
     }
 
     @Override
-    public void updateFromOriginal() {
-
+    public String getImagePath() {
+        return imagePath;
     }
 }

@@ -17,11 +17,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Order;
+import model.OrderItem;
 import view.AppConfig;
 import view.Helper.LanguageManager;
 import view.MainTest;
-import view.MockTest.MockOrder;
-import view.MockTest.MockOrderItem;
 import view.PaymentPage.PaymentController;
 import view.Wrapper.MenuItemWrapper;
 import view.Wrapper.OrderItemWrapper;
@@ -66,7 +66,7 @@ public class MainController {
     @FXML
     public void initialize() {
         // 1. Khởi tạo Service
-        menuService = MainTest.SHARED_MENU_SERVICE;
+        menuService = MainTest.MENU_SERVICE;
         Locale locale = LanguageManager.getInstance().getBundle().getLocale();
         currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", locale);
@@ -182,7 +182,7 @@ public class MainController {
 
         // --- SỰ KIỆN CLICK & ANIMATION ---
         card.setOnMouseClicked(e -> {
-            addToCart(item);
+            addToCart(item.unwrap());
             // Hiệu ứng nhún nhẹ khi click
             javafx.animation.ScaleTransition st = new javafx.animation.ScaleTransition(javafx.util.Duration.millis(100), card);
             st.setFromX(1.0); st.setFromY(1.0);
@@ -297,9 +297,9 @@ public class MainController {
         );
         Parent root = loader.load();
 
-        IOrder orderToSend = new MockOrder();
+        IOrder orderToSend = new Order();
         for (OrderItemWrapper itemWrapper : currentOrder) {
-            IOrderItem finalItem = new MockOrderItem(itemWrapper.getMenuItem(), itemWrapper.getQuantity());
+            IOrderItem finalItem = new OrderItem(itemWrapper.getMenuItem(), itemWrapper.getQuantity());
             orderToSend.setListOrderItem(finalItem);
         }
 

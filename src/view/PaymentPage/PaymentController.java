@@ -12,10 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import service.OrderService;
 import view.Helper.LanguageManager;
-import view.MockTest.MockOrderService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +47,7 @@ public class PaymentController implements Initializable {
     private final NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     // Dịch vụ Order (sử dụng để tạo/lưu Order khi thanh toán)
-    private final IOrderService iOrderService = new MockOrderService();
+    private final IOrderService iOrderService = new OrderService();
 
     // --- PHƯƠNG THỨC NHẬN DỮ LIỆU TỪ CONTROLLER KHÁC ---
 
@@ -162,7 +165,6 @@ public class PaymentController implements Initializable {
                 "/view/PaymentPage/ListPaymentMethod.png"
         };
         for (String file : files) {
-            // Lưu ý: Cần xử lý lỗi nếu file không tồn tại
             try {
                 ImageView iv = new ImageView(file);
                 iv.setFitWidth(200);

@@ -5,6 +5,7 @@ public class Staff extends User {
     private int hoursWorked;
     private String currentShift;
 
+    public Staff(){}
 
     public Staff(int id, String username, String password, String fullName, String phoneNumber,
                  int hourlyRate, String currentShift) {

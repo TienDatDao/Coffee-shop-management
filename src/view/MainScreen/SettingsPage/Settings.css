@@ -1,26 +1,19 @@
-/* =======================
+/* =====================================================
    1. GLOBAL & LAYOUT
-======================= */
+===================================================== */
 .root-container {
     -fx-background-color: #F8FAFC;
     -fx-font-family: "Segoe UI";
+    -fx-text-fill: #334155;
 }
 
 .center-background {
-    -fx-background-color: transparent;
+    -fx-background-color: #FFFFFF;
 }
 
-.main-scroll {
-    -fx-background-color: transparent;
-    -fx-background: transparent;
-}
-.main-scroll > .viewport {
-    -fx-background-color: transparent;
-}
-
-/* =======================
-   2. SIDEBAR (TRẢ VỀ NGUYÊN BẢN CỦA MAIN.CSS)
-======================= */
+/* =====================================================
+   2. SIDEBAR
+===================================================== */
 .sidebar {
     -fx-background-color: #1E293B;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
@@ -30,15 +23,15 @@
     -fx-font-size: 28px;
     -fx-font-weight: 800;
     -fx-text-fill: #F1F5F9;
-    -fx-padding: 0 0 10 0;
     -fx-alignment: CENTER;
+    -fx-text-alignment: center;
 }
 
 .nav-btn {
     -fx-background-color: transparent;
     -fx-text-fill: #94A3B8;
     -fx-font-size: 15px;
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment: center-left;
     -fx-padding: 12 20;
     -fx-cursor: hand;
     -fx-background-radius: 8;
@@ -56,11 +49,9 @@
     -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.4), 10, 0, 0, 5);
 }
 
-/* =======================
-   3. PHẦN NỘI DUNG MỚI (Modern Style)
-======================= */
-
-/* Typography */
+/* =====================================================
+   3. TYPOGRAPHY
+===================================================== */
 .page-title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -70,19 +61,6 @@
 .page-subtitle {
     -fx-font-size: 14px;
     -fx-text-fill: #64748B;
-}
-
-/* Cards (Hiệu ứng kính & bóng mờ) */
-.setting-card {
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 20;
-    -fx-effect: dropshadow(gaussian, rgba(148, 163, 184, 0.2), 25, 0, 0, 10);
-    -fx-min-height: 380;
-}
-
-.setting-card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.25), 30, 0, 0, 15);
-    -fx-translate-y: -2;
 }
 
 .card-title {
@@ -96,27 +74,6 @@
     -fx-text-fill: #94A3B8;
 }
 
-.card-separator {
-    -fx-padding: 20 0;
-    -fx-background-color: transparent;
-}
-.card-separator .line {
-    -fx-border-color: #F1F5F9;
-    -fx-border-width: 1 0 0 0;
-}
-
-.icon-container {
-    -fx-background-color: #EFF6FF;
-    -fx-text-fill: #3B82F6;
-    -fx-padding: 10;
-    -fx-background-radius: 12;
-    -fx-font-size: 20px;
-    -fx-min-width: 45px;
-    -fx-min-height: 45px;
-    -fx-alignment: CENTER;
-}
-
-/* Inputs */
 .input-label {
     -fx-font-size: 14px;
     -fx-font-weight: 700;
@@ -128,6 +85,40 @@
     -fx-text-fill: #94A3B8;
 }
 
+/* =====================================================
+   4. SETTING CARD
+===================================================== */
+.setting-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20;
+    -fx-min-height: 380;
+    -fx-effect: dropshadow(gaussian, rgba(148,163,184,0.2), 25, 0, 0, 10);
+}
+
+.setting-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.25), 30, 0, 0, 15);
+}
+
+/* Separator */
+.card-separator .line {
+    -fx-border-color: #F1F5F9;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* Icon */
+.icon-container {
+    -fx-background-color: #EFF6FF;
+    -fx-text-fill: #3B82F6;
+    -fx-background-radius: 12;
+    -fx-font-size: 20px;
+    -fx-min-width: 45px;
+    -fx-min-height: 45px;
+    -fx-alignment: CENTER;
+}
+
+/* =====================================================
+   5. INPUTS
+===================================================== */
 .modern-combo {
     -fx-background-color: #F8FAFC;
     -fx-border-color: #E2E8F0;
@@ -139,11 +130,13 @@
 }
 
 .modern-combo:hover {
-    -fx-border-color: #CBD5E1;
     -fx-background-color: #F1F5F9;
+    -fx-border-color: #CBD5E1;
 }
 
-/* iOS Toggle Switch */
+/* =====================================================
+   6. iOS TOGGLE (CheckBox)
+===================================================== */
 .ios-toggle {
     -fx-cursor: hand;
     -fx-text-fill: transparent;
@@ -154,10 +147,7 @@
     -fx-background-radius: 100;
     -fx-min-width: 52px;
     -fx-min-height: 28px;
-    -fx-max-width: 52px;
-    -fx-max-height: 28px;
     -fx-padding: 2;
-    -fx-transition: background-color 0.2s;
 }
 
 .ios-toggle:selected .box {
@@ -166,7 +156,6 @@
 
 .ios-toggle .mark {
     -fx-background-color: #FFFFFF;
-    -fx-shape: null;
     -fx-min-width: 24px;
     -fx-min-height: 24px;
     -fx-background-radius: 50%;
@@ -178,52 +167,51 @@
     -fx-translate-x: 11px;
 }
 
-/* Buttons (Modern) */
+/* =====================================================
+   7. BUTTONS
+===================================================== */
 .btn-primary {
     -fx-background-color: linear-gradient(to right, #3B82F6, #2563EB);
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-padding: 14 24;
     -fx-background-radius: 10;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.3), 10, 0, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.3), 10, 0, 0, 5);
 }
 
 .btn-primary:hover {
     -fx-background-color: linear-gradient(to right, #2563EB, #1D4ED8);
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
 }
 
-/* =======================
-   CSS CHO CHẾ ĐỘ TỐI (DARK MODE)
-======================= */
-
-/* Khi root có class 'dark-theme', đổi màu nền chính */
+/* =====================================================
+   8. DARK MODE (TOGGLE QUA CLASS)
+===================================================== */
 .root-container.dark-theme {
-    -fx-background-color: #0F172A; /* Màu nền tối tổng thể */
+    -fx-background-color: #0F172A;
 }
 
-/* Khi root có class 'dark-theme', đổi màu cho card */
+/* Card */
 .root-container.dark-theme .setting-card {
-    -fx-background-color: #1F2937; /* Màu tối cho card */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 25, 0, 0, 10); /* Bóng tối hơn */
+    -fx-background-color: #1F2937;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 25, 0, 0, 10);
 }
 
-/* Đổi màu chữ trong card khi ở chế độ tối */
+/* Text */
+.root-container.dark-theme .page-title,
 .root-container.dark-theme .card-title {
-    -fx-text-fill: #F9FAFB; /* Màu chữ trắng sáng */
+    -fx-text-fill: #F9FAFB;
 }
 
+.root-container.dark-theme .page-subtitle,
 .root-container.dark-theme .card-desc,
 .root-container.dark-theme .input-label,
-.root-container.dark-theme .input-hint,
-.root-container.dark-theme .page-subtitle {
-    -fx-text-fill: #D1D5DB; /* Màu chữ xám sáng */
+.root-container.dark-theme .input-hint {
+    -fx-text-fill: #D1D5DB;
 }
 
-/* Đổi màu cho ComboBox ở chế độ tối */
+/* Combo */
 .root-container.dark-theme .modern-combo {
     -fx-background-color: #374151;
     -fx-border-color: #4B5563;
@@ -234,7 +222,7 @@
     -fx-background-color: #4B5563;
 }
 
-/* Đổi màu cho icon container */
+/* Icon */
 .root-container.dark-theme .icon-container {
-    -fx-background-color: rgba(59, 130, 246, 0.1); /* Xanh rất nhạt trên nền tối */
+    -fx-background-color: rgba(59,130,246,0.12);
 }

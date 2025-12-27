@@ -46,7 +46,8 @@ public class MenuManagerController {
     @FXML private Button btnDelete;
 
     private IMenuService menuService;
-    private List<MenuItemWrapper> fullMenu = new ArrayList<>();
+    private final List<MenuItemWrapper> fullMenu = new ArrayList<>();
+
     private MenuItemWrapper selectedItem;
     private VBox selectedCard;
 
@@ -61,16 +62,14 @@ public class MenuManagerController {
     // ================= INITIALIZE =================
     @FXML
     public void initialize() {
-        menuService = MainTest.SHARED_MENU_SERVICE;
+        menuService = MainTest.MENU_SERVICE;
 
         Locale locale = LanguageManager.getInstance().getBundle().getLocale();
         dateFormatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy", locale);
 
         root.setOnMouseClicked(this::handleClickOutside);
 
-        for (IMenuItem item : menuService.getAllItems()) {
-            fullMenu.add(new MenuItemWrapper(item));
-        }
+        reloadFromService();
 
         centerMenuGrid.setAlignment(Pos.CENTER_LEFT);
         centerMenuGrid.setPadding(new Insets(20, 20, 50, 20));
@@ -79,6 +78,14 @@ public class MenuManagerController {
 
         setupSearch();
         renderAll();
+    }
+
+    // ================= LOAD =================
+    private void reloadFromService() {
+        fullMenu.clear();
+        for (IMenuItem item : menuService.getAllItems()) {
+            fullMenu.add(new MenuItemWrapper(item));
+        }
     }
 
     // ================= SEARCH =================
@@ -90,10 +97,12 @@ public class MenuManagerController {
 
     private List<MenuItemWrapper> searchMenu(String keyword) {
         if (keyword == null || keyword.isBlank()) return fullMenu;
+
         String lower = keyword.toLowerCase();
         List<MenuItemWrapper> result = new ArrayList<>();
+
         for (MenuItemWrapper w : fullMenu) {
-            if (w.nameProperty().get().toLowerCase().contains(lower)) {
+            if (w.getName().toLowerCase().contains(lower)) {
                 result.add(w);
             }
         }
@@ -112,8 +121,12 @@ public class MenuManagerController {
         for (MenuItemWrapper w : items) {
             VBox card = createProductCard(w);
             centerMenuGrid.getChildren().add(card);
-            itemCardMap.put(w.idProperty().get(), card);
+            itemCardMap.put(w.getId(), card);
         }
+
+        selectedItem = null;
+        selectedCard = null;
+        updateToolbarState();
     }
 
     private VBox createProductCard(MenuItemWrapper w) {
@@ -148,7 +161,7 @@ public class MenuManagerController {
         priceLbl.getStyleClass().add("card-price");
         priceLbl.textProperty().bind(
                 Bindings.createStringBinding(
-                        () -> currencyFormatter.format(w.priceProperty().get()),
+                        () -> currencyFormatter.format(w.getPrice()),
                         w.priceProperty()
                 )
         );
@@ -178,7 +191,7 @@ public class MenuManagerController {
             MenuItemWrapper item = (MenuItemWrapper) card.getUserData();
 
             boolean selected = selectedItem != null &&
-                    item.idProperty().get().equals(selectedItem.idProperty().get());
+                    item.getId().equals(selectedItem.getId());
 
             card.getStyleClass().remove("selected");
 
@@ -245,16 +258,22 @@ public class MenuManagerController {
     // ================= FILTER =================
     @FXML private void filterAll() { renderFiltered(fullMenu); }
 
-    @FXML private void filterDrink() {
-        renderFiltered(fullMenu.stream()
-                .filter(w -> "Drink".equalsIgnoreCase(w.categoryProperty().get()))
-                .toList());
+    @FXML
+    private void filterDrink() {
+        renderFiltered(
+                fullMenu.stream()
+                        .filter(w -> "Drink".equalsIgnoreCase(w.getCategory()))
+                        .toList()
+        );
     }
 
-    @FXML private void filterFood() {
-        renderFiltered(fullMenu.stream()
-                .filter(w -> "Food".equalsIgnoreCase(w.categoryProperty().get()))
-                .toList());
+    @FXML
+    private void filterFood() {
+        renderFiltered(
+                fullMenu.stream()
+                        .filter(w -> "Food".equalsIgnoreCase(w.getCategory()))
+                        .toList()
+        );
     }
 
     // ================= CRUD =================
@@ -275,20 +294,22 @@ public class MenuManagerController {
 
         Object ud = root.getScene().getUserData();
         if (ud instanceof IMenuItem item) {
-            item.setId(UUID.randomUUID().toString());
-            menuService.addMenuItem(item);
 
-            MenuItemWrapper w = new MenuItemWrapper(item);
-            fullMenu.add(w);
-            VBox card = createProductCard(w);
-            centerMenuGrid.getChildren().add(card);
-            itemCardMap.put(w.idProperty().get(), card);
+            String path = item.getImagePath();
+
+            item.setImagePath(path);
+            item.setId(UUID.randomUUID().toString());
+
+            menuService.addMenuItem(item);
+            reloadFromService();
+            renderAll();
         }
     }
 
     @FXML
     private void onEdit() throws IOException {
         if (selectedItem == null) return;
+
         editMode = true;
         applyDimmedEffect();
 
@@ -298,7 +319,7 @@ public class MenuManagerController {
         );
         Parent root = loader.load();
         loader.<ItemDialogController>getController()
-                .setEditing(selectedItem.getOriginal());
+                .setEditing(selectedItem.unwrap());
 
         StageHelper.showDialog(
                 root,
@@ -306,9 +327,10 @@ public class MenuManagerController {
                 btnEdit.getScene().getWindow()
         );
 
-        menuService.updateMenuItem(selectedItem.getOriginal());
-        selectedItem.updateFromOriginal();
-        refreshSelection();
+        menuService.updateMenuItem(selectedItem.unwrap());
+        reloadFromService();
+        renderAll();
+        editMode = false;
     }
 
     @FXML
@@ -320,102 +342,74 @@ public class MenuManagerController {
         alert.setHeaderText(LanguageManager.getInstance().getString("mem.deleteDish"));
         alert.setContentText(
                 LanguageManager.getInstance().getString("mem.realConfirm")
-                        + selectedItem.nameProperty().get() + " ?"
+                        + selectedItem.getName() + " ?"
         );
 
         alert.showAndWait().filter(b -> b == ButtonType.OK).ifPresent(b -> {
-            menuService.deleteMenuItem(selectedItem.idProperty().get());
-            centerMenuGrid.getChildren().remove(itemCardMap.remove(selectedItem.idProperty().get()));
-            fullMenu.remove(selectedItem);
-            selectedItem = null;
-            refreshSelection();
-            updateToolbarState();
+            menuService.deleteMenuItem(selectedItem.getId());
+            reloadFromService();
+            renderAll();
         });
     }
+
+    // ================= NAVIGATION =================
     @FXML
-    private void menuManager() {
+    private void menuManager() { loadScene("/view/MainScreen/MenuManagerPage/MenuManager.fxml",
+            "/view/MainScreen/MenuManagerPage/MenuManager.css"); }
+
+    @FXML
+    private void mainScreen() { loadScene("/view/MainScreen/MainView.fxml",
+            "/view/MainScreen/Main.css"); }
+
+    private void loadScene(String fxml, String css) {
         try {
             ResourceBundle bundle = LanguageManager.getInstance().getBundle();
-
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/view/MainScreen/MenuManagerPage/MenuManager.fxml"),
-                    bundle
-            );
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml), bundle);
             Parent root = loader.load();
             Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
             Scene scene = new Scene(root);
-
-            // >>> SỬA DÒNG NÀY: Quay về Main thì tham số thứ 2 là null (không cần Settings.css)
-            AppConfig.applyTheme(scene, "/view/MainScreen/MenuManagerPage/MenuManager.css");
-
+            AppConfig.applyTheme(scene, css);
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void mainScreen() {
-        try {
-            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/view/MainScreen/MainView.fxml"),
-                    bundle
-            );
-            Parent root = loader.load();
-            Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            AppConfig.applyTheme(scene, "/view/MainScreen/Main.css");
-
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     @FXML
     private void openSettings() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"));
-            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
-            loader.setResources(bundle);
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/MainScreen/SettingsPage/Settings.fxml"),
+                    LanguageManager.getInstance().getBundle()
+            );
             Parent root = loader.load();
             Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
-
-            // Giữ kích thước cũ
-            Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-
-            view.AppConfig.applyTheme(scene, "/view/MainScreen/SettingsPage/Settings.css");
-
-            stage.setTitle(LanguageManager.getInstance().getString("mainc.setting_system"));
+            Scene scene = new Scene(root,
+                    stage.getScene().getWidth(),
+                    stage.getScene().getHeight());
+            AppConfig.applyTheme(scene, "/view/MainScreen/SettingsPage/Settings.css");
             stage.setScene(scene);
-            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void logout(){
-        try {
-            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
 
+    @FXML
+    private void logout() {
+        try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/view/LoginPage/Login.fxml"),
-                    bundle
+                    LanguageManager.getInstance().getBundle()
             );
             Parent root = loader.load();
             Stage stage = (Stage) centerMenuGrid.getScene().getWindow();
-
             Scene scene = new Scene(root, 1000, 600);
             scene.getStylesheets().add(
                     getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
             );
-
             stage.setScene(scene);
-            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(LanguageManager.getInstance().getString("mainc.notnot"));
         }
     }
 }

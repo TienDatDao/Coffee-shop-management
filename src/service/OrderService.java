@@ -1,75 +1,63 @@
 package service;
 
+import Interface.IOrder;
+import Interface.IOrderItem;
+import Interface.IOrderService;
 import DAO.OrderDAO;
-import Interface.IMenuItem;
-import model.MenuItem;
 import model.Order;
-import model.OrderItem;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class OrderService {
-    private MenuService menuService;
-    private OrderDAO orderDAO;
+public class OrderService implements IOrderService {
+    private final OrderDAO orderDAO;
 
-    private Order currentOrder;
-
-    public OrderService(MenuService menuService) {
-        this.menuService = menuService;
+    public OrderService() {
         this.orderDAO = new OrderDAO();
     }
 
-    public void createOrder(String tableId, List<OrderItem> items) {
-        this.currentOrder = new Order();
-        this.currentOrder.setTableId(tableId);
-        this.currentOrder.setCreatedTime(new Date());
-        this.currentOrder.setStatus("Pending");
-        this.currentOrder.setItems(new ArrayList<>());
+    @Override
+    public IOrder createOrder(String tableId, List<IOrderItem> items, String orderId) {
+        Order newOrder = new Order();
+        newOrder.setTableId(tableId);
+        // DB tự sinh thời gian, nhưng model set trước cũng được
+        newOrder.setCreatedTime(new java.util.Date());
+        newOrder.setItems(items); // Set thẳng List<IOrderItem>
 
-        System.out.println("Đã khởi tạo đơn hàng tạm cho bàn: " + tableId);
-    }
+        // Gọi DAO
+        int generatedId = orderDAO.saveOrder(newOrder);
 
-    public void addItem(MenuItem item, int quantity, String note) {
-        if (this.currentOrder == null) {
-            System.err.println("Chưa khởi tạo đơn hàng! Hãy gọi createOrder trước.");
-            return;
+        if (generatedId != -1) {
+            newOrder.setOrderId(generatedId);
+            return newOrder;
         }
-
-        OrderItem orderItem = new OrderItem();
-        orderItem.setMenuItem(item);
-        orderItem.setQuantity(quantity);
-        orderItem.setNote(note);
-
-        this.currentOrder.addOrderItem(orderItem);
-        System.out.println("Đã thêm món: " + item.getName());
-    }
-
-    public Order getCurrentOrder() {
-        return this.currentOrder;
-    }
-
-    public Order getOrderById(String orderIdStr) {
         return null;
     }
 
-    public void removeItem(int itemId) {
-        if (this.currentOrder != null && itemId >= 0 && itemId < this.currentOrder.getItems().size()) {
-            this.currentOrder.getItems().remove(itemId);
-            System.out.println("Đã xóa món tại vị trí: " + itemId);
+    @Override
+    public IOrder getOrderById(String orderId) {
+        try {
+            int id = Integer.parseInt(orderId);
+            return orderDAO.getOrderById(id);
+        } catch (NumberFormatException e) {
+            return null;
         }
     }
 
-    public void updateItem(MenuItem item) {
-        if (menuService != null) menuService.updateMenuItem(item);
-    }
+    @Override
+    public List<IOrder> getOrdersForToday() {
+        long millis = System.currentTimeMillis();
+        Date today = new Date(millis);
 
-    public List<IMenuItem> getAllItems() {
-        return (menuService != null) ? menuService.getAllItems() : new ArrayList<>();
-    }
+        // Cần vào DAO cài đặt lại hàm getOrdersByDate trả về List<Order> đầy đủ
+        List<Order> daoOrders = orderDAO.getOrdersByDate(today);
 
-    public IMenuItem getItemById(String itemId) {
-        return (menuService != null) ? menuService.getItemById(itemId) : null;
+        // Cast sang List<IOrder>
+        List<IOrder> result = new ArrayList<>();
+        if (daoOrders != null) {
+            result.addAll(daoOrders);
+        }
+        return result;
     }
 }

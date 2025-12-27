@@ -155,4 +155,29 @@ public class SettingsController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void logout(){
+        try {
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/LoginPage/Login.fxml"),
+                    bundle
+            );
+            Parent root = loader.load();
+            Stage stage = (Stage) languageComboBox.getScene().getWindow();
+
+            Scene scene = new Scene(root, 1000, 600);
+            scene.getStylesheets().add(
+                    getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
+            );
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(LanguageManager.getInstance().getString("mainc.notnot"));
+        }
+    }
+
 }

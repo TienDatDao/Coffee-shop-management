@@ -1,36 +1,48 @@
-/* =======================
+/* =====================================================
    1. GLOBAL
-======================= */
+===================================================== */
 .root {
     -fx-background-color: #0F172A;
 }
 
-/* KHÔNG dùng * vì đụng Modena */
-.label, .text {
+.label,
+.text {
     -fx-text-fill: #F1F5F9;
 }
 
-/* =======================
+/* =====================================================
    2. SIDEBAR
-======================= */
+===================================================== */
 .sidebar {
     -fx-background-color: #1E293B;
-    -fx-effect: null; /* OK */
-    -fx-border-color: transparent #334155 transparent transparent;
+    -fx-border-color: transparent transparent transparent transparent;
 }
 
 .nav-btn {
+    -fx-background-color: transparent;
     -fx-text-fill: #94A3B8;
+    -fx-font-size: 15px;
+    -fx-alignment: center-left;
+    -fx-padding: 12 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 8;
 }
 
 .nav-btn:hover {
-    -fx-background-color: #334155;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #5B79AB;
+    -fx-text-fill: #F1F5F9;
 }
 
-/* =======================
-   3. SEARCH / FILTER
-======================= */
+.active-nav {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(96, 165, 250, 0.6), 15, 0, 0, 0);
+}
+
+/* =====================================================
+   3. SEARCH & FILTER
+===================================================== */
 .search-bar {
     -fx-background-color: #1E293B;
     -fx-border-color: #334155;
@@ -54,12 +66,12 @@
     -fx-border-color: #60A5FA;
 }
 
-/* =======================
+/* =====================================================
    4. PRODUCT CARD
-======================= */
+===================================================== */
 .product-card {
     -fx-background-color: #1E293B;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.7), 10, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 4);
 }
 
 .product-card:hover {
@@ -74,12 +86,11 @@
     -fx-text-fill: #34D399;
 }
 
-/* =======================
+/* =====================================================
    5. RIGHT PANE
-======================= */
+===================================================== */
 .right-pane-light {
     -fx-background-color: #1E293B;
-    -fx-effect: null;
     -fx-border-color: transparent transparent transparent #334155;
 }
 
@@ -87,12 +98,11 @@
     -fx-text-fill: #F1F5F9;
 }
 
-/* =======================
+/* =====================================================
    6. TABLE VIEW
-======================= */
+===================================================== */
 .table-view {
     -fx-background-color: #1E293B;
-    -fx-effect: null;
 }
 
 .table-view .column-header-background {
@@ -125,9 +135,9 @@
     -fx-text-fill: #475569;
 }
 
-/* =======================
+/* =====================================================
    7. BUTTONS
-======================= */
+===================================================== */
 .qty-btn {
     -fx-background-color: #334155;
     -fx-text-fill: #FFFFFF;
@@ -154,9 +164,9 @@
     -fx-text-fill: #60A5FA;
 }
 
-/* =======================
-   8. SCROLL BAR (AN TOÀN)
-======================= */
+/* =====================================================
+   8. SCROLL BAR
+===================================================== */
 .scroll-bar:vertical .thumb {
     -fx-background-color: #475569;
 }
@@ -165,10 +175,82 @@
     -fx-background-color: #64748B;
 }
 
-/* =======================
+/* =====================================================
    9. CENTER
-======================= */
+===================================================== */
 .center-pane,
 .center-background {
     -fx-background-color: #0F172A;
+}
+
+/* =====================================================
+   10. SETTINGS PAGE
+===================================================== */
+.root-container {
+    -fx-background-color: #0F172A;
+}
+
+.card {
+    -fx-background-color: #1E293B;
+    -fx-border-color: #334155;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 4);
+}
+
+.header-title,
+.card-title,
+.input-label {
+    -fx-text-fill: #F1F5F9;
+}
+
+.header-subtitle,
+.card-desc,
+.input-hint {
+    -fx-text-fill: #94A3B8;
+}
+
+.btn-back {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F1F5F9;
+    -fx-border-color: #334155;
+}
+
+.btn-back:hover {
+    -fx-background-color: #334155;
+}
+
+/* =====================================================
+   11. COMBOBOX (MODERN COMBO)
+===================================================== */
+.modern-combo {
+    -fx-background-color: #1E293B;
+    -fx-border-color: #334151;
+    -fx-text-fill: #F1F5F9;
+}
+
+/* Chỉnh màu chữ bên trong ô hiển thị */
+.modern-combo .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F1F5F9;
+}
+
+/* Chỉnh màu mũi tên */
+.modern-combo .arrow-button .arrow {
+    -fx-background-color: #94A3B8;
+}
+
+/* Chỉnh danh sách xổ xuống (Popup) */
+.modern-combo .list-view {
+    -fx-background-color: #1E293B;
+    -fx-border-color: #334155;
+}
+
+.modern-combo .list-view .list-cell {
+    -fx-background-color: #1E293B;
+    -fx-text-fill: #F1F5F9;
+}
+
+.modern-combo .list-view .list-cell:hover {
+    -fx-background-color: #334155;
 }

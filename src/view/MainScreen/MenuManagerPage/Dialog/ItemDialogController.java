@@ -8,11 +8,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import model.MenuItem;
 import view.Helper.LanguageManager;
-import view.MockTest.MockMenuItem;
+import view.Helper.SaveImage;
 
 import java.io.File;
-import java.io.FileInputStream;
 
 public class ItemDialogController {
 
@@ -23,118 +23,117 @@ public class ItemDialogController {
     @FXML private javafx.scene.layout.VBox dialogRoot;
     @FXML private javafx.scene.control.Label titleLabel;
 
-    private IMenuItem editing; // null if adding
-    private Image chosenImage;
-    private String chosenImagePath;
+    private IMenuItem editing; // null = add
+    private String chosenImagePath; // ⭐ CHỈ LƯU PATH
 
-    // ===========================================
-    // 1. KHỞI TẠO (Initialization)
-    // ===========================================
+    /* ================= INIT ================= */
+
     @FXML
     public void initialize() {
-        // Khởi tạo ChoiceBox với các Category
-
-        // Đặt giá trị mặc định khi khởi tạo
         if (categoryChoice.getValue() == null) {
             categoryChoice.setValue("Drink");
         }
     }
 
+    /* ================= EDIT ================= */
+
     public void setEditing(IMenuItem item) {
         this.editing = item;
+
         if (item != null) {
             titleLabel.setText(LanguageManager.getInstance().getString("dia.edit"));
+
             nameField.setText(item.getName());
             priceField.setText(String.valueOf(item.getPrice()));
-            // Đảm bảo giá trị Category tồn tại trong danh sách để tránh lỗi
-            if (categoryChoice.getItems().contains(item.getCategory())) {
-                categoryChoice.setValue(item.getCategory());
-            } else {
-                categoryChoice.setValue(LanguageManager.getInstance().getString("dia.dif")); // Giá trị mặc định nếu không tìm thấy
+            categoryChoice.setValue(item.getCategory());
+
+            // ⭐ LOAD IMAGE TỪ PATH
+            chosenImagePath = item.getImagePath();
+            if (chosenImagePath != null) {
+                imagePreview.setImage(
+                        new Image("file:storage/" + chosenImagePath, true)
+                );
             }
 
-            // Lưu trữ ảnh hiện tại để không cần tải lại
-            if (item.getImage() != null) {
-                chosenImage = item.getImage();
-                imagePreview.setImage(chosenImage);
-            }
         } else {
             titleLabel.setText(LanguageManager.getInstance().getString("dia.add"));
-            // Giá trị mặc định đã được đặt trong initialize()
         }
     }
 
-    // ===========================================
-    // 2. Tải ảnh (Image Upload)
-    // ===========================================
+    /* ================= UPLOAD IMAGE ================= */
+
     @FXML
     private void onUploadImage() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle(LanguageManager.getInstance().getString("dia.choiceP"));
-        chooser.getExtensionFilters().addAll(
+        chooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
 
-        // Cần đảm bảo window không null trước khi gọi showOpenDialog
         Window w = dialogRoot.getScene() != null ? dialogRoot.getScene().getWindow() : null;
-        if (w == null) return; // Bảo vệ nếu chưa có Scene
+        if (w == null) return;
 
         File f = chooser.showOpenDialog(w);
-        if (f != null) {
-            try (FileInputStream fis = new FileInputStream(f)) {
-                chosenImage = new Image(fis);
-                imagePreview.setImage(chosenImage);
-                chosenImagePath = f.getAbsolutePath();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                // Thông báo lỗi nếu không tải được ảnh
-                System.err.println("Lỗi tải ảnh: " + ex.getMessage());
-            }
+        if (f == null) return;
+
+        try {
+            // preview
+            imagePreview.setImage(new Image(f.toURI().toString()));
+
+            // ⭐ copy vào storage/images
+            chosenImagePath = SaveImage.copyToStorage(f);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    // ===========================================
-    // 3. Hủy (Cancel)
-    // ===========================================
-    @FXML
-    private void onCancel() {
-        // Đảm bảo đối tượng Scene tồn tại trước khi đóng
-        if (dialogRoot.getScene() != null) {
-            dialogRoot.getScene().getWindow().hide();
-        }
-    }
+    /* ================= CONFIRM ================= */
 
-    // ===========================================
-    // 4. Xác nhận (Confirm)
-    // ===========================================
     @FXML
     private void onConfirm() {
+
         String name = nameField.getText();
         String priceText = priceField.getText();
         String category = categoryChoice.getValue();
 
-        if (name == null || name.isBlank()) { nameField.requestFocus(); return; }
-        Double price = 0.0;
-        try { price = Double.parseDouble(priceText); } catch (NumberFormatException e) { priceField.requestFocus(); return; }
-        if (category == null) category = "Drink";
+        if (name == null || name.isBlank()) return;
+
+        double price;
+        try {
+            price = Double.parseDouble(priceText);
+        } catch (Exception e) {
+            return;
+        }
 
         if (editing != null) {
-
             editing.setName(name.trim());
             editing.setPrice(price);
             editing.setCategory(category);
-            //  LUÔN GỌI SETTER để kích hoạt listener trong Wrapper
-            editing.setImage(chosenImage);
+            editing.setImagePath(chosenImagePath);
 
             dialogRoot.getScene().setUserData(editing);
 
         } else {
-            IMenuItem newItem = new MockMenuItem(null, name.trim(), price, category, chosenImage);
-
+            IMenuItem newItem = new MenuItem(
+                    null,
+                    name.trim(),
+                    price,
+                    category,
+                    chosenImagePath
+            );
             dialogRoot.getScene().setUserData(newItem);
         }
 
         dialogRoot.getScene().getWindow().hide();
     }
 
+    /* ================= CANCEL ================= */
+
+    @FXML
+    private void onCancel() {
+        if (dialogRoot.getScene() != null) {
+            dialogRoot.getScene().getWindow().hide();
+        }
+    }
 }

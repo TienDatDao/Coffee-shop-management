@@ -1,4 +1,5 @@
 package Database;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -6,67 +7,68 @@ import java.io.File;
 
 public class CreateDatabase {
 
-    private static final String URL = "jdbc:sqlite:src/storage/coffee_shop.db";
+    private static final String URL = "jdbc:sqlite:storage/coffee_shop.db";
+    private static Connection connection;
 
-    public static void main(String[] args) {
-        // 1. Tạo thư mục nếu chưa tồn tại
-        File storageDir = new File("src/storage");
-        if (!storageDir.exists()) {
-            storageDir.mkdirs();
+    // Lấy connection dùng cho toàn app
+    public static Connection getConnection() {
+        if (connection == null) {
+            initDatabase();
         }
+        return connection;
+    }
 
-        try (Connection conn = DriverManager.getConnection(URL)) {
-            System.out.println("Ket noi SQLite thanh cong");
+    // Khởi tạo DB + bảng
+    private static void initDatabase() {
+        try {
+            // tạo thư mục storage nếu chưa có
+            File storageDir = new File("storage");
+            if (!storageDir.exists()) {
+                storageDir.mkdirs();
+            }
 
-            Statement stmt = conn.createStatement();
+            connection = DriverManager.getConnection(URL);
+            Statement stmt = connection.createStatement();
 
-            // --- Bật ràng buộc khóa ngoại cho SQLite (mặc định SQLite tắt tính năng này) ---
             stmt.execute("PRAGMA foreign_keys = ON;");
 
-            // --- Lệnh 1: Tạo bảng MenuItem ---
-            // Lưu ý: Đổi INT thành INTEGER PRIMARY KEY AUTOINCREMENT nếu bạn muốn id tự tăng
             String sqlMenuItem = """
                 CREATE TABLE IF NOT EXISTS MenuItem (
-                    menuId INTEGER PRIMARY KEY,
-                    name VARCHAR(255),
-                    price DOUBLE PRECISION,
-                    category VARCHAR(100),
-                    image VARCHAR(500)
+                    menuId TEXT,
+                    name TEXT NOT NULL,
+                    price REAL NOT NULL,
+                    category TEXT,
+                    imagePath TEXT
                 );
             """;
-            stmt.execute(sqlMenuItem);
-            System.out.println("-> Da tao bang MenuItem");
 
-            // --- Lệnh 2: Tạo bảng Orders ---
             String sqlOrders = """
                 CREATE TABLE IF NOT EXISTS Orders (
-                    orderId INTEGER PRIMARY KEY,
-                    createdTime DATE,
-                    status VARCHAR(50),
-                    staff VARCHAR(50),
-                    tableId INT
+                    orderId INTEGER PRIMARY KEY AUTOINCREMENT,
+                    createdTime TEXT NOT NULL,
+                    status TEXT,
+                    staff TEXT,
+                    tableId INTEGER
                 );
             """;
-            stmt.execute(sqlOrders);
-            System.out.println("-> Da tao bang Orders");
 
-            // --- Lệnh 3: Tạo bảng OrderItem ---
-            // Bảng này phải tạo CUỐI CÙNG vì nó tham chiếu khóa ngoại tới 2 bảng trên
             String sqlOrderItem = """
                 CREATE TABLE IF NOT EXISTS OrderItem (
-                    orderId INT,
-                    orderItemId INTEGER,
-                    orderMenuId INT,
-                    quantity INT,
+                    orderItemId INTEGER PRIMARY KEY AUTOINCREMENT,
+                    orderId INTEGER NOT NULL,
+                    orderMenuId TEXT NOT NULL,
+                    quantity INTEGER NOT NULL,
                     note TEXT,
-                    FOREIGN KEY (orderId) REFERENCES Orders(orderId),
+                    FOREIGN KEY (orderId) REFERENCES Orders(orderId) ON DELETE CASCADE,
                     FOREIGN KEY (orderMenuId) REFERENCES MenuItem(menuId)
                 );
             """;
-            stmt.execute(sqlOrderItem);
-            System.out.println("-> Da tao bang OrderItem");
 
-            System.out.println("Tao tat ca cac bang thanh cong!");
+            stmt.execute(sqlMenuItem);
+            stmt.execute(sqlOrders);
+            stmt.execute(sqlOrderItem);
+
+            System.out.println("Database san sang");
 
         } catch (Exception e) {
             e.printStackTrace();
