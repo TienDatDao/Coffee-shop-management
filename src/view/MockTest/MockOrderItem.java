@@ -26,14 +26,10 @@ public class MockOrderItem implements IOrderItem {
         this.quantity = quantity;
         this.imagePath = imagePath;
     }
-    @Override
-    public Image getImage(){
-        return MenuItem.getImage();
-    }
 
     @Override
-    public Image setImage(Image image) {
-        return null;
+    public void setImagePath(String imp) {
+        this.MenuItem.setImagePath(imp);
     }
 
     @Override
@@ -56,18 +52,14 @@ public class MockOrderItem implements IOrderItem {
 
     }
 
-    @Override
-    public void updateFromOriginal() {
 
+    @Override
+    public String getImagePath() {
+        return null;
     }
 
     public void setImage(String imagePath){
         this.imagePath = imagePath;
-    }
-
-    @Override
-    public String getMenuItemId() {
-        return "";
     }
 
     @Override
@@ -88,4 +80,9 @@ public class MockOrderItem implements IOrderItem {
     public String getName() { return MenuItem.getName(); }
     public double getPrice() { return MenuItem.getPrice(); }
     public String getCategory() { return MenuItem.getCategory(); }
+
+    @Override
+    public Image getImage() {
+        return new Image(MenuItem.getImagePath());
+    }
 }

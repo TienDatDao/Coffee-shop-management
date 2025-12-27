@@ -1,5 +1,6 @@
 package view;
 
+import Database.DataSeeder;
 import Interface.IMenuService;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -8,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import service.MenuService;
 import view.MockTest.MockAuthService;
 import view.MockTest.MockMenuService;
 
@@ -18,7 +20,7 @@ import java.net.URL;
 public class Main extends Application {
 
     public static final MockAuthService MOCK_AUTH_SERVICE = new MockAuthService();
-    public static final IMenuService SHARED_MENU_SERVICE = new MockMenuService();
+    public static final MenuService SHARED_MENU_SERVICE = MenuService.getInstance() ;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -50,6 +52,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        DataSeeder.seedMenuData();
         Application.setUserAgentStylesheet(null);
         java.util.logging.Logger.getLogger("javafx").setLevel(java.util.logging.Level.SEVERE);
 

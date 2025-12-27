@@ -1,18 +1,20 @@
 package Interface;
 
-import javafx.scene.image.Image;
-
-/* Đại diện cho 1 món trong menu của quán coffee */
 public interface IMenuItem {
-    String getId();         // mã món (vd: CF01)
-    String getName();       // tên món (vd: Cà phê sữa)
-    double getPrice();      // giá món
-    String getCategory();   // loại món: coffee – tea – food – drink
-    Image getImage();  // thuộc tính ảnh của món ăn
-    Image setImage(Image image);
+
+    String getId();
     void setId(String id);
+
+    String getName();
     void setName(String name);
+
+    double getPrice();
     void setPrice(double price);
+
+    String getCategory();
     void setCategory(String category);
-    void updateFromOriginal();
+
+    // CHỈ LƯU PATH
+    String getImagePath();
+    void setImagePath(String path);
 }

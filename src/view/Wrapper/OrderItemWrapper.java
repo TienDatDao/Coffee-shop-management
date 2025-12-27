@@ -7,6 +7,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.image.Image;
 
+import java.io.File;
+
 public class OrderItemWrapper implements IOrderItem {
     private IMenuItem menuItem;
     private SimpleStringProperty name;
@@ -28,6 +30,7 @@ public class OrderItemWrapper implements IOrderItem {
             this.subtotal.set(calculateSubtotal());
         });
     }
+
 
     private double calculateSubtotal() {
         return this.quantity.get() * this.price.get();
@@ -55,12 +58,6 @@ public class OrderItemWrapper implements IOrderItem {
         return menuItem.getId();
     }
 
-
-    @Override
-    public String getMenuItemId() {
-        return "";
-    }
-
     @Override
     public int getQuantity() {
         return quantity.get();
@@ -85,15 +82,26 @@ public class OrderItemWrapper implements IOrderItem {
     public String getCategory() {
         return menuItem.getCategory();
     }
+    public SimpleDoubleProperty priceProperty() { return price; }
 
     @Override
     public Image getImage() {
-        return menuItem.getImage();
+        String path = menuItem.getImagePath();
+        if (path == null || path.isBlank()) return null;
+
+        File f = new File("storage", path);
+        if (!f.exists()) {
+            System.err.println("Image not found: " + f.getAbsolutePath());
+            return null;
+        }
+
+        return new Image(f.toURI().toString(), true);
     }
 
+
     @Override
-    public Image setImage(Image image) {
-        return null;
+    public void setImagePath(String imp) {
+        this.menuItem.setImagePath(imp);
     }
 
     @Override
@@ -117,7 +125,7 @@ public class OrderItemWrapper implements IOrderItem {
     }
 
     @Override
-    public void updateFromOriginal() {
-
+    public String getImagePath() {
+        return menuItem.getImagePath();
     }
 }

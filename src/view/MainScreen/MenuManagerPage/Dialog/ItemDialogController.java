@@ -11,7 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import model.MenuItem;
 import view.Helper.LanguageManager;
+import view.Helper.SaveImage;
 import view.MockTest.MockMenuItem;
 
 import java.io.File;
@@ -64,38 +66,38 @@ public class ItemDialogController {
         btnConfirm.setText(lm.getString("dia.confirm"));
     }
 
+    /* ================= EDIT ================= */
+
     public void setEditing(IMenuItem item) {
         this.editing = item;
-        LanguageManager lm = LanguageManager.getInstance();
 
         if (item != null) {
-            // "Sửa món"
-            titleLabel.setText("✏️ " + lm.getString("dia.edit"));
+            titleLabel.setText(LanguageManager.getInstance().getString("dia.edit"));
+
             nameField.setText(item.getName());
             priceField.setText(String.valueOf(item.getPrice()));
+            categoryChoice.setValue(item.getCategory());
 
-            if (categoryChoice.getItems().contains(item.getCategory())) {
-                categoryChoice.setValue(item.getCategory());
-            } else {
-                categoryChoice.setValue("Other");
+            // ⭐ LOAD IMAGE TỪ PATH
+            chosenImagePath = item.getImagePath();
+            if (chosenImagePath != null) {
+                imagePreview.setImage(
+                        new Image("file:storage/" + chosenImagePath, true)
+                );
             }
 
-            if (item.getImage() != null) {
-                chosenImage = item.getImage();
-                imagePreview.setImage(chosenImage);
-            }
         } else {
-            // "Thêm món mới"
-            titleLabel.setText("➕ " + lm.getString("dia.add"));
+            titleLabel.setText(LanguageManager.getInstance().getString("dia.add"));
         }
     }
+
+    /* ================= UPLOAD IMAGE ================= */
 
     @FXML
     private void onUploadImage() {
         FileChooser chooser = new FileChooser();
-        // "Chọn ảnh món"
         chooser.setTitle(LanguageManager.getInstance().getString("dia.choiceP"));
-        chooser.getExtensionFilters().addAll(
+        chooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
 
@@ -103,54 +105,63 @@ public class ItemDialogController {
         if (w == null) return;
 
         File f = chooser.showOpenDialog(w);
-        if (f != null) {
-            try (FileInputStream fis = new FileInputStream(f)) {
-                chosenImage = new Image(fis);
-                imagePreview.setImage(chosenImage);
-                chosenImagePath = f.getAbsolutePath();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                System.err.println("Lỗi tải ảnh: " + ex.getMessage());
-            }
+        if (f == null) return;
+
+        try {
+            // preview
+            imagePreview.setImage(new Image(f.toURI().toString()));
+
+            // ⭐ copy vào storage/images
+            chosenImagePath = SaveImage.copyToStorage(f);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    private void onCancel() {
-        if (dialogRoot.getScene() != null) {
-            dialogRoot.getScene().getWindow().hide();
-        }
-    }
+    /* ================= CONFIRM ================= */
 
     @FXML
     private void onConfirm() {
+
         String name = nameField.getText();
         String priceText = priceField.getText();
         String category = categoryChoice.getValue();
 
-        if (name == null || name.isBlank()) { nameField.requestFocus(); return; }
+        if (name == null || name.isBlank()) return;
 
-        Double price = 0.0;
+        double price;
         try {
             price = Double.parseDouble(priceText);
-        } catch (NumberFormatException e) {
-            priceField.requestFocus();
+        } catch (Exception e) {
             return;
         }
-
-        if (category == null) category = "Drink";
 
         if (editing != null) {
             editing.setName(name.trim());
             editing.setPrice(price);
             editing.setCategory(category);
-            editing.setImage(chosenImage);
+            editing.setImagePath(chosenImagePath);
+
             dialogRoot.getScene().setUserData(editing);
+
         } else {
-            IMenuItem newItem = new MockMenuItem(null, name.trim(), price, category, chosenImage);
+            IMenuItem newItem = new MenuItem(
+                    null,
+                    name.trim(),
+                    price,
+                    category,
+                    chosenImagePath
+            );
             dialogRoot.getScene().setUserData(newItem);
         }
 
         dialogRoot.getScene().getWindow().hide();
+    }
+    @FXML
+    private void onCancel() {
+        if (dialogRoot.getScene() != null) {
+            dialogRoot.getScene().getWindow().hide();
+        }
     }
 }

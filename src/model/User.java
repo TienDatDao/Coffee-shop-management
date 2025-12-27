@@ -16,7 +16,8 @@ public class User implements IUser {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
     }
-
+    public User() {
+    }
     // --- CÁC METHOD NGHIỆP VỤ (BUSINESS LOGIC) ---
 
     public boolean login(String inputUsername, String inputPassword) {

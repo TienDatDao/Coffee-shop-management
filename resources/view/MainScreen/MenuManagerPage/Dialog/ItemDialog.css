@@ -1,0 +1,232 @@
+/* =====================================================
+   1. DIALOG ROOT
+===================================================== */
+.dialog-root {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 24;
+    -fx-padding: 32;
+    -fx-spacing: 20;
+
+    -fx-font-family: "Segoe UI";
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0,0,0,0.2),
+        40,
+        0.25,
+        0,
+        20
+    );
+}
+
+/* DialogPane wrapper */
+.dialog-pane {
+    -fx-background-color: transparent;
+}
+
+/* =====================================================
+   2. TEXT & LABELS
+===================================================== */
+.dialog-root .label {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.dialog-root .text {
+    -fx-fill: #475569;
+    -fx-font-size: 14px;
+}
+
+/* =====================================================
+   3. INPUTS (TextField / ComboBox / ChoiceBox)
+===================================================== */
+.dialog-root .text-field,
+.dialog-root .combo-box-base,
+.dialog-root .choice-box {
+    -fx-background-color: rgba(248,250,252,0.9);
+    -fx-background-radius: 14;
+
+    -fx-border-color: rgba(226,232,240,0.9);
+    -fx-border-radius: 14;
+    -fx-border-width: 1.5;
+
+    -fx-padding: 12 16;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1E293B;
+    -fx-prompt-text-fill: #94A3B8;
+
+    -fx-effect: innershadow(
+        gaussian,
+        rgba(0,0,0,0.05),
+        8,
+        0,
+        0,
+        3
+    );
+}
+
+/* Focus */
+.dialog-root .text-field:focused,
+.dialog-root .combo-box-base:focused,
+.dialog-root .choice-box:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #3B82F6;
+    -fx-border-width: 2;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(59,130,246,0.4),
+        12,
+        0.3,
+        0,
+        0
+    );
+}
+
+/* =====================================================
+   4. BUTTONS – CUSTOM
+===================================================== */
+
+/* Primary */
+.primary-btn {
+    -fx-background-color: linear-gradient(
+        to bottom right,
+        #10B981,
+        #059669
+    );
+    -fx-background-radius: 16;
+    -fx-padding: 14 28;
+
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+
+    -fx-cursor: hand;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(16,185,129,0.45),
+        15,
+        0.3,
+        0,
+        6
+    );
+}
+
+.primary-btn:hover {
+    -fx-background-color: linear-gradient(
+        to bottom right,
+        #34D399,
+        #10B981
+    );
+}
+
+.primary-btn:pressed {
+    -fx-effect: innershadow(
+        gaussian,
+        rgba(0,0,0,0.25),
+        8,
+        0,
+        0,
+        3
+    );
+}
+
+/* Secondary */
+.secondary-btn {
+    -fx-background-color: #F1F5F9;
+    -fx-background-radius: 16;
+    -fx-padding: 14 28;
+
+    -fx-font-weight: 600;
+    -fx-text-fill: #334155;
+
+    -fx-effect: innershadow(
+        gaussian,
+        rgba(0,0,0,0.05),
+        6,
+        0,
+        0,
+        3
+    );
+}
+
+.secondary-btn:hover {
+    -fx-background-color: #E2E8F0;
+}
+
+/* Danger */
+.danger-btn {
+    -fx-background-color: #FEF2F2;
+    -fx-text-fill: #DC2626;
+
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 14 28;
+
+    -fx-border-color: #FECACA;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 16;
+}
+
+.danger-btn:hover {
+    -fx-background-color: #FEE2E2;
+    -fx-border-color: #FCA5A5;
+}
+
+/* =====================================================
+   5. DIALOGPANE BUTTONS
+===================================================== */
+
+/* Confirm */
+.dialog-button.confirm {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 14;
+    -fx-padding: 12 24;
+
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+
+    -fx-cursor: hand;
+}
+
+.dialog-button.confirm:hover {
+    -fx-background-color: #18F218;
+}
+
+/* Cancel */
+.dialog-button.cancel {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64748B;
+    -fx-font-weight: 600;
+
+    -fx-background-radius: 14;
+    -fx-padding: 12 24;
+
+    -fx-border-color: #CBD5E1;
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+
+    -fx-cursor: hand;
+}
+
+.dialog-button.cancel:hover {
+    -fx-background-color: #F8FAFC;
+}
+
+/* =====================================================
+   6. IMAGE PREVIEW
+===================================================== */
+.dialog-root ImageView {
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0,0,0,0.15),
+        12,
+        0,
+        0,
+        4
+    );
+}

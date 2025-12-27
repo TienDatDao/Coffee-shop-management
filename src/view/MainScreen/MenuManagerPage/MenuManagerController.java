@@ -135,6 +135,12 @@ public class MenuManagerController {
         renderFiltered(fullMenu);
     }
 
+    private void reloadFromService() {
+        fullMenu.clear();
+        for (IMenuItem item : menuService.getAllItems()) {
+            fullMenu.add(new MenuItemWrapper(item));
+        }
+    }
     private void renderFiltered(List<MenuItemWrapper> items) {
         centerMenuGrid.getChildren().clear();
         itemCardMap.clear();
@@ -301,77 +307,80 @@ public class MenuManagerController {
         renderFiltered(foods);
     }
 
-    @FXML private void onAdd() throws IOException {
-        // Load bundle để truyền vào dialog
-        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"));
-        loader.setResources(bundle);
-
+    @FXML
+    private void onAdd() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"),
+                LanguageManager.getInstance().getBundle()
+        );
         Parent root = loader.load();
-        ItemDialogController dc = loader.getController();
-        dc.setEditing(null);
+        loader.<ItemDialogController>getController().setEditing(null);
 
-        StageHelper.showDialog(root, LanguageManager.getInstance().getString("mem.addDish"), btnAdd.getScene().getWindow());
+        StageHelper.showDialog(
+                root,
+                LanguageManager.getInstance().getString("mem.addDish"),
+                btnAdd.getScene().getWindow()
+        );
 
-        Object ud = root.getScene() != null ? root.getScene().getUserData() : null;
-        if (ud instanceof IMenuItem newItem) {
-            newItem.setId(UUID.randomUUID().toString());
-            menuService.addMenuItem(newItem);
-            MenuItemWrapper wrapper = new MenuItemWrapper(newItem);
-            fullMenu.add(wrapper);
-            VBox card = createProductCard(wrapper);
-            centerMenuGrid.getChildren().add(card);
-            itemCardMap.put(wrapper.idProperty().get(), card);
+        Object ud = root.getScene().getUserData();
+        if (ud instanceof IMenuItem item) {
+
+            String path = item.getImagePath();
+
+            item.setImagePath(path);
+            item.setId(UUID.randomUUID().toString());
+
+            menuService.addMenuItem(item);
+            reloadFromService();
+            renderAll();
         }
     }
 
-    @FXML private void onEdit() throws IOException {
+    @FXML
+    private void onEdit() throws IOException {
+        if (selectedItem == null) return;
+
         editMode = true;
         applyDimmedEffect();
-        if (selectedItem == null) return;
 
-        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"));
-        loader.setResources(bundle);
-
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml"),
+                LanguageManager.getInstance().getBundle()
+        );
         Parent root = loader.load();
-        ItemDialogController dc = loader.getController();
-        IMenuItem itemToEdit = selectedItem.getOriginal();
-        dc.setEditing(itemToEdit);
+        loader.<ItemDialogController>getController()
+                .setEditing(selectedItem.unwrap());
 
-        StageHelper.showDialog(root, LanguageManager.getInstance().getString("mem.editDish"), btnEdit.getScene().getWindow());
+        StageHelper.showDialog(
+                root,
+                LanguageManager.getInstance().getString("mem.editDish"),
+                btnEdit.getScene().getWindow()
+        );
 
-        menuService.updateMenuItem(itemToEdit);
-        selectedItem.updateFromOriginal();
-        refreshSelection();
+        menuService.updateMenuItem(selectedItem.unwrap());
+        reloadFromService();
+        renderAll();
+        editMode = false;
     }
 
-    @FXML private void onDelete() {
+    @FXML
+    private void onDelete() {
         if (selectedItem == null) return;
-        LanguageManager lm = LanguageManager.getInstance();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        // "Xác nhận"
-        alert.setTitle(lm.getString("mem.acept"));
-        // "Xóa món"
-        alert.setHeaderText(lm.getString("mem.deleteDish"));
-        // "Bạn có chắc chắn muốn xóa " + name
-        alert.setContentText(lm.getString("mem.realConfirm") + selectedItem.nameProperty().get() + " ?");
+        alert.setTitle(LanguageManager.getInstance().getString("mem.acept"));
+        alert.setHeaderText(LanguageManager.getInstance().getString("mem.deleteDish"));
+        alert.setContentText(
+                LanguageManager.getInstance().getString("mem.realConfirm")
+                        + selectedItem.getName() + " ?"
+        );
 
-        alert.showAndWait().ifPresent(bt -> {
-            if (bt == ButtonType.OK) {
-                menuService.deleteMenuItem(selectedItem.idProperty().get());
-                VBox card = itemCardMap.get(selectedItem.idProperty().get());
-                if (card != null) centerMenuGrid.getChildren().remove(card);
-                itemCardMap.remove(selectedItem.idProperty().get());
-                fullMenu.remove(selectedItem);
-                selectedItem = null;
-                refreshSelection();
-                updateToolbarState();
-            }
+        alert.showAndWait().filter(b -> b == ButtonType.OK).ifPresent(b -> {
+            menuService.deleteMenuItem(selectedItem.getId());
+            reloadFromService();
+            renderAll();
         });
     }
-
     @FXML
     private void mainScreen() throws IOException {
         changeScene("/view/MainScreen/MainView.fxml", LanguageManager.getInstance().getString("app.title"), "/view/MainScreen/Main.css");

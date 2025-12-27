@@ -1,84 +1,63 @@
 package service;
-import java.util.Map;
 
-import Interface.IMenuItem;
-import model.MenuItem;
+import Interface.IOrder;
+import Interface.IOrderItem;
+import Interface.IOrderService;
+import DAO.OrderDAO;
 import model.Order;
-import model.OrderItem;
 
-import java.util.HashMap;
-import java.util.List;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
-public class OrderService {
-    // Map lưu trữ đơn hàng với Key là OrderId (String)
-    private Map<String, Order> orders;
-    private MenuService menuService;
+public class OrderService implements IOrderService {
+    private final OrderDAO orderDAO;
 
-    // Constructor
-    public OrderService(MenuService menuService) {
-        this.orders = new HashMap<>();
-        this.menuService = menuService;
+    public OrderService() {
+        this.orderDAO = new OrderDAO();
     }
 
-    // Tạo đơn hàng mới
-    public Order createOrder(String tableId, List<OrderItem> items) {
-        // Giả lập tạo ID ngẫu nhiên hoặc tăng dần
-        int newIdInt = orders.size() + 1;
-        
-        // Cần đối tượng Staff, tạm thời để null hoặc truyền vào nếu logic yêu cầu
-        Order newOrder = new Order(newIdInt, null, tableId);
-        
-        // Thêm các món vào đơn hàng
-        if (items != null) {
-            for (OrderItem item : items) {
-                newOrder.addOrderItem(item);
-            }
-        }
-        
-        // Lưu vào Map
-        orders.put(newOrder.getOrderId(), newOrder);
-        
-        return newOrder;
-    }
+    @Override
+    public IOrder createOrder(String tableId, List<IOrderItem> items, String orderId) {
+        Order newOrder = new Order();
+        newOrder.setTableId(tableId);
+        // DB tự sinh thời gian, nhưng model set trước cũng được
+        newOrder.setCreatedTime(new java.util.Date());
+        newOrder.setItems(items); // Set thẳng List<IOrderItem>
 
-    // Các hàm dưới đây trong UML có vẻ như đang ủy quyền (delegate) cho MenuService
-    // Vì tham số là MenuItem chứ không phải OrderId
-    
-    public void addItem(MenuItem item) {
-        if (menuService != null) {
-            menuService.addMenuItem(item);
-        }
-    }
+        // Gọi DAO
+        int generatedId = orderDAO.saveOrder(newOrder);
 
-    public void removeItem(String itemId) {
-        if (menuService != null) {
-            menuService.deleteMenuItem(itemId);
-        }
-    }
-
-    public void updateItem(MenuItem item) {
-        if (menuService != null) {
-            menuService.updateMenuItem(item);
-        }
-    }
-
-    public List<IMenuItem> getAllItems() {
-        if (menuService != null) {
-            return menuService.getAllItems();
-        }
-        return new ArrayList<>();
-    }
-
-    // Lấy Order theo ID. UML trả về IOrder, ở đây mình trả về Order
-    public Order getOrderById(String orderId) {
-        return orders.get(orderId);
-    }
-
-    public IMenuItem getItemById(String itemId) {
-        if (menuService != null) {
-            return menuService.getItemById(itemId);
+        if (generatedId != -1) {
+            newOrder.setOrderId(generatedId);
+            return newOrder;
         }
         return null;
+    }
+
+    @Override
+    public IOrder getOrderById(String orderId) {
+        try {
+            int id = Integer.parseInt(orderId);
+            return orderDAO.getOrderById(id);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<IOrder> getOrdersForToday() {
+        long millis = System.currentTimeMillis();
+        Date today = new Date(millis);
+
+        // Cần vào DAO cài đặt lại hàm getOrdersByDate trả về List<Order> đầy đủ
+        List<Order> daoOrders = orderDAO.getOrdersByDate(today);
+
+        // Cast sang List<IOrder>
+        List<IOrder> result = new ArrayList<>();
+        if (daoOrders != null) {
+            result.addAll(daoOrders);
+        }
+        return result;
     }
 }

@@ -28,19 +28,16 @@ public class LoginController implements Initializable {
     @FXML private Label lblMessage;
     @FXML private Hyperlink linkRegister;
 
-    // ĐÃ XÓA KHAI BÁO @FXML ComboBox cbLanguage
 
     private IAuthService authService = new MockAuthService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // ĐÃ XÓA setupLanguageComboBox();
 
         // Cập nhật giao diện theo ngôn ngữ mặc định (hoặc ngôn ngữ đã lưu)
         updateLanguage();
     }
 
-    // ĐÃ XÓA HÀM setupLanguageComboBox()
 
     // Hàm set text cho toàn bộ giao diện login
     private void updateLanguage() {
@@ -59,10 +56,8 @@ public class LoginController implements Initializable {
         lblMessage.setText("");
     }
 
-    // ... (Giữ nguyên các phần code xử lý Login, Register, ShowPassword bên dưới không đổi) ...
     @FXML
     private void handleRegisterAction() throws IOException {
-        // ... (Code cũ) ...
         ResourceBundle bundle = LanguageManager.getInstance().getBundle();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginPage/RegisterPage/Register.fxml"));
         loader.setResources(bundle);
@@ -76,13 +71,10 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleLoginAction() {
-        // ... (Giữ nguyên code xử lý login của bạn) ...
         String username = txtUsername.getText();
         String password = getPasswordInput();
-        // ...
         boolean success = MockAuthService.login(username, password);
         if (success) {
-            // ... Logic chuyển trang giữ nguyên ...
             try {
                 Stage currentStage = (Stage) txtUsername.getScene().getWindow();
                 ResourceBundle bundle = LanguageManager.getInstance().getBundle();
@@ -107,7 +99,6 @@ public class LoginController implements Initializable {
         }
     }
 
-    // ... (Giữ nguyên handleShowPasswordToggle, getPasswordInput, clearPasswordFields) ...
     @FXML
     private void handleShowPasswordToggle() {
         if (chkShowPassword.isSelected()) {

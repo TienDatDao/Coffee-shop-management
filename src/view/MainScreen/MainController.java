@@ -13,21 +13,26 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Order;
+import model.OrderItem;
 import view.Helper.LanguageManager;
 import view.Main;
 import view.MockTest.MockOrder;
 import view.MockTest.MockOrderItem;
 import view.PaymentPage.PaymentController;
+import view.Wrapper.MenuItemWrapper;
 import view.Wrapper.OrderItemWrapper;
 
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -72,7 +77,7 @@ public class MainController {
 
 
     // --- DATA & SERVICES ---
-    private List<IMenuItem> fullMenu;
+    private List<MenuItemWrapper> fullMenu;
     private IMenuService menuService;
     private ObservableList<OrderItemWrapper> currentOrder = FXCollections.observableArrayList();
     private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
@@ -88,8 +93,11 @@ public class MainController {
             }
         });
 
-        fullMenu = menuService.getAllItems();
-        setupTable();
+// 2. Lấy dữ liệu từ Service
+        fullMenu = new ArrayList<>();
+        for (IMenuItem item : menuService.getAllItems()) {
+            fullMenu.add(new MenuItemWrapper(item));
+        }        setupTable();
         renderMenuGrid(fullMenu);
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -161,15 +169,15 @@ public class MainController {
     }
 
     // --- LOGIC GIAO DIỆN (MENU) ---
-    private void renderMenuGrid(List<IMenuItem> items) {
+    private void renderMenuGrid(List<MenuItemWrapper> items) {
         menuGrid.getChildren().clear();
-        for (IMenuItem item : items) {
+        for (MenuItemWrapper item : items) {
             VBox card = createProductCard(item);
             menuGrid.getChildren().add(card);
         }
     }
 
-    private VBox createProductCard(IMenuItem item) {
+    private VBox createProductCard(MenuItemWrapper item) {
         VBox card = new VBox(10);
         double cardWidth = 170;
         card.setPrefWidth(cardWidth);
@@ -209,7 +217,7 @@ public class MainController {
         card.getChildren().addAll(imageView, infoBox);
 
         card.setOnMouseClicked(e -> {
-            addToCart(item);
+            addToCart(item.unwrap());
             javafx.animation.ScaleTransition st = new javafx.animation.ScaleTransition(javafx.util.Duration.millis(100), card);
             st.setFromX(1.0); st.setFromY(1.0);
             st.setToX(0.95); st.setToY(0.95);
@@ -226,7 +234,8 @@ public class MainController {
             renderMenuGrid(fullMenu);
             return;
         }
-        List<IMenuItem> filtered = fullMenu.stream()
+        // Stream filter trên Interface
+        List<MenuItemWrapper> filtered = fullMenu.stream()
                 .filter(m -> m.getName().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
         renderMenuGrid(filtered);
@@ -302,24 +311,23 @@ public class MainController {
     @FXML
     private void handleCheckout() throws IOException {
         if (currentOrder.isEmpty()) {
-            // Thay thế text cứng bằng LanguageManager
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(LanguageManager.getInstance().getString("mainc.notification"));
-            alert.setContentText(LanguageManager.getInstance().getString("mainc.warning")); // "Giỏ hàng đang trống!"
+            alert.setContentText(LanguageManager.getInstance().getString("mainc.warning"));
             alert.showAndWait();
             return;
         }
 
-        // Truyền bundle khi load Payment
         ResourceBundle bundle = LanguageManager.getInstance().getBundle();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentPage/Payment.fxml"));
-        loader.setResources(bundle);
 
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/PaymentPage/Payment.fxml"),
+                bundle
+        );
         Parent root = loader.load();
 
-        IOrder orderToSend = new MockOrder();
+        IOrder orderToSend = new Order();
         for (OrderItemWrapper itemWrapper : currentOrder) {
-            IOrderItem finalItem = new MockOrderItem(itemWrapper.getMenuItem(), itemWrapper.getQuantity());
+            IOrderItem finalItem = new OrderItem(itemWrapper.getMenuItem(), itemWrapper.getQuantity());
             orderToSend.setListOrderItem(finalItem);
         }
 
@@ -331,7 +339,6 @@ public class MainController {
 
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
-        view.AppConfig.applyTheme(scene, "/view/PaymentPage/Payment.css"); // Áp dụng theme nếu cần
     }
 
     @FXML

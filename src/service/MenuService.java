@@ -1,75 +1,54 @@
 package service;
 
+import DAO.MenuDAO;
+import Database.CreateDatabase;
 import Interface.IMenuItem;
 import Interface.IMenuService;
-import model.MenuItem;
-import javafx.scene.image.Image;
 
-import java.util.ArrayList;
+import java.sql.Connection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MenuService implements IMenuService {
-    private List<IMenuItem> menuList = new ArrayList<>();
 
-    public MenuService() {
-        loadDefaultMenu();
+    private final MenuDAO dao;
+    private static final MenuService INSTANCE =
+            new MenuService(CreateDatabase.getConnection());
+
+    public static MenuService getInstance() {
+        return INSTANCE;
     }
 
-    private void loadDefaultMenu() {
-        menuList.add(new MenuItem("CF01", "Cà phê sữa", 25000, "coffee",
-                new Image("file:images/cf_sua.png")));
-
-        menuList.add(new MenuItem("CF02", "Cà phê đen", 20000, "coffee",
-                new Image("file:images/cf_den.png")));
-
-        menuList.add(new MenuItem("TE01", "Trà đào", 30000, "tea",
-                new Image("file:images/tra_dao.png")));
+    public MenuService(Connection conn) {
+        dao = new MenuDAO(conn);
     }
 
     @Override
     public List<IMenuItem> getAllItems() {
-        return menuList;
+        return dao.getAll();
     }
 
     @Override
     public IMenuItem getItemById(String id) {
-        return menuList.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+        return dao.getById(id);
     }
 
     @Override
     public boolean addMenuItem(IMenuItem item) {
-        return menuList.add(item);
+        return dao.insert(item);
     }
 
     @Override
     public boolean updateMenuItem(IMenuItem item) {
-        for (int i = 0; i < menuList.size(); i++) {
-            if (menuList.get(i).getId().equals(item.getId())) {
-                menuList.set(i, item);
-                return true; // cập nhật thành công
-            }
-        }
-        return false; // không tìm thấy item để update
+        return dao.update(item);
     }
-
 
     @Override
     public boolean deleteMenuItem(String id) {
-        return menuList.removeIf(item -> item.getId().equals(id));
+        return dao.delete(id);
     }
 
     @Override
     public List<IMenuItem> search(String keyword) {
-        if (keyword == null || keyword.isEmpty()) {
-            return getAllItems(); // Trả lại toàn bộ menu
-        }
-        String lower = keyword.toLowerCase();
-        return getAllItems().stream()
-                .filter(item -> item.getName().toLowerCase().contains(lower))
-                .collect(Collectors.toList());
+        return dao.searchByName(keyword);
     }
 }

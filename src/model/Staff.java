@@ -5,7 +5,9 @@ public class Staff extends User {
     private int hoursWorked;
     private String currentShift;
 
-    public Staff(int id, String username, String password, String fullName, String phoneNumber, 
+    public Staff(){}
+
+    public Staff(int id, String username, String password, String fullName, String phoneNumber,
                  int hourlyRate, String currentShift) {
         super(id, username, password, fullName, phoneNumber);
         this.hourlyRate = hourlyRate;
@@ -51,7 +53,7 @@ public class Staff extends User {
     }
 
     public String getRole() {
-        return "Staff"; 
+        return "Staff";
     }
 
     public void setCurrentShift(String currentShift) {
