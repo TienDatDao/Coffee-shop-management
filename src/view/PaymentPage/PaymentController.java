@@ -111,62 +111,66 @@ public class PaymentController implements Initializable {
             @Override
             protected void updateItem(IOrderItem item, boolean empty) {
                 super.updateItem(item, empty);
+
+                // Quan trọng: Xóa background mặc định của ListCell để không bị vệt xanh/trắng
+                setStyle("-fx-background-color: transparent; -fx-padding: 5 10;");
+
                 if (empty || item == null) {
                     setGraphic(null);
+                    setText(null);
                 } else {
-                    LanguageManager lm = LanguageManager.getInstance();
+                    // 1. KHUNG CHÍNH (HBox) - Đóng vai trò là cái thẻ (Card)
+                    HBox cardLayout = new HBox(15);
+                    cardLayout.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                    cardLayout.getStyleClass().add("list-item-cell"); // Class CSS tạo hình thẻ
 
-                    VBox itemVBox = new VBox(5);
-                    itemVBox.getStyleClass().add("list-item-cell");
-                    itemVBox.setPadding(Insets.EMPTY);
-
-                    HBox mainItemContent = new HBox(15);
-                    mainItemContent.getStyleClass().add("main-item-content");
-
-                    // Ảnh
                     ImageView itemImage = new ImageView(item.getImage());
-                    itemImage.setFitWidth(80);
-                    itemImage.setFitHeight(100);
-                    javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
-                    clip.setArcWidth(30);
-                    clip.setArcHeight(30);
-                    itemImage.setClip(clip);
-                    itemImage.setPreserveRatio(false);
-                    itemImage.getStyleClass().add("item-image");
 
-                    // Thông tin text
-                    VBox nameAndDescBox = new VBox(3);
-                    nameAndDescBox.getStyleClass().add("item-text-container");
+                    itemImage.setFitWidth(90);
+                    itemImage.setFitHeight(90);
+
+                    javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(90, 90);
+                    clip.setArcWidth(25); // Bo góc mềm mại hơn
+                    clip.setArcHeight(25);
+                    itemImage.setClip(clip);
+
+                    // 3. THÔNG TIN GIỮA (Tên + Loại)
+                    VBox centerBox = new VBox(4);
+                    centerBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
                     Label lblName = new Label(item.getName());
                     lblName.getStyleClass().add("item-name");
-                    Label lblDescription = new Label(item.getCategory());
-                    lblDescription.getStyleClass().add("item-description");
 
-                    // Giá: Sử dụng key pay.price ("Giá") hoặc hiển thị trực tiếp
-                    Label lblPrice = new Label(lm.getString("pay.price") + ": " + currencyFormatter.format(item.getPrice()));
-                    lblPrice.getStyleClass().add("item-price");
-                    nameAndDescBox.getChildren().addAll(lblName, lblDescription, lblPrice);
+                    Label lblCategory = new Label(item.getCategory());
+                    lblCategory.getStyleClass().add("item-description");
 
-                    HBox.setHgrow(nameAndDescBox, Priority.ALWAYS);
+                    centerBox.getChildren().addAll(lblName, lblCategory);
 
-                    // Số lượng & Thành tiền
-                    VBox detailVBox = new VBox(5);
-                    detailVBox.getStyleClass().add("item-detail-vbox");
+                    // 4. THÔNG TIN PHẢI (Giá, SL, Thành tiền) - Căn lề phải
+                    VBox rightBox = new VBox(2);
+                    rightBox.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
 
-                    // pay.quantity ("Số lượng")
-                    Label lblQty = new Label(lm.getString("pay.quantity") + ": x" + item.getQuantity());
+                    // Đơn giá
+                    Label lblPrice = new Label(currencyFormatter.format(item.getPrice()));
+                    lblPrice.getStyleClass().add("item-price-small");
+
+                    // Số lượng
+                    Label lblQty = new Label("x" + item.getQuantity());
                     lblQty.getStyleClass().add("item-quantity");
 
-                    // pay.subtotal ("Thành tiền")
-                    Label lblSubtotal = new Label(lm.getString("pay.subtotal") + ": " + currencyFormatter.format(item.getSubtotal()));
+                    // Thành tiền
+                    Label lblSubtotal = new Label(currencyFormatter.format(item.getSubtotal()));
                     lblSubtotal.getStyleClass().add("item-subtotal");
 
-                    detailVBox.getChildren().addAll(lblQty, lblSubtotal);
+                    rightBox.getChildren().addAll(lblSubtotal, lblQty, lblPrice); // Để thành tiền lên đầu hoặc cuối tùy bạn
 
-                    mainItemContent.getChildren().addAll(itemImage, nameAndDescBox, detailVBox);
-                    itemVBox.getChildren().addAll(mainItemContent);
-                    setGraphic(itemVBox);
+                    // --- ĐẨY CÁC PHẦN RA XA NHAU ---
+                    // Region ở giữa sẽ đẩy rightBox sang tận cùng bên phải
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+                    cardLayout.getChildren().addAll(itemImage, centerBox, spacer, rightBox);
+                    setGraphic(cardLayout);
                 }
             }
         });

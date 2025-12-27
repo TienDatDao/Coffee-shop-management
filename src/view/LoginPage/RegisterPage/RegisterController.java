@@ -16,14 +16,13 @@ import java.util.ResourceBundle;
 
 public class RegisterController {
 
-    // Khai báo các fx:id mới thêm
     @FXML private Label lblTitle;
-    @FXML private Label lblRole;
 
-    // Các fx:id cũ
+    // Đã xóa choiceRole và lblRole
     @FXML private TextField txtUsername;
     @FXML private PasswordField txtPassword;
-    @FXML private ChoiceBox<String> choiceRole;
+    @FXML private PasswordField txtConfirmPassword; // Mới thêm
+
     @FXML private Button btnRegister;
     @FXML private Button btnCancel;
     @FXML private Label lblMessage;
@@ -32,20 +31,25 @@ public class RegisterController {
 
     @FXML
     public void initialize() {
-        choiceRole.getSelectionModel().selectFirst();
-
-        // Gọi hàm cập nhật ngôn ngữ ngay khi mở form
+        // Cập nhật ngôn ngữ
         updateLanguage();
     }
 
-    // Hàm mới: Set text dựa trên ngôn ngữ hiện tại
     private void updateLanguage() {
         LanguageManager lm = LanguageManager.getInstance();
 
         lblTitle.setText(lm.getString("re.title"));
         txtUsername.setPromptText(lm.getString("re.username"));
         txtPassword.setPromptText(lm.getString("re.password"));
-        lblRole.setText(lm.getString("re.role"));
+
+        // Bạn cần thêm key "re.confirm" vào file properties (VD: Nhập lại mật khẩu)
+        // Nếu chưa có thì tạm thời để cứng chuỗi String ở đây
+        try {
+            txtConfirmPassword.setPromptText(lm.getString("re.confirm"));
+        } catch (Exception e) {
+            txtConfirmPassword.setPromptText("Nhập lại mật khẩu");
+        }
+
         btnRegister.setText(lm.getString("re.re"));
         btnCancel.setText(lm.getString("re.cancel"));
     }
@@ -54,27 +58,40 @@ public class RegisterController {
     private void handleRegister() {
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
-        String role = choiceRole.getValue();
+        String confirmPass = txtConfirmPassword.getText().trim();
 
-        // Check rỗng -> dùng key: re.warning
-        if (username.isEmpty() || password.isEmpty()) {
+        // 1. Check rỗng
+        if (username.isEmpty() || password.isEmpty() || confirmPass.isEmpty()) {
             showMessage(LanguageManager.getInstance().getString("re.warning"));
             return;
         }
 
-        // Check độ dài mật khẩu (Optional - dựa trên file properties bạn có key re.warningPass)
+        // 2. Check mật khẩu khớp nhau
+        if (!password.equals(confirmPass)) {
+            // Bạn cần thêm key "re.warningMatch" (Mật khẩu không khớp)
+            try {
+                showMessage(LanguageManager.getInstance().getString("re.warningMatch"));
+            } catch (Exception e) {
+                showMessage("Mật khẩu không khớp!");
+            }
+            return;
+        }
+
+        // 3. Check độ dài (Optional)
         if (password.length() < 8) {
             showMessage(LanguageManager.getInstance().getString("re.warningPass"));
             return;
         }
 
-        // Thông báo thành công -> dùng key: re.success
+        // 4. Đăng ký thành công
         showMessage(LanguageManager.getInstance().getString("re.success"));
 
-        // Cập nhật dữ liệu
-        user = new MockUser(username, password, role);
+        // Mặc định quyền là "Staff" vì đã bỏ nút chọn
+        user = new MockUser(username, password, "Staff");
         Main.MOCK_AUTH_SERVICE.setUser(user);
-        delayThenRun(0.5, () -> loadLoginPage());
+
+        // Tự động quay về trang Login sau 0.8 giây để người dùng kịp đọc thông báo thành công
+        delayThenRun(0.8, () -> loadLoginPage());
     }
 
     @FXML
@@ -90,31 +107,25 @@ public class RegisterController {
 
     private void loadLoginPage() {
         try {
-            // Lấy bundle hiện tại để truyền vào FXMLLoader (quan trọng để Login cũng đúng ngôn ngữ)
             ResourceBundle bundle = LanguageManager.getInstance().getBundle();
-
-            // Load FXML và truyền bundle resource vào
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginPage/Login.fxml"));
             loader.setResources(bundle);
             Parent root = loader.load();
 
             Stage stage = (Stage) txtUsername.getScene().getWindow();
-
             Scene scene = new Scene(root, 700, 475);
-            scene.getStylesheets().add(
-                    getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
-            );
+            // Add CSS Login nếu cần
+            scene.getStylesheets().add(getClass().getResource("/view/LoginPage/Login.css").toExternalForm());
 
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            // Dùng key lỗi chung hoặc để text cứng nếu chưa có key phù hợp
-            showMessage(LanguageManager.getInstance().getString("msg.error"));
         }
     }
 
     private void showMessage(String message) {
         lblMessage.setText(message);
+        // Thêm hiệu ứng rung nhẹ hoặc đổi màu text nếu muốn
     }
 }
