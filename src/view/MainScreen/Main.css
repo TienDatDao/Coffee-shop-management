@@ -23,15 +23,15 @@
     -fx-font-size: 28px;
     -fx-font-weight: 800;
     -fx-text-fill: #F1F5F9;
-    -fx-padding: 0 0 10 0;
     -fx-alignment: CENTER;
+    -fx-text-alignment: center;
 }
 
 .nav-btn {
     -fx-background-color: transparent;
     -fx-text-fill: #94A3B8;
     -fx-font-size: 15px;
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment: center-left;
     -fx-padding: 12 20;
     -fx-cursor: hand;
     -fx-background-radius: 8;
@@ -73,12 +73,10 @@
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #64748B;
     -fx-background-radius: 20;
-    -fx-border-color: #E2E8F0;
     -fx-border-radius: 20;
+    -fx-border-color: #E2E8F0;
     -fx-cursor: hand;
     -fx-font-weight: bold;
-
-    /* --- THÊM 2 DÒNG NÀY --- */
     -fx-padding: 10 24;
     -fx-font-size: 14px;
 }
@@ -95,9 +93,9 @@
 .product-card {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
     -fx-padding: 15;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
 }
 
 .product-card:hover {
@@ -112,8 +110,8 @@
 
 .card-price {
     -fx-font-size: 14px;
-    -fx-text-fill: #10B981;
     -fx-font-weight: bold;
+    -fx-text-fill: #10B981;
 }
 
 /* =======================
@@ -137,10 +135,15 @@
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 12;
     -fx-border-radius: 12;
+    -fx-control-inner-background: #FFFFFF;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 8, 0, 0, 4);
 }
 
-.table-view .column-header-background,
+/* Header */
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
 .table-view .column-header {
     -fx-background-color: transparent;
 }
@@ -151,6 +154,7 @@
     -fx-font-size: 11px;
 }
 
+/* Row */
 .table-row-cell {
     -fx-background-color: transparent;
     -fx-cell-size: 60px;
@@ -167,6 +171,7 @@
     -fx-border-width: 0 0 0 3;
 }
 
+/* Cell */
 .table-cell {
     -fx-text-fill: #334155;
     -fx-font-size: 14px;
@@ -174,10 +179,19 @@
 }
 
 /* =======================
-   SCROLL BAR (SAFE)
+   SCROLL BAR
 ======================= */
 .scroll-pane,
 .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Vertical bar */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track {
     -fx-background-color: transparent;
 }
 
@@ -188,6 +202,19 @@
 
 .scroll-bar:vertical .thumb:hover {
     -fx-background-color: #94A3B8;
+}
+
+/* REMOVE MODENA ARROWS */
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-effect: null;
 }
 
 /* =======================

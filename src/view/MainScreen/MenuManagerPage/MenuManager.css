@@ -1,8 +1,6 @@
-/* MenuManager.css */
-
-/* =======================
-   1. GLOBAL ROOT
-======================= */
+/* =====================================================
+   1. GLOBAL
+===================================================== */
 .root {
     -fx-background-color: #F8FAFC;
     -fx-font-family: "Segoe UI";
@@ -13,9 +11,9 @@
     -fx-background-color: #FFFFFF;
 }
 
-/* =======================
+/* =====================================================
    2. SIDEBAR
-======================= */
+===================================================== */
 .sidebar {
     -fx-background-color: #1E293B;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
@@ -25,15 +23,15 @@
     -fx-font-size: 28px;
     -fx-font-weight: 800;
     -fx-text-fill: #F1F5F9;
-    -fx-padding: 0 0 10 0;
     -fx-alignment: CENTER;
+    -fx-text-alignment: center;
 }
 
 .nav-btn {
     -fx-background-color: transparent;
     -fx-text-fill: #94A3B8;
     -fx-font-size: 15px;
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment: center-left;
     -fx-padding: 12 20;
     -fx-cursor: hand;
     -fx-background-radius: 8;
@@ -44,6 +42,7 @@
     -fx-text-fill: #F1F5F9;
 }
 
+
 .active-nav {
     -fx-background-color: #3B82F6;
     -fx-text-fill: #FFFFFF;
@@ -51,11 +50,9 @@
     -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.4), 10, 0, 0, 5);
 }
 
-/* =======================
-   3. TEXT FIELDS & SEARCH (Đã sửa lỗi bo tròn)
-======================= */
-
-/* Định nghĩa chung cho input thường trước */
+/* =====================================================
+   3. INPUTS & SEARCH
+===================================================== */
 .text-field {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #CBD5E1;
@@ -64,10 +61,10 @@
     -fx-padding: 8;
 }
 
-/* Định nghĩa search-bar sau để ghi đè thuộc tính radius */
+/* Search ghi đè radius */
 .search-bar {
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 30; /* Bo tròn mạnh */
+    -fx-background-radius: 30;
     -fx-border-radius: 30;
     -fx-border-color: #E2E8F0;
     -fx-padding: 10 20;
@@ -79,26 +76,27 @@
     -fx-border-color: #3B82F6;
 }
 
-/* =======================
-   4. PRODUCT CARD (Đã thêm mới cho giống Main)
-======================= */
+/* =====================================================
+   4. PRODUCT CARD
+===================================================== */
 .product-card {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
     -fx-padding: 10;
     -fx-cursor: hand;
 
     -fx-border-color: transparent;
-    -fx-border-width: 2px;
+    -fx-border-width: 2;
     -fx-border-radius: 16;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 5);
 }
 
 .product-card:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 8);
 }
 
-/* Thêm class selected để hiển thị khi click chọn món để sửa/xóa */
+/* Trạng thái được chọn */
 .product-card.selected {
     -fx-border-color: #3B82F6;
     -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.4), 15, 0, 0, 5);
@@ -112,16 +110,16 @@
 
 .card-price {
     -fx-font-size: 14px;
-    -fx-text-fill: #10B981;
     -fx-font-weight: bold;
+    -fx-text-fill: #10B981;
 }
 
-/* =======================
-   5. BUTTONS & OTHERS
-======================= */
+/* =====================================================
+   5. BUTTONS
+===================================================== */
 .primary-btn {
     -fx-background-color: #3B82F6;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
     -fx-padding: 10 20;
@@ -146,40 +144,38 @@
     -fx-background-color: #E2E8F0;
 }
 
-/* Thêm trạng thái disable cho nút */
-.button:disabled {
-    -fx-opacity: 0.6;
-    -fx-cursor: default;
-}
-
 .danger-btn {
     -fx-background-color: #FEE2E2;
     -fx-text-fill: #EF4444;
+    -fx-font-weight: bold;
     -fx-background-radius: 8;
     -fx-padding: 8 16;
     -fx-cursor: hand;
-    -fx-font-weight: bold;
 }
 
 .danger-btn:hover {
     -fx-background-color: #FECACA;
 }
 
-/* =======================
-   FILTER BUTTON
-======================= */
+/* Disable */
+.button:disabled {
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
+}
+
+/* =====================================================
+   6. FILTER BUTTON
+===================================================== */
 .filter-btn {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #64748B;
     -fx-background-radius: 20;
-    -fx-border-color: #E2E8F0;
     -fx-border-radius: 20;
-    -fx-cursor: hand;
-    -fx-font-weight: bold;
-
-    /* --- THÊM 2 DÒNG NÀY --- */
+    -fx-border-color: #E2E8F0;
     -fx-padding: 10 24;
     -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
 .filter-btn:hover {
@@ -188,10 +184,13 @@
     -fx-border-color: #3B82F6;
 }
 
-/* ScrollPane fix */
+/* =====================================================
+   7. SCROLL
+===================================================== */
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
+
 .scroll-bar:vertical .thumb {
     -fx-background-color: #CBD5E1;
     -fx-background-radius: 10;

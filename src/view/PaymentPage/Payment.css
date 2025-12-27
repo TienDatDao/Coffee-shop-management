@@ -1,13 +1,8 @@
-/* ===========================================
-   PAYMENT PAGE – JAVA FX SAFE CSS
-   =========================================== */
-
 /* =======================
    1. ROOT BACKGROUND
 ======================= */
 .main-border-pane {
     -fx-background-color: white;
-
     -fx-background-image: url("/view/PaymentPage/PaymentBackground.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
@@ -18,8 +13,7 @@
    2. PAYMENT PANEL
 ======================= */
 .payment-panel {
-    -fx-background-color: white;
-    -fx-opacity: 0.9;
+    -fx-background-color: rgba(255,255,255,0.9);
 
     -fx-border-color: #CCCCCC;
     -fx-border-radius: 30;
@@ -116,10 +110,14 @@
     -fx-padding: 0;
 }
 
-/* ScrollBar */
+/* ScrollBar – SAFE OVERRIDE */
 .order-list-view .scroll-bar:vertical {
     -fx-background-color: transparent;
     -fx-pref-width: 8;
+}
+
+.order-list-view .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
 }
 
 .order-list-view .scroll-bar:vertical .thumb {
@@ -131,8 +129,17 @@
     -fx-background-color: rgba(0,0,0,0.5);
 }
 
-.order-list-view .scroll-bar:vertical .track {
+/* REMOVE MODENA BUTTONS & ARROWS (NO WARNING) */
+.order-list-view .scroll-bar:vertical .increment-button,
+.order-list-view .scroll-bar:vertical .decrement-button {
     -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.order-list-view .scroll-bar:vertical .increment-arrow,
+.order-list-view .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-effect: null;
 }
 
 /* =======================
@@ -140,7 +147,7 @@
 ======================= */
 .order-list-view .list-cell {
     -fx-background-color: transparent;
-    -fx-control-inner-background: transparent;
+    -fx-control-inner-background: rgba(0,0,0,0);
     -fx-padding: 0;
 }
 

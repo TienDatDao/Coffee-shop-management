@@ -12,20 +12,23 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane alignment="CENTER" styleClass="root-pane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginPage.LoginController">
-    <ImageView fx:id="imgLogo" fitHeight="120" fitWidth="120" StackPane.alignment="TOP_CENTER"> <image>
-        <Image url="@LoginLogo.png" />
-    </image>
+<StackPane alignment="CENTER" styleClass="root-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginPage.LoginController">
+
+    <ImageView fx:id="imgLogo" fitHeight="120" fitWidth="120" StackPane.alignment="TOP_CENTER">
+        <image>
+            <Image url="@LoginLogo.png" />
+        </image>
         <StackPane.margin>
             <Insets top="50" />
         </StackPane.margin>
     </ImageView>
+
     <VBox id="login-pane" alignment="CENTER" maxWidth="370.0" prefHeight="209.0" prefWidth="342.0" spacing="10">
         <padding>
             <Insets bottom="40" left="40" right="40" top="40" />
         </padding>
 
-        <Label id="title" text="W E L C O M E   A D M I N" />
+        <Label id="title" fx:id="lblTitle" text="W E L C O M E   A D M I N" />
 
         <TextField fx:id="txtUsername" promptText="User name" styleClass="text-field" />
 
@@ -41,9 +44,12 @@
             </CheckBox>
         </StackPane>
 
-        <Button id="login-button" fx:id="btnLogin" maxWidth="1.7976931348623157E308" onAction="#handleLoginAction" text="Login" />
+        <Button id="login-button" fx:id="btnLogin"
+                prefWidth="250.0" prefHeight="40.0"
+                maxWidth="1.7976931348623157E308"
+                onAction="#handleLoginAction" text="Login" />
 
-        <Label id="message" fx:id="lblMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Please enter your user name and password" />
+        <Label id="message" fx:id="lblMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" text="" />
 
         <Hyperlink fx:id="linkRegister" alignment="CENTER" maxWidth="1.7976931348623157E308" onAction="#handleRegisterAction" text="Đăng ký" />
     </VBox>

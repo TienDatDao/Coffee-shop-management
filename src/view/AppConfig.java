@@ -1,28 +1,37 @@
 package view;
 
 import javafx.scene.Scene;
-import java.util.Locale;
+import java.net.URL;
 
 public class AppConfig {
-    public static boolean isDarkMode = false;
-    public static Locale currentLocale = new Locale("vi", "VN");
 
-    // Sửa hàm này: Thêm tham số 'extraCss'
-    public static void applyTheme(Scene scene, String extraCss) {
-        // 1. Xóa sạch CSS cũ
+    // 1. Chỉ giữ lại biến isDarkMode
+    // BỎ biến currentLocale vì đã có LanguageManager quản lý
+    public static boolean isDarkMode = false;
+
+
+    public static void applyTheme(Scene scene, String cssFilePath) {
+        // Xóa sạch CSS cũ để tránh chồng chéo
         scene.getStylesheets().clear();
 
-        // 2. Add Main.css (Cơ bản)
-        scene.getStylesheets().add(AppConfig.class.getResource("/view/MainScreen/Main.css").toExternalForm());
-
-        // 3. Add CSS phụ (Ví dụ: Settings.css) nếu có
-        if (extraCss != null && !extraCss.isEmpty()) {
-            scene.getStylesheets().add(AppConfig.class.getResource(extraCss).toExternalForm());
+        // 1. Add CSS chính của màn hình (Login.css, Main.css, Payment.css...)
+        if (cssFilePath != null && !cssFilePath.isEmpty()) {
+            addCssSafely(scene, cssFilePath);
         }
 
-        // 4. Add DarkMode.css CUỐI CÙNG (Để đè lên tất cả)
+        // 2. Add DarkMode.css (nếu đang bật chế độ tối)
+        // Để nó ghi đè lên các màu sắc mặc định
         if (isDarkMode) {
-            scene.getStylesheets().add(AppConfig.class.getResource("/view/MainScreen/DarkMode.css").toExternalForm());
+            addCssSafely(scene, "/view/MainScreen/DarkMode.css");
+        }
+    }
+
+    private static void addCssSafely(Scene scene, String path) {
+        URL url = AppConfig.class.getResource(path);
+        if (url != null) {
+            scene.getStylesheets().add(url.toExternalForm());
+        } else {
+            System.err.println("Không tìm thấy file CSS tại đường dẫn: " + path);
         }
     }
 }

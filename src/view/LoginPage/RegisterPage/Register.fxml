@@ -16,24 +16,20 @@
         <Insets top="40" left="40" right="40" bottom="40"/>
     </padding>
 
-    <!-- TIÊU ĐỀ -->
-    <Label text="ĐĂNG KÝ TÀI KHOẢN" styleClass="register-title"/>
+    <Label fx:id="lblTitle" text="ĐĂNG KÝ TÀI KHOẢN" styleClass="register-title"/>
 
-    <!-- NHẬP TÊN -->
     <TextField fx:id="txtUsername"
                promptText="Tên đăng nhập"
                styleClass="input-field"
                maxWidth="260"/>
 
-    <!-- NHẬP MẬT KHẨU -->
     <PasswordField fx:id="txtPassword"
                    promptText="Mật khẩu"
                    styleClass="input-field"
                    maxWidth="260"/>
 
-    <!-- CHỌN QUYỀN -->
     <HBox alignment="CENTER_LEFT" spacing="10" maxWidth="260">
-        <Label text="Quyền truy cập:" styleClass="label-role"/>
+        <Label fx:id="lblRole" text="Quyền truy cập:" styleClass="label-role"/>
 
         <ChoiceBox fx:id="choiceRole" styleClass="choice-role">
             <items>
@@ -45,7 +41,6 @@
         </ChoiceBox>
     </HBox>
 
-    <!-- NÚT -->
     <HBox alignment="CENTER" spacing="12">
         <Button fx:id="btnRegister"
                 text="Đăng ký"
@@ -58,7 +53,6 @@
                 onAction="#handleCancel"/>
     </HBox>
 
-    <!-- THÔNG BÁO -->
     <Label fx:id="lblMessage"
            text=""
            alignment="CENTER"
