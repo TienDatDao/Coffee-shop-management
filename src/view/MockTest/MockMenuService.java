@@ -18,7 +18,7 @@ public class MockMenuService implements IMenuService {
         menuList.add(new MockMenuItem("4", "Bạc xỉu", 35000.0, "Drink", "/view/MainScreen/MainScreenImages/bac_xiu.png"));
         menuList.add(new MockMenuItem("5", "Trà chanh", 25000.0, "Drink", "/view/MainScreen/MainScreenImages/tra_chanh.png"));
         menuList.add(new MockMenuItem("6", "Trà đào", 40000.0, "Drink", "/view/MainScreen/MainScreenImages/tra_dao.png"));
-        menuList.add(new MockMenuItem("7", "Trà vai", 30000.0, "Drink", "/view/MainScreen/MainScreenImages/tra_vai.png"));
+        menuList.add(new MockMenuItem("7", "Trà vải", 30000.0, "Drink", "/view/MainScreen/MainScreenImages/tra_vai.png"));
         menuList.add(new MockMenuItem("8", "Bánh Croissant", 20000.0, "Food", "/view/MainScreen/MainScreenImages/banh_croissant.png"));
         menuList.add(new MockMenuItem("9", "Bánh Tiramisu", 45000.0, "Food", "/view/MainScreen/MainScreenImages/banh_tiramisu.png"));
         menuList.add(new MockMenuItem("10", "Bánh Flan", 40000.0, "Food", "/view/MainScreen/MainScreenImages/banh_flan.png"));

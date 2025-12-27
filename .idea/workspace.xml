@@ -4,81 +4,75 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="fix a little">
-      <change afterPath="$PROJECT_DIR$/src/view/PaymentPage/QRPay.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" afterDir="false" />
-    </list>
+    <list default="true" id="0ff9303f-ca9f-4560-9d9f-233b8556638b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CodeInsightWorkspaceSettings">
-    <option name="optimizeImportsOnTheFly" value="true" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="FxmlFile" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="35x5xDcmXHxqz9Azy1skMV4CicZ" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;chinh1809z&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/TienDatDao/Coffee-shop-management.git&quot;,
+    &quot;accountId&quot;: &quot;44c42a1e-fbb4-41a2-aaaf-4393bf4c3ba5&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="37POWbPEX5Nm1lJUsm9WI6n581G" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/hieuv/IdeaProjects/Coffee-shop-management/src/view/LoginPage",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15546875",
-    "project.structure.side.proportion": "0.20331186",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fe-chinh&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15546875&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.20331186&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\LoginPage" />
-      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\MainScreen" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\PaymentPage" />
-      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\MainScreen\MainScreenImages" />
-      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\MainScreen" />
-      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\view\LoginPage" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="view.MainScreen" />
+      <recent name="C:\Users\GIGABYTE\IdeaProjects\Coffee-shop-management\src\view\PaymentPage" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="view.MainTest" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="view.Main" />
       <module name="Coffee-shop-management" />
-      <option name="VM_PARAMETERS" value="--module-path C:\javafx-sdk-25.0.1\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="view.LoginPage.*" />
+          <option name="PATTERN" value="view.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -86,240 +80,42 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="VM_PARAMETERS" value="--enable-native-access=ALL-UNNAMED" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainTest" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="" />
-      <created>1764039127142</created>
+      <changelist id="0ff9303f-ca9f-4560-9d9f-233b8556638b" name="Changes" comment="" />
+      <created>1766801272512</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1764039127142</updated>
+      <updated>1766801272512</updated>
     </task>
-    <task id="LOCAL-00001" summary="Update Loginpage">
-      <created>1764245178440</created>
+    <task id="LOCAL-00001" summary="fix bug">
+      <option name="closed" value="true" />
+      <created>1766804516265</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1764245178440</updated>
+      <updated>1766804516265</updated>
     </task>
-    <task id="LOCAL-00002" summary="Update Loginpage">
-      <created>1764245235516</created>
+    <task id="LOCAL-00002" summary="hoàn thiện chức năng">
+      <option name="closed" value="true" />
+      <created>1766836181440</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1764245235516</updated>
+      <updated>1766836181440</updated>
     </task>
-    <task id="LOCAL-00003" summary="Update Loginpage02">
-      <created>1764260985502</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1764260985502</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Update Loginpage02">
-      <created>1764262522171</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1764262522171</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Update Loginpage03">
-      <created>1764262656608</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1764262656608</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Update new(important), should check">
-      <created>1764266649888</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1764266649888</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Update new(important), should check">
-      <created>1764267032222</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1764267032222</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Update interface(should check), update PaymentPage,">
-      <created>1764404985900</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1764404985900</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Update little">
-      <created>1764405522015</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1764405522015</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Update new, quite important,...">
-      <created>1764423041752</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1764423041752</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Update new in interface IOrder, IOrderService">
-      <created>1764423593693</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1764423593693</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Update new in interface">
-      <created>1764424859226</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1764424859226</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Update, rất là nhiều=)))), bao gồm chỉnh sửa interface( chưa xong), thêm lớp bọc(wrapper) cho fe cập nhật trực tiếp, cuối cùng là cập nhật liên kết giữa các nút login, pay">
-      <created>1764513913608</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1764513913608</updated>
-    </task>
-    <task id="LOCAL-00014" summary="thiếu">
-      <created>1764513937236</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1764513937236</updated>
-    </task>
-    <task id="LOCAL-00015" summary="add hieu ung">
-      <created>1764517200505</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1764517200505</updated>
-    </task>
-    <task id="LOCAL-00016" summary="fix bug">
-      <created>1764607547092</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1764607547092</updated>
-    </task>
-    <task id="LOCAL-00017" summary="fix bug, merge with fe-chinh">
-      <created>1764645807132</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1764645807132</updated>
-    </task>
-    <task id="LOCAL-00018" summary="add managePage, add st in interface, yeu cau ae them class">
-      <created>1764688342715</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1764688342715</updated>
-    </task>
-    <task id="LOCAL-00019" summary="add managePage, add st in interface, yeu cau ae them class">
-      <created>1764688919461</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1764688919461</updated>
-    </task>
-    <task id="LOCAL-00020" summary="update merge">
-      <created>1764769573952</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1764769573952</updated>
-    </task>
-    <task id="LOCAL-00021" summary="update merge">
-      <created>1764770430976</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1764770430976</updated>
-    </task>
-    <task id="LOCAL-00022" summary="update merge">
-      <created>1764772018639</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1764772018639</updated>
-    </task>
-    <task id="LOCAL-00023" summary="update">
-      <created>1764777484095</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1764777484095</updated>
-    </task>
-    <task id="LOCAL-00024" summary="add register, add logout">
-      <created>1764851268755</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1764851268755</updated>
-    </task>
-    <task id="LOCAL-00025" summary="fix a little">
-      <created>1764855818213</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1764855818214</updated>
-    </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update Loginpage" />
-    <MESSAGE value="Update Loginpage02" />
-    <MESSAGE value="Update Loginpage03" />
-    <MESSAGE value="Update new(important), should check" />
-    <MESSAGE value="Update interface(should check), update PaymentPage," />
-    <MESSAGE value="Update little" />
-    <MESSAGE value="Update new, quite important,..." />
-    <MESSAGE value="Update new in interface IOrder, IOrderService" />
-    <MESSAGE value="Update new in interface" />
-    <MESSAGE value="Update, rất là nhiều=)))), bao gồm chỉnh sửa interface( chưa xong), thêm lớp bọc(wrapper) cho fe cập nhật trực tiếp, cuối cùng là cập nhật liên kết giữa các nút login, pay" />
-    <MESSAGE value="thiếu" />
-    <MESSAGE value="add hieu ung" />
     <MESSAGE value="fix bug" />
-    <MESSAGE value="fix bug, merge with fe-chinh" />
-    <MESSAGE value="add managePage, add st in interface, yeu cau ae them class" />
-    <MESSAGE value="update merge" />
-    <MESSAGE value="update" />
-    <MESSAGE value="add register, add logout" />
-    <MESSAGE value="fix a little" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix a little" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+    <MESSAGE value="hoàn thiện chức năng" />
+    <option name="LAST_COMMIT_MESSAGE" value="hoàn thiện chức năng" />
   </component>
 </project>
