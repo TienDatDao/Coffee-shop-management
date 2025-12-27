@@ -1,0 +1,228 @@
+/* =====================================================
+   1. GLOBAL & LAYOUT
+===================================================== */
+.root-container {
+    -fx-background-color: #F8FAFC;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #334155;
+}
+
+.center-background {
+    -fx-background-color: #FFFFFF;
+}
+
+/* =====================================================
+   2. SIDEBAR
+===================================================== */
+.sidebar {
+    -fx-background-color: #1E293B;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+.app-logo {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #F1F5F9;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8;
+    -fx-font-size: 15px;
+    -fx-alignment: center-left;
+    -fx-padding: 12 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 8;
+}
+
+.nav-btn:hover {
+    -fx-background-color: #5B79AB;
+    -fx-text-fill: #F1F5F9;
+}
+
+.active-nav {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.4), 10, 0, 0, 5);
+}
+
+/* =====================================================
+   3. TYPOGRAPHY
+===================================================== */
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+.page-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748B;
+}
+
+.card-title {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0F172A;
+}
+
+.card-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: #94A3B8;
+}
+
+.input-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #475569;
+}
+
+.input-hint {
+    -fx-font-size: 13px;
+    -fx-text-fill: #94A3B8;
+}
+
+/* =====================================================
+   4. SETTING CARD
+===================================================== */
+.setting-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20;
+    -fx-min-height: 380;
+    -fx-effect: dropshadow(gaussian, rgba(148,163,184,0.2), 25, 0, 0, 10);
+}
+
+.setting-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.25), 30, 0, 0, 15);
+}
+
+/* Separator */
+.card-separator .line {
+    -fx-border-color: #F1F5F9;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* Icon */
+.icon-container {
+    -fx-background-color: #EFF6FF;
+    -fx-text-fill: #3B82F6;
+    -fx-background-radius: 12;
+    -fx-font-size: 20px;
+    -fx-min-width: 45px;
+    -fx-min-height: 45px;
+    -fx-alignment: CENTER;
+}
+
+/* =====================================================
+   5. INPUTS
+===================================================== */
+.modern-combo {
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8 12;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.modern-combo:hover {
+    -fx-background-color: #F1F5F9;
+    -fx-border-color: #CBD5E1;
+}
+
+/* =====================================================
+   6. iOS TOGGLE (CheckBox)
+===================================================== */
+.ios-toggle {
+    -fx-cursor: hand;
+    -fx-text-fill: transparent;
+}
+
+.ios-toggle .box {
+    -fx-background-color: #E2E8F0;
+    -fx-background-radius: 100;
+    -fx-min-width: 52px;
+    -fx-min-height: 28px;
+    -fx-padding: 2;
+}
+
+.ios-toggle:selected .box {
+    -fx-background-color: #3B82F6;
+}
+
+.ios-toggle .mark {
+    -fx-background-color: #FFFFFF;
+    -fx-min-width: 24px;
+    -fx-min-height: 24px;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 4, 0, 0, 2);
+    -fx-translate-x: -11px;
+}
+
+.ios-toggle:selected .mark {
+    -fx-translate-x: 11px;
+}
+
+/* =====================================================
+   7. BUTTONS
+===================================================== */
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #3B82F6, #2563EB);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 14 24;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.3), 10, 0, 0, 5);
+}
+
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to right, #2563EB, #1D4ED8);
+}
+
+/* =====================================================
+   8. DARK MODE (TOGGLE QUA CLASS)
+===================================================== */
+.root-container.dark-theme {
+    -fx-background-color: #0F172A;
+}
+
+/* Card */
+.root-container.dark-theme .setting-card {
+    -fx-background-color: #1F2937;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 25, 0, 0, 10);
+}
+
+/* Text */
+.root-container.dark-theme .page-title,
+.root-container.dark-theme .card-title {
+    -fx-text-fill: #F9FAFB;
+}
+
+.root-container.dark-theme .page-subtitle,
+.root-container.dark-theme .card-desc,
+.root-container.dark-theme .input-label,
+.root-container.dark-theme .input-hint {
+    -fx-text-fill: #D1D5DB;
+}
+
+/* Combo */
+.root-container.dark-theme .modern-combo {
+    -fx-background-color: #374151;
+    -fx-border-color: #4B5563;
+    -fx-text-fill: #F9FAFB;
+}
+
+.root-container.dark-theme .modern-combo:hover {
+    -fx-background-color: #4B5563;
+}
+
+/* Icon */
+.root-container.dark-theme .icon-container {
+    -fx-background-color: rgba(59,130,246,0.12);
+}

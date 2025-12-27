@@ -4,7 +4,14 @@ import javafx.scene.image.Image;
 
 /* Đại diện cho 1 dòng chi tiết order */
 public interface IOrderItem extends IMenuItem {
-    String getMenuItemId();     // id món trong menu
-    int getQuantity();          // số lượng khách gọi
-    double getSubtotal();       // quantity × price
+    // --- THỰC THI INTERFACE IOrderItem ---
+    String getMenuItemId();
+
+    int getQuantity();
+    double getSubtotal();
+    String getId();
+    double getPrice();
+    String getName();
+    String getCategory();
+    Image getImage();
 }

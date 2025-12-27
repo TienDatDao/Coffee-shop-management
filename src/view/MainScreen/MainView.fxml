@@ -14,45 +14,41 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@Main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController">
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MainController">
 
     <left>
-        <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="202.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+        <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="220.0" spacing="8.0" styleClass="sidebar" BorderPane.alignment="CENTER">
             <padding> <Insets bottom="20" left="15" right="15" top="20" /> </padding>
             <children>
-                <Label maxWidth="Infinity" styleClass="app-logo" text="COFFEE POS" />
-                <Separator opacity="0.1" />
-                <Region prefHeight="20.0" />
+                <Label fx:id="lblAppTitle" maxWidth="Infinity" alignment="CENTER" styleClass="app-logo" text="COFFEE POS" />
+                <Separator opacity="0.1" prefHeight="0.0" prefWidth="190.0" />
+                <Region prefHeight="20.0" prefWidth="190.0" />
 
-                <Button maxWidth="Infinity" styleClass="nav-btn, active-nav" text="🛒   Bán hàng" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="📊   Thống kê" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="👥   Khách hàng" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="⚙   Cài đặt" />
-
+                <Button fx:id="btnSell" maxWidth="Infinity" styleClass="nav-btn, active-nav" text="🛒 Bán hàng" />
+                <Button fx:id="btnManage" maxWidth="Infinity" onAction="#menuManager" styleClass="nav-btn" text="👪 Quản lý thực đơn" />                <Button fx:id="btnSetting" maxWidth="Infinity" onAction="#openSettings" styleClass="nav-btn" text="⚙ Cài đặt" />
                 <Region VBox.vgrow="ALWAYS" />
-                <Button maxWidth="Infinity" styleClass="nav-btn" text="🚪   Đăng xuất" />
+                <Button fx:id="btnLogout" maxWidth="Infinity" onAction="#logout" styleClass="nav-btn" text="🚪 Đăng xuất" />
             </children>
         </VBox>
     </left>
 
     <center>
-        <VBox fx:id="centerBox" prefHeight="756.0" prefWidth="706.0" spacing="20.0" styleClass="center-pane">
+        <VBox prefHeight="756.0" prefWidth="692.0" spacing="20.0" styleClass="center-background">
             <padding> <Insets bottom="20" left="25" right="25" top="25" /> </padding>
 
-            <HBox alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="15">
                 <VBox>
-                    <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d3436;" text="Thực đơn" />
-                    <Label style="-fx-text-fill: #9ca3af;" text="Thứ Ba, 30 Tháng 11 2025" />
+                    <Label fx:id="lblHeaderTitle" style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass="header-title" text="Thực đơn" />
+                    <Label fx:id="dateLabel" style="-fx-text-fill: #9ca3af;" text="Ngày" />
                 </VBox>
                 <Region HBox.hgrow="ALWAYS" />
                 <TextField fx:id="searchField" prefHeight="45.0" prefWidth="300.0" promptText="🔍 Tìm kiếm món..." styleClass="search-bar" />
             </HBox>
 
             <HBox spacing="15.0">
-                <Button onAction="#filterAll" prefHeight="35" prefWidth="80" styleClass="filter-btn" text="Tất cả" />
-                <Button onAction="#filterDrink" prefHeight="35" prefWidth="90" styleClass="filter-btn" text="☕ Đồ uống" />
-                <Button onAction="#filterFood" prefHeight="35" prefWidth="80" styleClass="filter-btn" text="🍰 Đồ ăn" />
+                <Button fx:id="btnFilterAll" onAction="#filterAll" styleClass="filter-btn" text="Tất cả" />
+                <Button fx:id="btnFilterDrink" onAction="#filterDrink" styleClass="filter-btn" text="☕ Đồ uống" />
+                <Button fx:id="btnFilterFood" onAction="#filterFood" styleClass="filter-btn" text="🍰 Đồ ăn" />
             </HBox>
 
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
@@ -67,7 +63,7 @@
         <VBox prefWidth="380.0" spacing="15.0" styleClass="right-pane-light">
             <padding> <Insets bottom="25" left="20" right="20" top="25" /> </padding>
 
-            <Label styleClass="section-title" text="Đơn hàng hiện tại" />
+            <Label fx:id="lblOrderTitle" styleClass="section-title" text="Đơn hàng hiện tại" />
             <Separator />
 
             <TableView fx:id="orderTable" VBox.vgrow="ALWAYS">
@@ -80,13 +76,13 @@
                 <placeholder>
                     <VBox alignment="CENTER" spacing="10">
                         <Label style="-fx-font-size: 40px; -fx-text-fill: #CBD5E1;" text="☕" />
-                        <Label style="-fx-text-fill: #94A3B8; -fx-font-size: 14px;" text="Chưa có món nào" />
+                        <Label fx:id="lblPlaceholder" style="-fx-text-fill: #94A3B8; -fx-font-size: 14px;" text="Chưa có món nào" />
                     </VBox>
                 </placeholder>
             </TableView>
 
             <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10 0;">
-                <Button onAction="#handleRemoveItem" styleClass="danger-btn" text="Xóa" />
+                <Button fx:id="btnRemove" onAction="#handleRemoveItem" styleClass="danger-btn" text="Xóa" />
                 <Region HBox.hgrow="ALWAYS" />
                 <Button onAction="#handleDecreaseQty" styleClass="qty-btn" text="-" />
                 <Button onAction="#handleIncreaseQty" styleClass="qty-btn" text="+" />
@@ -96,23 +92,23 @@
 
             <VBox spacing="10">
                 <HBox>
-                    <Label styleClass="total-label" text="Tạm tính" />
+                    <Label fx:id="lblSubTotalTitle" styleClass="total-label" text="Tạm tính" />
                     <Region HBox.hgrow="ALWAYS" />
                     <Label fx:id="subTotalLabel" styleClass="total-label" text="0 đ" />
                 </HBox>
                 <HBox>
-                    <Label styleClass="total-label" text="Giảm giá" />
+                    <Label fx:id="lblDiscountTitle" styleClass="total-label" text="Giảm giá" />
                     <Region HBox.hgrow="ALWAYS" />
                     <Label styleClass="total-label" text="0 đ" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT">
-                    <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Tổng cộng" />
+                    <Label fx:id="lblTotalTitle" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Tổng cộng" />
                     <Region HBox.hgrow="ALWAYS" />
                     <Label fx:id="totalLabel" styleClass="total-price" text="0 đ" />
                 </HBox>
             </VBox>
 
-            <Button maxWidth="Infinity" onAction="#handleCheckout" prefHeight="55" styleClass="checkout-btn" text="THANH TOÁN NGAY" />
+            <Button fx:id="btnCheckout" maxWidth="Infinity" onAction="#handleCheckout" prefHeight="55" styleClass="checkout-btn" text="THANH TOÁN NGAY" />
         </VBox>
     </right>
 

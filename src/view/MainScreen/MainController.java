@@ -4,83 +4,146 @@ import Interface.IMenuItem;
 import Interface.IMenuService;
 import Interface.IOrder;
 import Interface.IOrderItem;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import model.OrderItemWrapper;
-import view.MockTest.MockMenuService;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import view.Helper.LanguageManager;
+import view.Main;
 import view.MockTest.MockOrder;
 import view.MockTest.MockOrderItem;
 import view.PaymentPage.PaymentController;
+import view.Wrapper.OrderItemWrapper;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class MainController {
 
     // --- FXML UI COMPONENTS ---
+    @FXML private Label dateLabel;
     @FXML private TextField searchField;
     @FXML private FlowPane menuGrid;
 
-    @FXML private TableView<OrderItemWrapper> orderTable; // TableView vẫn dùng Class cụ thể để bind property
+    // Sidebar & Navigation
+    @FXML private Label lblAppTitle;
+    @FXML private Button btnSell;
+    @FXML private Button btnManage;
+    @FXML private Button btnSetting;
+    @FXML private Button btnLogout;
+
+    // Header & Filter
+    @FXML private Label lblHeaderTitle;
+    @FXML private Button btnFilterAll;
+    @FXML private Button btnFilterDrink;
+    @FXML private Button btnFilterFood;
+
+    // Order Table Area
+    @FXML private Label lblOrderTitle;
+    @FXML private TableView<OrderItemWrapper> orderTable;
     @FXML private TableColumn<OrderItemWrapper, String> colName;
     @FXML private TableColumn<OrderItemWrapper, Number> colQty;
     @FXML private TableColumn<OrderItemWrapper, Number> colTotal;
+    @FXML private Label lblPlaceholder; // Label hiển thị khi bảng trống
 
+    // Footer Order
+    @FXML private Button btnRemove;
+    @FXML private Label lblSubTotalTitle;
     @FXML private Label subTotalLabel;
+    @FXML private Label lblDiscountTitle;
+    @FXML private Label lblTotalTitle;
     @FXML private Label totalLabel;
+    @FXML private Button btnCheckout;
+
 
     // --- DATA & SERVICES ---
     private List<IMenuItem> fullMenu;
-
-    // Gọi Service thông qua Interface
     private IMenuService menuService;
-
-    // Danh sách hiển thị trên bảng order
     private ObservableList<OrderItemWrapper> currentOrder = FXCollections.observableArrayList();
-
-    // Formatter tiền tệ VNĐ
     private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
     @FXML
     public void initialize() {
-        // 1. Khởi tạo Service
-        menuService = new MockMenuService();
+        menuService = Main.SHARED_MENU_SERVICE;
 
-        // 2. Lấy dữ liệu từ Service
+        // Listener để áp dụng theme khi scene thay đổi
+        menuGrid.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                view.AppConfig.applyTheme(newScene, "/view/MainScreen/Main.css");
+            }
+        });
+
         fullMenu = menuService.getAllItems();
-
-        // 3. Setup giao diện
         setupTable();
-        renderMenuGrid(fullMenu); // Hiển thị tất cả ban đầu
+        renderMenuGrid(fullMenu);
 
-        // 4. Listener tìm kiếm
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             handleSearch(newValue);
         });
+
+        // Cập nhật ngôn ngữ ngay khi khởi tạo
+        updateLanguage();
+    }
+
+    private void updateLanguage() {
+        LanguageManager lm = LanguageManager.getInstance();
+        Locale currentLocale = lm.getBundle().getLocale();
+
+        // 1. Sidebar
+        lblAppTitle.setText(lm.getString("menu.pos")); // Hoặc app.title
+        btnSell.setText("🛒  " + lm.getString("menu.sell"));
+        btnManage.setText("👪 " + lm.getString("menu.manage"));
+        btnSetting.setText("⚙  " + lm.getString("menu.setting"));
+        btnLogout.setText("🚪  " + lm.getString("menu.logout"));
+
+        // 2. Header & Date
+        lblHeaderTitle.setText(lm.getString("menu.title"));
+        String datePattern = currentLocale.getLanguage().equals("vi") ? "EEEE, dd MMM yyyy" : "EEEE, MMM dd yyyy";
+        dateLabel.setText(LocalDate.now().format(DateTimeFormatter.ofPattern(datePattern, currentLocale)));
+        searchField.setPromptText("🔍 " + lm.getString("menu.search"));
+
+        // 3. Filters
+        btnFilterAll.setText(lm.getString("menu.filter.all"));
+        btnFilterDrink.setText("☕ " + lm.getString("menu.filter.drink"));
+        btnFilterFood.setText("🍰 " + lm.getString("menu.filter.food"));
+
+        // 4. Order Table
+        lblOrderTitle.setText(lm.getString("menu.currento"));
+        colName.setText(lm.getString("menu.dish"));
+        colQty.setText(lm.getString("pay.quantity")); // Hoặc tạo key mới menu.qty
+        colTotal.setText(lm.getString("menu.money"));
+        lblPlaceholder.setText(lm.getString("menu.warning")); // "Chưa có món nào"
+
+        // 5. Footer Order
+        btnRemove.setText(lm.getString("menu.delete")); // Hoặc tạo key riêng cho nút Xóa
+        lblSubTotalTitle.setText(lm.getString("menu.total01"));
+        lblDiscountTitle.setText(lm.getString("menu.giamgia"));
+        lblTotalTitle.setText(lm.getString("menu.total02"));
+        btnCheckout.setText(lm.getString("menu.pay"));
     }
 
     private void setupTable() {
-        // Thêm đoạn này để menu luôn căn chỉnh đẹp
         menuGrid.setAlignment(Pos.TOP_CENTER);
-        menuGrid.setPadding(new Insets(20, 20, 50, 20)); // Padding dưới 50 để ko bị che bởi mép màn hình
-        // Cấu hình cột cho bảng Order
+        menuGrid.setPadding(new Insets(20, 20, 50, 20));
+
         colName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         colQty.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
 
-        // Format cột tiền tệ
         colTotal.setCellValueFactory(cellData -> cellData.getValue().subtotalProperty());
         colTotal.setCellFactory(tc -> new TableCell<OrderItemWrapper, Number>() {
             @Override
@@ -98,8 +161,6 @@ public class MainController {
     }
 
     // --- LOGIC GIAO DIỆN (MENU) ---
-
-    // Hàm render nhận vào danh sách Interface IMenuItem
     private void renderMenuGrid(List<IMenuItem> items) {
         menuGrid.getChildren().clear();
         for (IMenuItem item : items) {
@@ -108,37 +169,30 @@ public class MainController {
         }
     }
 
-    // Tạo thẻ sản phẩm từ Interface
     private VBox createProductCard(IMenuItem item) {
-        VBox card = new VBox(10); //
-        double cardWidth = 170;   // Tăng độ rộng thẻ một chút
+        VBox card = new VBox(10);
+        double cardWidth = 170;
         card.setPrefWidth(cardWidth);
         card.setMaxWidth(cardWidth);
         card.getStyleClass().add("product-card");
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new javafx.geometry.Insets(10)); // Padding nội bộ thẻ
+        card.setPadding(new javafx.geometry.Insets(10));
 
-        // --- XỬ LÝ ẢNH ---
         ImageView imageView = new ImageView();
-
-        // Xử lý trường hợp ảnh lỗi hoặc null (Best practice)
         try {
             imageView.setImage(item.getImage());
         } catch (Exception e) {
-            // Có thể set ảnh placeholder ở đây nếu muốn
+            // Placeholder nếu lỗi ảnh
         }
-
         imageView.setFitWidth(130);
         imageView.setFitHeight(100);
-        imageView.setPreserveRatio(false); // Giữ tỷ lệ ảnh
+        imageView.setPreserveRatio(false);
 
-        // Bo tròn ảnh (Soft square)
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
-        clip.setArcWidth(30); // Bo tròn nhiều hơn cho mềm mại
+        clip.setArcWidth(30);
         clip.setArcHeight(30);
         imageView.setClip(clip);
 
-        // --- THÔNG TIN TEXT ---
         VBox infoBox = new VBox(6);
         infoBox.setAlignment(Pos.CENTER);
 
@@ -146,7 +200,7 @@ public class MainController {
         nameLabel.getStyleClass().add("card-title");
         nameLabel.setWrapText(true);
         nameLabel.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        nameLabel.setMinHeight(40); // Cố định chiều cao tên để thẻ đều nhau
+        nameLabel.setMinHeight(40);
 
         Label priceLabel = new Label(currencyFormatter.format(item.getPrice()));
         priceLabel.getStyleClass().add("card-price");
@@ -154,10 +208,8 @@ public class MainController {
         infoBox.getChildren().addAll(nameLabel, priceLabel);
         card.getChildren().addAll(imageView, infoBox);
 
-        // --- SỰ KIỆN CLICK & ANIMATION ---
         card.setOnMouseClicked(e -> {
             addToCart(item);
-            // Hiệu ứng nhún nhẹ khi click
             javafx.animation.ScaleTransition st = new javafx.animation.ScaleTransition(javafx.util.Duration.millis(100), card);
             st.setFromX(1.0); st.setFromY(1.0);
             st.setToX(0.95); st.setToY(0.95);
@@ -174,14 +226,12 @@ public class MainController {
             renderMenuGrid(fullMenu);
             return;
         }
-        // Stream filter trên Interface
         List<IMenuItem> filtered = fullMenu.stream()
                 .filter(m -> m.getName().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
         renderMenuGrid(filtered);
     }
 
-    // Các nút lọc danh mục
     @FXML void filterAll() { renderMenuGrid(fullMenu); }
     @FXML void filterDrink() {
         renderMenuGrid(fullMenu.stream().filter(m -> "Drink".equalsIgnoreCase(m.getCategory())).collect(Collectors.toList()));
@@ -191,19 +241,14 @@ public class MainController {
     }
 
     // --- LOGIC GIAO DIỆN BÊN PHẢI (ORDER) ---
-
-    // Tham số đầu vào là Interface IMenuItem
     private void addToCart(IMenuItem item) {
-        // Kiểm tra xem món đã có trong giỏ chưa
         for (OrderItemWrapper orderItem : currentOrder) {
-            // So sánh ID thông qua Interface
-            if (orderItem.getMenuItemId().equals(item.getId())) {
+            if (orderItem.getId().equals(item.getId())) {
                 orderItem.increaseQuantity();
                 refreshOrderState();
                 return;
             }
         }
-        // Nếu chưa có, tạo mới OrderItem (OrderItem nhận vào IMenuItem trong constructor)
         OrderItemWrapper newItem = new OrderItemWrapper(item, 1);
         currentOrder.add(newItem);
         refreshOrderState();
@@ -257,14 +302,19 @@ public class MainController {
     @FXML
     private void handleCheckout() throws IOException {
         if (currentOrder.isEmpty()) {
+            // Thay thế text cứng bằng LanguageManager
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Giỏ hàng đang trống!");
+            alert.setTitle(LanguageManager.getInstance().getString("mainc.notification"));
+            alert.setContentText(LanguageManager.getInstance().getString("mainc.warning")); // "Giỏ hàng đang trống!"
             alert.showAndWait();
             return;
         }
-        // Chuyển sang Màn hình thanh toán...
 
+        // Truyền bundle khi load Payment
+        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PaymentPage/Payment.fxml"));
+        loader.setResources(bundle);
+
         Parent root = loader.load();
 
         IOrder orderToSend = new MockOrder();
@@ -281,5 +331,61 @@ public class MainController {
 
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource("/view/PaymentPage/Payment.css").toExternalForm());
+        view.AppConfig.applyTheme(scene, "/view/PaymentPage/Payment.css"); // Áp dụng theme nếu cần
+    }
+
+    @FXML
+    private void logout(){
+        changeScene("/view/LoginPage/Login.fxml", LanguageManager.getInstance().getString("login.title"), "/view/LoginPage/Login.css");
+    }
+
+    @FXML
+    private void menuManager(){
+        if(Main.MOCK_AUTH_SERVICE.getCurrentUser().getRole().equals("Manager")) {
+            changeScene("/view/MainScreen/MenuManagerPage/MenuManager.fxml", LanguageManager.getInstance().getString("app.title"), "/view/MainScreen/MenuManagerPage/MenuManager.css");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(LanguageManager.getInstance().getString("mainc.notification"));
+            alert.setHeaderText(null);
+            alert.setContentText(LanguageManager.getInstance().getString("mainc.not")); // "Bạn không có quyền truy cập!"
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void openSettings() {
+        changeScene("/view/MainScreen/SettingsPage/Settings.fxml", LanguageManager.getInstance().getString("app.title"), "/view/MainScreen/SettingsPage/Settings.css");
+    }
+
+    // Hàm chuyển cảnh chung
+    private void changeScene(String fxmlPath, String title, String cssPath) {
+        try {
+            ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            loader.setResources(bundle);
+
+            Parent root = loader.load();
+            Stage stage = (Stage) menuGrid.getScene().getWindow();
+
+            // Xử lý riêng cho màn hình Login nếu cần set lại kích thước
+            if (fxmlPath.contains("Login.fxml")) {
+                Scene scene = new Scene(root, 700, 475);
+                scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+                stage.setMaximized(false);
+                stage.setFullScreen(false);
+                stage.setScene(scene);
+                stage.sizeToScene();
+                stage.centerOnScreen();
+            } else {
+                Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+                view.AppConfig.applyTheme(scene, cssPath);
+                stage.setScene(scene);
+            }
+
+            stage.setTitle(title);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

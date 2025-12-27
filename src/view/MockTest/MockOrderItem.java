@@ -2,35 +2,63 @@ package view.MockTest;
 
 import Interface.IMenuItem;
 import Interface.IOrderItem;
+
 import javafx.scene.image.Image;
 
 public class MockOrderItem implements IOrderItem {
-
-    private IMenuItem MenuItem;
+    IMenuItem MenuItem;
     private int quantity;
+    private double subtotal;
+    private String menuItemId;
+    private String name;
+    private Double price;
+    private String description;
     private String imagePath;
-
-    // Constructor chuẩn dùng MenuItem thật
     public MockOrderItem(IMenuItem MenuItem, int quantity){
         this.MenuItem = MenuItem;
         this.quantity = quantity;
     }
-
     public MockOrderItem(IMenuItem MenuItem){
         this.MenuItem = MenuItem;
-        this.quantity = 1;
     }
 
-    // Constructor dùng mock data → tự tạo MockMenuItem
     public MockOrderItem(String menuItemId, String name, Double price, String description, int quantity, String imagePath){
-        this.MenuItem = new MockMenuItem(menuItemId, name, price, description, imagePath);
         this.quantity = quantity;
         this.imagePath = imagePath;
     }
-
     @Override
     public Image getImage(){
         return MenuItem.getImage();
+    }
+
+    @Override
+    public Image setImage(Image image) {
+        return null;
+    }
+
+    @Override
+    public void setId(String id) {
+
+    }
+
+    @Override
+    public void setName(String name) {
+
+    }
+
+    @Override
+    public void setPrice(double price) {
+
+    }
+
+    @Override
+    public void setCategory(String category) {
+
+    }
+
+    @Override
+    public void updateFromOriginal() {
+
     }
 
     public void setImage(String imagePath){
@@ -39,7 +67,7 @@ public class MockOrderItem implements IOrderItem {
 
     @Override
     public String getMenuItemId() {
-        return MenuItem.getId();
+        return "";
     }
 
     @Override
@@ -49,23 +77,15 @@ public class MockOrderItem implements IOrderItem {
 
     @Override
     public double getSubtotal() {
-        return getPrice() * getQuantity();
+        return getPrice()*getQuantity();
     }
 
     @Override
     public String getId() {
-        return MenuItem.getId();
+        return null;
     }
 
-    public String getName() {
-        return MenuItem.getName();
-    }
-
-    public double getPrice() {
-        return MenuItem.getPrice();
-    }
-
-    public String getCategory() {
-        return MenuItem.getCategory();
-    }
+    public String getName() { return MenuItem.getName(); }
+    public double getPrice() { return MenuItem.getPrice(); }
+    public String getCategory() { return MenuItem.getCategory(); }
 }

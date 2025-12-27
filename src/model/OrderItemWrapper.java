@@ -58,4 +58,34 @@ public class OrderItemWrapper implements IOrderItem {
     @Override public double getPrice() { return menuItem.getPrice(); }
     @Override public String getCategory() { return menuItem.getCategory(); }
     @Override public Image getImage() { return menuItem.getImage(); }
+
+    @Override
+    public Image setImage(Image image) {
+        return null;
+    }
+
+    @Override
+    public void setId(String id) {
+
+    }
+
+    @Override
+    public void setName(String name) {
+
+    }
+
+    @Override
+    public void setPrice(double price) {
+
+    }
+
+    @Override
+    public void setCategory(String category) {
+
+    }
+
+    @Override
+    public void updateFromOriginal() {
+
+    }
 }

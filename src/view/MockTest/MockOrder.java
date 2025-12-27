@@ -10,12 +10,17 @@ public class MockOrder implements IOrder  {
     private String orderId;
     private String tableId;
     private boolean status;
-    private List<IOrderItem> IOrderItemList = new ArrayList<>();
+    private List<IOrderItem> IOrderItemList  = new ArrayList<>();
     public MockOrder(){
     }
     public MockOrder(String tableId, List<IOrderItem> IOrderItemList, String orderId){
         this.IOrderItemList = IOrderItemList;
         this.tableId = tableId;
+        this.orderId = orderId;
+        this.status =false;
+    }
+    public MockOrder(List<IOrderItem> IOrderItemList, String orderId){
+        this.IOrderItemList = IOrderItemList;
         this.orderId = orderId;
         this.status =false;
     }
@@ -55,6 +60,6 @@ public class MockOrder implements IOrder  {
 
     @Override
     public void setListOrderItem(IOrderItem item) {
-               this.IOrderItemList.add(item);
+        this.IOrderItemList.add(item);
     }
 }

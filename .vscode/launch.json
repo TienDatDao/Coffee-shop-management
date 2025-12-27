@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "MainTest",
+            "request": "launch",
+            "mainClass": "view.MainTest",
+            "projectName": "Coffee-shop-management_74fa201e"
+        },
+        {
+            "type": "java",
+            "name": "Run JavaFX App",
+            "request": "launch",
+            "mainClass": "Main",
+            "vmArgs": "--module-path \"lib/javafx\" --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}
