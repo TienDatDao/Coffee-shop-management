@@ -4,27 +4,145 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="merge code">
+      <change afterPath="$PROJECT_DIR$/coffee_shop.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/Helper/LanguageManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/Helper/SaveImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/LoginPage/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/LoginPage/RegisterPage/RegisterController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MainScreen/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MainScreen/MenuManagerPage/Dialog/ItemDialogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MainScreen/MenuManagerPage/MenuManagerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MainScreen/MenuManagerPage/StageHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MainScreen/SettingsPage/ChangePasswordController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MainScreen/SettingsPage/SettingsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MockTest/MockAuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MockTest/MockMenuItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MockTest/MockMenuService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MockTest/MockOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MockTest/MockOrderItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MockTest/MockOrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/MockTest/MockUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/PaymentPage/PaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/Wrapper/MenuItemWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/view/Wrapper/OrderItemWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/storage/coffee_shop.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx-swt.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx.base.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx.controls.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx.fxml.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx.graphics.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx.media.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx.swing.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/javafx.web.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/jdk.jsobject.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/jfx.incubator.input.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javafx/jfx.incubator.richtext.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/view/LoginPage/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/view/LoginPage/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/view/LoginPage/RegisterPage/Register.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/view/LoginPage/RegisterPage/Register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/view/LoginPage/RegisterPage/Register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/view/LoginPage/RegisterPage/Register.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/view/PaymentPage/Payment.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/view/PaymentPage/Payment.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/view/PaymentPage/Payment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/view/PaymentPage/Payment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/CreateDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/CreateDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/DataSeeder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/DataSeeder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/Register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/Register.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/Dialog/ItemDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/Dialog/ItemDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/Dialog/ItemDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PaymentPage/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Wrapper/MenuItemWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Wrapper/MenuItemWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Wrapper/OrderItemWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Wrapper/OrderItemWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/coffee_shop.db" beforeDir="false" afterPath="$PROJECT_DIR$/storage/coffee_shop.db" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;chinh1809z&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/TienDatDao/Coffee-shop-management.git&quot;,
+    &quot;accountId&quot;: &quot;44c42a1e-fbb4-41a2-aaaf-4393bf4c3ba5&quot;
+  }
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="37POWbPEX5Nm1lJUsm9WI6n581G" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Main.executor": "Run",
-    "git-widget-placeholder": "main"
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "fe-chinh",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/hieuv/IdeaProjects/Coffee-shop-management",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15546875",
+    "project.structure.side.proportion": "0.20331186",
+    "settings.editor.selected.configurable": "configurable.group.language"
+  },
+  "keyToStringList": {
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
+    ]
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\storage\images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\storage" />
+      <recent name="C:\Users\GIGABYTE\IdeaProjects\Coffee-shop-management\src\view\PaymentPage" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="view.Main" />
-      <module name="Coffee-shop-management" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="view.*" />
@@ -35,24 +153,85 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="view.Main" />
       <module name="Coffee-shop-management" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\javafx-sdk-21.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.graphics" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="view.Main" />
       <module name="Coffee-shop-management" />
-      <option name="filePath" />
-      <method v="2" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\javafx-sdk-21.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.graphics" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="update final" />
+      <created>1766801272512</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1766801272512</updated>
+    </task>
+    <task id="LOCAL-00001" summary="fix bug">
+      <option name="closed" value="true" />
+      <created>1766804516265</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1766804516265</updated>
+    </task>
+    <task id="LOCAL-00002" summary="hoàn thiện chức năng">
+      <option name="closed" value="true" />
+      <created>1766836181440</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1766836181440</updated>
+    </task>
+    <task id="LOCAL-00003" summary="merge code">
+      <created>1766853174823</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1766853174823</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="fix bug" />
+    <MESSAGE value="hoàn thiện chức năng" />
+    <MESSAGE value="merge code" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge code" />
   </component>
 </project>

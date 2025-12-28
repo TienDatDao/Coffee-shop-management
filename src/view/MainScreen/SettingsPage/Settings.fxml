@@ -24,7 +24,7 @@
                 <Region prefHeight="22.0" prefWidth="190.0" />
 
                 <Button fx:id="btnSell" maxWidth="Infinity" onAction="#mainScreen" styleClass="nav-btn" text="🛒 Bán hàng" />
-                <Button fx:id="btnManage" maxWidth="Infinity" onAction="#menuManager" prefHeight="18.0" prefWidth="190.0" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
+                <Button fx:id="btnManage" maxWidth="Infinity" onAction="#menuManager" prefHeight="25.0" prefWidth="214.0" styleClass="nav-btn" text="👪 Quản lý thực đơn" />
                 <Button fx:id="btnSetting" maxWidth="Infinity" prefHeight="18.0" prefWidth="190.0" styleClass="nav-btn, active-nav" text="⚙ Cài đặt" />
 
                 <Region VBox.vgrow="ALWAYS" />
@@ -34,9 +34,7 @@
     </left>
 
     <center>
-        <ScrollPane fitToWidth="true" fitToHeight="true"
-                    style="-fx-background-insets: 0; -fx-padding: 0;"
-                    styleClass="main-scroll">
+        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-insets: 0; -fx-padding: 0;" styleClass="main-scroll">
             <content>
                 <VBox prefHeight="754.0" prefWidth="1006.0" spacing="30.0" styleClass="center-background">
                     <padding> <Insets bottom="40" left="50" right="50" top="40" /> </padding>
@@ -81,7 +79,7 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font></Label>
-                                        <Label fx:id="lblDarkModeHint" prefHeight="17.0" prefWidth="333.0" styleClass="input-hint" text="Giảm mỏi mắt khi làm việc tối" />
+                                        <Label fx:id="lblDarkModeHint" prefHeight="17.0" prefWidth="370.0" styleClass="input-hint" text="Giảm mỏi mắt khi làm việc tối" />
                                     </VBox>
                                     <Region HBox.hgrow="ALWAYS" />
                                     <CheckBox fx:id="darkModeToggle" onAction="#handleDarkModeToggle" styleClass="ios-toggle" />

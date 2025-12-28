@@ -34,7 +34,7 @@ public class CreateDatabase {
 
             String sqlMenuItem = """
                 CREATE TABLE IF NOT EXISTS MenuItem (
-                    menuId TEXT,
+                    menuId TEXT PRIMARY KEY,
                     name TEXT NOT NULL,
                     price REAL NOT NULL,
                     category TEXT,

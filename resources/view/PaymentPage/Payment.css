@@ -1,5 +1,5 @@
 /* =======================
-   1. ROOT BACKGROUND
+   1. CẤU HÌNH CHUNG
 ======================= */
 .main-border-pane {
     -fx-background-color: white;
@@ -10,254 +10,175 @@
 }
 
 /* =======================
-   2. PAYMENT PANEL
-======================= */
-.payment-panel {
-    -fx-background-color: rgba(255,255,255,0.9);
-
-    -fx-border-color: #CCCCCC;
-    -fx-border-radius: 30;
-    -fx-background-radius: 30;
-
-    -fx-spacing: 10;
-}
-
-/* =======================
-   3. PAYMENT METHOD IMAGE
-======================= */
-.payment-method-image {
-    -fx-pref-width: 200;
-}
-
-/* =======================
-   4. TOTAL / DISCOUNT
-======================= */
-.total-label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #8B4513;
-    -fx-wrap-text: true;
-    -fx-text-alignment: center;
-}
-
-.discount-label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #CD5C5C;
-    -fx-wrap-text: true;
-    -fx-text-alignment: center;
-}
-
-/* =======================
-   5. SUBTOTAL
-======================= */
-.subtotal-label {
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-
-    -fx-text-fill: #A0522D;
-    -fx-padding: 8 12;
-
-    -fx-background-color: #FFF5E6;
-    -fx-background-radius: 6;
-    -fx-border-radius: 6;
-    -fx-border-color: #D2691E;
-    -fx-border-width: 1.5;
-
-    -fx-alignment: center;
-    -fx-wrap-text: true;
-    -fx-text-alignment: center;
-    -fx-max-width: 180;
-
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.12), 3, 0, 0, 1.5);
-}
-
-/* =======================
-   6. PAY BUTTON
-======================= */
-.pay-button {
-    -fx-background-color: #4CAF50;
-    -fx-border-color: #A5D6A7;
-
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-
-    -fx-pref-width: 120;
-    -fx-background-radius: 30;
-    -fx-border-radius: 30;
-
-    -fx-alignment: center;
-    -fx-cursor: hand;
-
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.2, 2, 2);
-}
-
-.pay-button:hover {
-    -fx-background-color: #18F218;
-    -fx-border-color: #7CB342;
-
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.1, 1, 1);
-}
-
-/* =======================
-   7. ORDER LIST VIEW
+   2. LIST VIEW (SỬA LỖI LỆCH HÀNG DARK MODE)
 ======================= */
 .order-list-view {
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-padding: 0;
+    -fx-padding: 10 !important; /* Ép padding cố định */
 }
 
-/* ScrollBar – SAFE OVERRIDE */
-.order-list-view .scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-pref-width: 8;
-}
-
-.order-list-view .scroll-bar:vertical .track {
-    -fx-background-color: transparent;
-}
-
-.order-list-view .scroll-bar:vertical .thumb {
-    -fx-background-color: rgba(0,0,0,0.2);
-    -fx-background-radius: 4;
-}
-
-.order-list-view .scroll-bar:vertical:hover .thumb {
-    -fx-background-color: rgba(0,0,0,0.5);
-}
-
-/* REMOVE MODENA BUTTONS & ARROWS (NO WARNING) */
-.order-list-view .scroll-bar:vertical .increment-button,
-.order-list-view .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent;
-    -fx-padding: 0;
-}
-
-.order-list-view .scroll-bar:vertical .increment-arrow,
-.order-list-view .scroll-bar:vertical .decrement-arrow {
-    -fx-background-color: transparent;
-    -fx-effect: null;
-}
-
-/* =======================
-   8. LIST CELL
-======================= */
 .order-list-view .list-cell {
     -fx-background-color: transparent;
-    -fx-control-inner-background: rgba(0,0,0,0);
-    -fx-padding: 0;
+    -fx-padding: 8 !important; /* QUAN TRỌNG: Ép khoảng cách giữa các thẻ không đổi */
+    -fx-border-width: 0;
+    -fx-alignment: CENTER_LEFT !important; /* Luôn căn trái */
 }
 
-/* Card item */
-.list-item-cell {
-    -fx-padding: 10;
-
-    -fx-background-color: white;
-    -fx-opacity: 0.8;
-
-    -fx-background-insets: 5 10 5 10;
-    -fx-background-radius: 30;
-    -fx-border-radius: 30;
+/* Xóa mọi hiệu ứng mặc định của JavaFX */
+.order-list-view .list-cell:filled:selected,
+.order-list-view .list-cell:filled:hover,
+.order-list-view .list-cell:focused {
+    -fx-background-color: transparent;
+    -fx-text-fill: transparent;
 }
 
 /* =======================
-   9. ITEM CONTENT
+   3. THẺ MÓN ĂN (TO, ĐẸP, KHÔNG LỆCH)
 ======================= */
-.main-item-content {
-    -fx-spacing: 15;
-    -fx-alignment: top-left;
+.list-item-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+
+    /* Kích thước và căn chỉnh cố định */
+    -fx-padding: 15 25 !important;
+    -fx-min-height: 110;
+    -fx-spacing: 15; /* Khoảng cách giữa ảnh và chữ */
+    -fx-alignment: CENTER_LEFT !important; /* Ép nội dung trong thẻ luôn thẳng hàng */
+
+    -fx-background-radius: 35;
+    -fx-border-radius: 35;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 4);
 }
 
-.item-image,
-.item-text-container {
-    -fx-translate-x: 20;
+.list-item-cell:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 6);
 }
 
-.item-text-container {
-    -fx-alignment: top-left;
-}
-
+/* TEXT MÓN ĂN */
 .item-name {
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill: #374151 !important; /* Ép màu xám đen */
 }
 
-.item-description,
-.item-price {
-    -fx-font-size: 12px;
-    -fx-text-fill: #666666;
+.item-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #9CA3AF !important;
+    -fx-font-style: italic;
 }
 
-.item-detail-vbox {
-    -fx-spacing: 3;
-    -fx-translate-x: -20;
+.item-subtotal {
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #A0522D !important;
 }
 
 .item-quantity {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4B5563 !important;
+}
+
+.item-price-small {
     -fx-font-size: 12px;
-    -fx-text-fill: #333333;
-    -fx-alignment: center-right;
-    -fx-translate-y: 80;
+    -fx-text-fill: #9CA3AF !important;
 }
 
 /* =======================
-   10. PAYMENT RADIO
+   4. PANEL THANH TOÁN & RADIO BUTTON
 ======================= */
+.payment-panel {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 0);
+
+    -fx-padding: 20;
+    -fx-spacing: 15;
+
+    /* Nếu không sửa được FXML thì dùng dòng này để ép khung to ra bằng CSS */
+    /* -fx-min-width: 360; */
+}
+
+/* RADIO BUTTON - SỬA LỖI CẮT CHỮ */
 .pay-radio {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #4B382A;
+    -fx-text-fill: #374151 !important;
+    -fx-cursor: hand;
+    -fx-padding: 5;
+
+    /* Thêm 2 dòng này để nếu khung bé quá thì chữ tự xuống dòng thay vì bị mất */
+    -fx-wrap-text: true;
+    -fx-text-overrun: clip;
 }
 
 .pay-radio .radio {
-    -fx-border-color: #A6B3A9;
-    -fx-border-width: 2;
-    -fx-border-radius: 50%;
-    -fx-background-radius: 50%;
+    -fx-border-width: 1px;
+    -fx-border-color: #9CA3AF;
     -fx-background-color: transparent;
-
-    -fx-pref-width: 18;
-    -fx-pref-height: 18;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
 }
 
 .pay-radio:selected .dot {
-    -fx-background-color: #4BFA4E;
-    -fx-background-radius: 50%;
-    -fx-padding: 6;
+    -fx-background-color: #22C55E;
+    -fx-background-insets: 0;
 }
 
-.pay-radio:hover .radio {
-    -fx-border-color: #4BFA4E;
-    -fx-background-color: rgba(165,250,169,0.1);
+.pay-radio:selected .radio {
+    -fx-border-color: #22C55E;
 }
 
-.pay-radio:focused .radio {
-    -fx-border-color: #4BFA4E;
-    -fx-effect: dropshadow(gaussian, rgba(165,250,169,0.4), 6, 0, 0, 0);
+/* CÁC LABEL TỔNG TIỀN */
+.total-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #6B7280 !important;
+    -fx-font-weight: bold;
 }
 
-/* =======================
-   11. BACK BUTTON
-======================= */
+.subtotal-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #EA580C !important;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 5 0 15 0;
+    -fx-alignment: center;
+}
+
+.discount-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #EF4444 !important;
+}
+
+/* BUTTONS */
+.pay-button {
+    -fx-background-color: #22C55E;
+    -fx-text-fill: white !important;
+    -fx-font-weight: 800;
+    -fx-font-size: 16px;
+    -fx-background-radius: 30;
+    -fx-pref-height: 45;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(34, 197, 94, 0.3), 8, 0, 0, 3);
+}
+.pay-button:hover { -fx-background-color: #16A34A; }
+
 .back-button {
     -fx-background-color: #A0522D;
-    -fx-text-fill: white;
-
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-
-    -fx-padding: 10 20;
+    -fx-text-fill: white !important;
     -fx-background-radius: 20;
-    -fx-border-radius: 20;
-
-    -fx-opacity: 0.7;
     -fx-cursor: hand;
+    -fx-font-weight: bold;
 }
+.back-button:hover { -fx-background-color: #B4643F; }
 
-.back-button:hover {
-    -fx-background-color: #F7C79C;
-}
+/* SCROLL BAR */
+.order-list-view .scroll-bar:vertical { -fx-background-color: transparent; -fx-pref-width: 6; }
+.order-list-view .scroll-bar:vertical .track { -fx-background-color: transparent; }
+.order-list-view .scroll-bar:vertical .thumb { -fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 10; }

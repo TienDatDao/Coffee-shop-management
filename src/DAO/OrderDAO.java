@@ -12,7 +12,7 @@ import java.util.List;
 
 public class OrderDAO {
     // Đường dẫn DB phải khớp với file CreateDatabase
-    private final String url = "jdbc:sqlite:src/storage/coffee_shop.db";
+    private final String url = "jdbc:sqlite:storage/coffee_shop.db";
 
     /**
      * Lưu đơn hàng mới vào Database
