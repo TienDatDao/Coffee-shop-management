@@ -9,8 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-// Giả sử bạn có class MenuItem đơn giản để chứa dữ liệu (hoặc dùng MockMenuItem của bạn)
-// Ở đây tôi dùng inner class để ví dụ, bạn có thể xóa nếu đã có model chính
 class SeedItem {
     String id;
     String name;
@@ -29,11 +27,11 @@ class SeedItem {
 
 public class DataSeeder {
 
-    // Đường dẫn DB của bạn (Sửa lại cho khớp với cấu hình hiện tại)
+    // Đường dẫn DB của bạn 
     private static final String DB_URL = "jdbc:sqlite:coffee_shop.db";
 
     public static void seedMenuData() {
-        // 1. Danh sách dữ liệu mẫu (Copy từ code của bạn)
+        // 1. Danh sách dữ liệu mẫu 
         List<SeedItem> menuList = new ArrayList<>();
         menuList.add(new SeedItem("1", "Cà phê đen", 25000.0, "Drink", "/view/MainScreen/MainScreenImages/ca_phe_den.png"));
         menuList.add(new SeedItem("2", "Cà phê sữa", 30000.0, "Drink", "/view/MainScreen/MainScreenImages/ca_phe_sua.png"));
@@ -49,7 +47,7 @@ public class DataSeeder {
 
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
             if (conn != null) {
-                // 2. Tạo bảng nếu chưa có (Phòng hờ)
+                // 2. Tạo bảng nếu chưa có 
                 createTableIfNotExists(conn);
 
                 // 3. Kiểm tra xem bảng đã có dữ liệu chưa
@@ -67,7 +65,7 @@ public class DataSeeder {
         }
     }
 
-    // Hàm tạo bảng (Sửa câu SQL này khớp với cột trong DB thực tế của bạn)
+    // Hàm tạo bảng 
     private static void createTableIfNotExists(Connection conn) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS MenuItem ("
                 + "menuId TEXT,"
