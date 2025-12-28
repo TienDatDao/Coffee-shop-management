@@ -26,8 +26,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         // Load trang đăng nhập
-        URL fxmlUrl = getClass().getResource("/view/LoginPage/Login.fxml");
-        if (fxmlUrl == null) {
+        URL fxmlUrl = new java.io.File("src/view/LoginPage/Login.fxml").toURI().toURL();        if (fxmlUrl == null) {
             throw new IOException("Không tìm thấy file FXML: Login.fxml");
         }
 
