@@ -27,14 +27,13 @@ public class RegisterController {
 
     @FXML
     public void initialize() {
-        choiceRole.getSelectionModel().selectFirst();
     }
 
     @FXML
     private void handleRegister() {
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
-        String role = choiceRole.getValue();
+        String role = "Manager";
 
         if (username.isEmpty() || password.isEmpty()) {
             showMessage(LanguageManager.getInstance().getString("re.warning"));
@@ -74,13 +73,16 @@ public class RegisterController {
 
             Parent root = loader.load();
             Stage stage = (Stage) txtUsername.getScene().getWindow();
-            Scene scene = new Scene(root, 1000, 600);
+            Scene scene = new Scene(root, 700, 475);
             scene.getStylesheets().add(
                     getClass().getResource("/view/LoginPage/Login.css").toExternalForm()
             );
 
+            stage.setMaximized(false);
+            stage.setFullScreen(false);
             stage.setScene(scene);
-            stage.show();
+            stage.sizeToScene();
+            stage.centerOnScreen();;
         } catch (Exception e) {
             e.printStackTrace();
             showMessage("Không thể tải trang đăng nhập.");

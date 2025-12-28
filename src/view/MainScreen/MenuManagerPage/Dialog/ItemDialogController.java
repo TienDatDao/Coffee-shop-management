@@ -2,22 +2,17 @@ package view.MainScreen.MenuManagerPage.Dialog;
 
 import Interface.IMenuItem;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import model.MenuItem;
 import view.Helper.LanguageManager;
 import view.Helper.SaveImage;
-import view.MockTest.MockMenuItem;
 
 import java.io.File;
-import java.io.FileInputStream;
 
 public class ItemDialogController {
 
@@ -25,45 +20,19 @@ public class ItemDialogController {
     @FXML private TextField priceField;
     @FXML private ChoiceBox<String> categoryChoice;
     @FXML private ImageView imagePreview;
-    @FXML private VBox dialogRoot;
-    @FXML private Label titleLabel;
+    @FXML private javafx.scene.layout.VBox dialogRoot;
+    @FXML private javafx.scene.control.Label titleLabel;
 
-    // Các fx:id mới thêm từ FXML
-    @FXML private Label lblName;
-    @FXML private Label lblPrice;
-    @FXML private Label lblCategory;
-    @FXML private Button btnUpload;
-    @FXML private Button btnCancel;
-    @FXML private Button btnConfirm;
+    private IMenuItem editing; // null = add
+    private String chosenImagePath; // CHỈ LƯU PATH
 
-    private IMenuItem editing; // null if adding
-    private Image chosenImage;
-    private String chosenImagePath;
+    /* ================= INIT ================= */
 
     @FXML
     public void initialize() {
         if (categoryChoice.getValue() == null) {
             categoryChoice.setValue("Drink");
         }
-        // Gọi hàm cập nhật ngôn ngữ ngay khi khởi tạo
-        updateLanguage();
-    }
-
-    private void updateLanguage() {
-        LanguageManager lm = LanguageManager.getInstance();
-
-        // Cập nhật các Label tĩnh
-        lblName.setText(lm.getString("dia.name"));
-        lblPrice.setText(lm.getString("dia.price"));
-        lblCategory.setText(lm.getString("dia.danh"));
-
-        // Cập nhật Prompt Text (Gợi ý trong ô nhập)
-        nameField.setPromptText(lm.getString("dia.ex")); // "VD: Cà phê sữa..."
-
-        // Cập nhật Buttons
-        btnUpload.setText(lm.getString("dia.load"));
-        btnCancel.setText(lm.getString("dia.cancel"));
-        btnConfirm.setText(lm.getString("dia.confirm"));
     }
 
     /* ================= EDIT ================= */
@@ -158,6 +127,9 @@ public class ItemDialogController {
 
         dialogRoot.getScene().getWindow().hide();
     }
+
+    /* ================= CANCEL ================= */
+
     @FXML
     private void onCancel() {
         if (dialogRoot.getScene() != null) {

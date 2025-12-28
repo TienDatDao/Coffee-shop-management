@@ -1,3 +1,4 @@
+
 package view.MainScreen;
 
 import Interface.IMenuItem;
@@ -378,6 +379,7 @@ public class MainController {
             if (fxmlPath.contains("Login.fxml")) {
                 Scene scene = new Scene(root, 700, 475);
                 scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+
                 stage.setMaximized(false);
                 stage.setFullScreen(false);
                 stage.setScene(scene);

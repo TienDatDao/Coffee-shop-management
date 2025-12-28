@@ -1,4 +1,11 @@
-.idea/
-out/
-target/
+# Build outputs
+/out/
+/target/
 *.class
+
+# IntelliJ IDEA (ignore cá nhân)
+.idea/workspace.xml
+
+# Database
+*.db
+

@@ -381,6 +381,7 @@ public class MenuManagerController {
             renderAll();
         });
     }
+
     @FXML
     private void mainScreen() throws IOException {
         changeScene("/view/MainScreen/MainView.fxml", LanguageManager.getInstance().getString("app.title"), "/view/MainScreen/Main.css");
