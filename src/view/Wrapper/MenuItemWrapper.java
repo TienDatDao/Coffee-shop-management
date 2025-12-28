@@ -4,6 +4,8 @@ import Interface.IMenuItem;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
+import java.io.File;
+
 public class MenuItemWrapper {
 
     private final IMenuItem original;
@@ -22,9 +24,7 @@ public class MenuItemWrapper {
         this.price = new SimpleDoubleProperty(original.getPrice());
         this.category = new SimpleStringProperty(original.getCategory());
         if (original.getImagePath() != null) {
-            this.image = new SimpleObjectProperty<>(
-                    new Image("file:storage/" + original.getImagePath(), true)
-            );
+            this.image = new SimpleObjectProperty<>(loadImage(original.getImagePath()));
             System.out.println(original.getImagePath());
         } else {
             this.image = new SimpleObjectProperty<>(null);
@@ -34,6 +34,40 @@ public class MenuItemWrapper {
         name.addListener((o, ov, nv) -> original.setName(nv));
         price.addListener((o, ov, nv) -> original.setPrice(nv.doubleValue()));
         category.addListener((o, ov, nv) -> original.setCategory(nv));
+    }
+    // Hàm phụ trợ để tải ảnh
+    private Image loadImage(String path) {
+        // 1. Nếu đường dẫn null hoặc rỗng -> Trả về ảnh mặc định (hoặc null)
+        if (path == null || path.isEmpty()) {
+            return null; // Hoặc new Image("/view/Helper/default_image.png");
+        }
+
+        try {
+            // 2. Trường hợp A: Ảnh Mock (Nội bộ)
+            // Dấu hiệu nhận biết: Bắt đầu bằng dấu "/" (ví dụ: /view/MainScreen/...)
+            if (path.startsWith("/")) {
+                // Sử dụng getClass().getResource để lấy ảnh từ resources/src
+                return new Image(getClass().getResource(path).toExternalForm());
+            }
+
+            // 3. Trường hợp B: Ảnh User Upload (Bên ngoài)
+            // Dấu hiệu: Không bắt đầu bằng "/" hoặc chứa "images/"
+            else {
+                // Kiểm tra file có thực sự tồn tại trong storage không
+                File file = new File("storage/" + path); // Đường dẫn tương đối từ thư mục dự án
+                if (file.exists()) {
+                    return new Image(file.toURI().toString());
+                } else {
+                    // Nếu file storage bị xóa mất -> Thử tìm lại trong resources (fallback) hoặc trả về null
+                    System.err.println("Không tìm thấy ảnh tại storage: " + path);
+                    return null;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi load ảnh: " + path);
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /* ================= GETTERS (Controller dùng) ================= */
