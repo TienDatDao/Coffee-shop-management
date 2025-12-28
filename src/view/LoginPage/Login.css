@@ -125,3 +125,29 @@
 .password-toggle-icon:hover {
     -fx-text-fill: #D48E5F;
 }
+
+/* =======================
+   9. NÚT ĐĂNG KÝ (LÀM ĐẸP MỚI)
+======================= */
+.hyperlink {
+    -fx-border-color: transparent; /* Xóa viền chấm bi mặc định */
+    -fx-padding: 5 0; /* Thêm khoảng cách trên dưới */
+}
+
+#linkRegister {
+    -fx-text-fill: #5D4037; /* Màu nâu đậm sang trọng (Coffee bean) */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold; /* Chữ đậm lên cho rõ */
+    -fx-underline: false; /* Mặc định không gạch chân cho sạch */
+    -fx-cursor: hand;
+    -fx-font-family: "Segoe UI";
+}
+
+#linkRegister:hover {
+    -fx-text-fill: #A0522D; /* Khi di chuột vào đổi sang màu cam đất giống nút Login */
+    -fx-underline: true; /* Hiện gạch chân khi di chuột */
+}
+
+#linkRegister:visited {
+    -fx-text-fill: #5D4037; /* Giữ nguyên màu sau khi click */
+}
