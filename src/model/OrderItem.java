@@ -76,10 +76,16 @@ public class OrderItem implements IOrderItem {
         String path = menuItem.getImagePath();
         if (path == null || path.isBlank()) return null;
 
-        File f = new File("storage", path);
+
+        File f = new File("src",path);
         if (!f.exists()) {
-            System.err.println("Image not found: " + f.getAbsolutePath());
-            return null;
+            File file = new File("storage", path);
+            if (!file.exists()) {
+                System.err.println("Image not found: " + file.getAbsolutePath());
+                return null;
+            }
+
+            return new Image(file.toURI().toString());
         }
 
         return new Image(f.toURI().toString(), true);

@@ -278,7 +278,7 @@ public class PaymentController implements Initializable {
 
         // 2. Tải ảnh QR Code
         // Đảm bảo tệp QRPay.jpg tồn tại trong đường dẫn /view/PaymentPage/
-        ImageView qrImage = new ImageView(getClass().getResource("/view/PaymentPage/QRPay.jpg").toExternalForm());
+        ImageView qrImage = new ImageView(getClass().getResource("/view/PaymentPage/QRPay1.jpg").toExternalForm());
         qrImage.setFitWidth(300);
         qrImage.setFitHeight(300);
         qrImage.setPreserveRatio(true);

@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "view.Main",
+            "projectName": "Coffee-shop-management_d557b9ae"
+        },
+        {
+            "type": "java",
             "name": "MainTest",
             "request": "launch",
             "mainClass": "view.MainTest",

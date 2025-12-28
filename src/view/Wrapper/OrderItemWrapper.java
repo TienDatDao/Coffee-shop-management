@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.image.Image;
 
 import java.io.File;
+import java.net.URL;
 
 public class OrderItemWrapper implements IOrderItem {
     private IMenuItem menuItem;
@@ -86,16 +87,29 @@ public class OrderItemWrapper implements IOrderItem {
 
     @Override
     public Image getImage() {
-        String path = menuItem.getImagePath();
-        if (path == null || path.isBlank()) return null;
-
-        File f = new File("storage", path);
-        if (!f.exists()) {
-            System.err.println("Image not found: " + f.getAbsolutePath());
+        String imagePath = menuItem.getImagePath();
+        if (imagePath == null || imagePath.isBlank()) {
             return null;
         }
 
-        return new Image(f.toURI().toString(), true);
+        // 1. Ảnh trong resources
+        if (imagePath.startsWith("/")) {
+            URL url = getClass().getResource(imagePath);
+            if (url == null) {
+                System.err.println("Resource image not found: " + imagePath);
+                return null;
+            }
+            return new Image(url.toExternalForm());
+        }
+
+        // 2. Ảnh upload (file hệ thống)
+        File file = new File("storage", imagePath);
+        if (!file.exists()) {
+            System.err.println("Image not found: " + file.getAbsolutePath());
+            return null;
+        }
+
+        return new Image(file.toURI().toString());
     }
 
 

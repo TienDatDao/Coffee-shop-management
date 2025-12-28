@@ -27,14 +27,13 @@ public class RegisterController {
 
     @FXML
     public void initialize() {
-        choiceRole.getSelectionModel().selectFirst();
     }
 
     @FXML
     private void handleRegister() {
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
-        String role = choiceRole.getValue();
+        String role = "Manager";
 
         if (username.isEmpty() || password.isEmpty()) {
             showMessage(LanguageManager.getInstance().getString("re.warning"));

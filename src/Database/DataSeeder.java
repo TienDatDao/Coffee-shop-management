@@ -28,7 +28,7 @@ class SeedItem {
 public class DataSeeder {
 
     // Đường dẫn DB của bạn (Sửa lại cho khớp với cấu hình hiện tại)
-    private static final String DB_URL = "jdbc:sqlite:storage.coffee_shop.db";
+    private static final String DB_URL = "jdbc:sqlite:storage/coffee_shop.db";
 
     public static void seedMenuData() {
         // 1. Danh sách dữ liệu mẫu

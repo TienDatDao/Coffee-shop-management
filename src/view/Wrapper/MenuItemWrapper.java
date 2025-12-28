@@ -5,6 +5,7 @@ import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
 import java.io.File;
+import java.net.URL;
 
 public class MenuItemWrapper {
 
@@ -25,7 +26,6 @@ public class MenuItemWrapper {
         this.category = new SimpleStringProperty(original.getCategory());
         if (original.getImagePath() != null) {
             this.image = new SimpleObjectProperty<>(loadImage(original.getImagePath()));
-            System.out.println(original.getImagePath());
         } else {
             this.image = new SimpleObjectProperty<>(null);
         }
@@ -36,39 +36,32 @@ public class MenuItemWrapper {
         category.addListener((o, ov, nv) -> original.setCategory(nv));
     }
     // Hàm phụ trợ để tải ảnh
-    private Image loadImage(String path) {
-        // 1. Nếu đường dẫn null hoặc rỗng -> Trả về ảnh mặc định (hoặc null)
-        if (path == null || path.isEmpty()) {
-            return null; // Hoặc new Image("/view/Helper/default_image.png");
-        }
-
-        try {
-            // 2. Trường hợp A: Ảnh Mock (Nội bộ)
-            // Dấu hiệu nhận biết: Bắt đầu bằng dấu "/" (ví dụ: /view/MainScreen/...)
-            if (path.startsWith("/")) {
-                // Sử dụng getClass().getResource để lấy ảnh từ resources/src
-                return new Image(getClass().getResource(path).toExternalForm());
-            }
-
-            // 3. Trường hợp B: Ảnh User Upload (Bên ngoài)
-            // Dấu hiệu: Không bắt đầu bằng "/" hoặc chứa "images/"
-            else {
-                // Kiểm tra file có thực sự tồn tại trong storage không
-                File file = new File("storage/" + path); // Đường dẫn tương đối từ thư mục dự án
-                if (file.exists()) {
-                    return new Image(file.toURI().toString());
-                } else {
-                    // Nếu file storage bị xóa mất -> Thử tìm lại trong resources (fallback) hoặc trả về null
-                    System.err.println("Không tìm thấy ảnh tại storage: " + path);
-                    return null;
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Lỗi load ảnh: " + path);
-            e.printStackTrace();
+    public Image loadImage(String imagePath) {
+        if (imagePath == null || imagePath.isBlank()) {
             return null;
         }
+
+        // 1. Ảnh trong resources
+        if (imagePath.startsWith("/")) {
+            URL url = getClass().getResource(imagePath);
+            if (url == null) {
+                System.err.println("Resource image not found: " + imagePath);
+                return null;
+            }
+            return new Image(url.toExternalForm());
+        }
+
+        // 2. Ảnh upload (file hệ thống)
+        File file = new File("storage", imagePath);
+        if (!file.exists()) {
+            System.err.println("Image not found: " + file.getAbsolutePath());
+            return null;
+        }
+
+        return new Image(file.toURI().toString());
     }
+
+
 
     /* ================= GETTERS (Controller dùng) ================= */
 
