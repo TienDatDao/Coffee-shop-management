@@ -1,4 +1,5 @@
 package view.Helper;
+// lớp này dùng để chuyển đổi ngôn ngữ
 
 import java.util.Locale;
 import java.util.ResourceBundle;

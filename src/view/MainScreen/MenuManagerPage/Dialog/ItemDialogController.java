@@ -47,7 +47,7 @@ public class ItemDialogController {
             priceField.setText(String.valueOf(item.getPrice()));
             categoryChoice.setValue(item.getCategory());
 
-            // ⭐ LOAD IMAGE TỪ PATH
+            // LOAD IMAGE TỪ PATH
             chosenImagePath = item.getImagePath();
             if (chosenImagePath != null) {
                 imagePreview.setImage(
@@ -80,7 +80,7 @@ public class ItemDialogController {
             // preview
             imagePreview.setImage(new Image(f.toURI().toString()));
 
-            // ⭐ copy vào storage/images
+            // copy vào storage/images
             chosenImagePath = SaveImage.copyToStorage(f);
 
         } catch (Exception e) {

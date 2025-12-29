@@ -33,7 +33,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         // Cập nhật giao diện theo ngôn ngữ mặc định (hoặc ngôn ngữ đã lưu)
         updateLanguage();
     }
@@ -55,7 +54,7 @@ public class LoginController implements Initializable {
 
         lblMessage.setText("");
     }
-
+// phương thức gọi vào trang đăng kí
     @FXML
     private void handleRegisterAction() throws IOException {
         ResourceBundle bundle = LanguageManager.getInstance().getBundle();
@@ -69,6 +68,7 @@ public class LoginController implements Initializable {
         stage.show();
     }
 
+    // mở menu chính
     @FXML
     private void handleLoginAction() {
         String username = txtUsername.getText();
@@ -122,8 +122,4 @@ public class LoginController implements Initializable {
         return "";
     }
 
-    private void clearPasswordFields() {
-        txtPassword.clear();
-        txtPasswordVisible.clear();
-    }
 }

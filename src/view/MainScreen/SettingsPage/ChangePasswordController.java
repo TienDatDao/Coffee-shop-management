@@ -8,10 +8,9 @@ import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 import view.Helper.LanguageManager;
 import view.Main;
-// import view.MockTest.MockAuthService; // Nếu bạn cần gọi service để đổi pass thật
+// lớp để thay đổi mật khẩu/ demo thay đổi mật khẩu
 
 public class ChangePasswordController {
-
     @FXML private PasswordField currentPassField;
     @FXML private PasswordField newPassField;
     @FXML private PasswordField confirmPassField;
@@ -32,8 +31,6 @@ public class ChangePasswordController {
 
     private void updateLanguage() {
         LanguageManager lm = LanguageManager.getInstance();
-
-        // Ánh xạ các key từ file properties (change.*)
         lblTitle.setText(lm.getString("change.edit_password"));
         lblDesc.setText(lm.getString("change.warning"));
 
@@ -45,10 +42,10 @@ public class ChangePasswordController {
         btnCancel.setText(lm.getString("btn.cancel")); // Dùng key chung
     }
 
+    // hàm này để lưu thay đổi( demo)
     @FXML
     private void handleSave() {
         LanguageManager lm = LanguageManager.getInstance();
-
         String currentPass = currentPassField.getText();
         String newPass = newPassField.getText();
         String confirmPass = confirmPassField.getText();
@@ -68,9 +65,8 @@ public class ChangePasswordController {
             return;
         }
 
-        // --- XỬ LÝ LOGIC ĐỔI MẬT KHẨU TẠI ĐÂY ---
-        // Ví dụ: boolean success = Main.AUTH_SERVICE.changePassword(user, currentPass, newPass);
-        // Ở đây mình giả lập là thành công luôn:
+        // ---LOGIC ĐỔI MẬT KHẨU ---
+        // Ở đây giả lập là thành công luôn:
         boolean success = true;
 
         if (success) {
@@ -82,7 +78,7 @@ public class ChangePasswordController {
             // Trường hợp mật khẩu cũ sai
             showAlert(Alert.AlertType.ERROR,
                     lm.getString("msg.error"),
-                    "Mật khẩu hiện tại không đúng!"); // Nên thêm key error này vào properties
+                    "Mật khẩu hiện tại không đúng!");
         }
     }
 
