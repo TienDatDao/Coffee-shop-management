@@ -10,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.User;
 import view.Helper.LanguageManager;
 import view.Main;
 import view.MockTest.MockUser;
@@ -21,6 +20,7 @@ public class RegisterController {
 
     @FXML private TextField txtUsername;
     @FXML private PasswordField txtPassword;
+    @FXML private PasswordField txtConfirmPassword;
     @FXML private Label lblMessage;
     private MockUser user;
 
@@ -32,14 +32,20 @@ public class RegisterController {
     private void handleRegister() {
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
+        String confirmPassword = txtConfirmPassword.getText().trim();
         String role = "Manager";
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showMessage(LanguageManager.getInstance().getString("re.warning"));
             return;
         }
         if(password.length()<8){
-            showMessage(LanguageManager.getInstance().getString("re.waringPass"));
+            showMessage(LanguageManager.getInstance().getString("re.warningPass"));
+            return;
+        }
+
+        if(!password.equals(confirmPassword)) {
+            showMessage(LanguageManager.getInstance().getString("re.warningMatch"));
             return;
         }
 

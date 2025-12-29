@@ -58,7 +58,7 @@
                               <font>
                                  <Font size="13.0" />
                               </font></Label>
-                                    <Label fx:id="lblInterfaceDesc" prefHeight="24.0" prefWidth="226.0" styleClass="card-desc" text="Tuỳ chỉnh trải nghiệm người dùng" />
+                                    <Label fx:id="lblInterfaceDesc" prefHeight="24.0" prefWidth="414.0" styleClass="card-desc" text="Tuỳ chỉnh trải nghiệm người dùng" />
                                 </VBox>
                             </HBox>
 
@@ -97,7 +97,7 @@
                               <font>
                                  <Font size="13.0" />
                               </font></Label>
-                                    <Label fx:id="lblSecurityDesc" prefHeight="21.0" prefWidth="271.0" styleClass="card-desc" text="Bảo vệ tài khoản của bạn" />
+                                    <Label fx:id="lblSecurityDesc" prefHeight="21.0" prefWidth="372.0" styleClass="card-desc" text="Bảo vệ tài khoản của bạn" />
                                 </VBox>
                             </HBox>
 
