@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 
 public class Order implements IOrder {
-    private int orderId; // Database dùng int
+    private String orderId;
     private Date createdTime;
     private String status;
     private Staff staff;
@@ -67,8 +67,7 @@ public class Order implements IOrder {
 
     @Override
     public void setListOrderItem(IOrderItem item) {
-        // Hàm này trong interface tên hơi lạ (setList nhưng tham số là 1 item)
-        // Mình sẽ hiểu nó là "addOrderItem"
+        // nó là "addOrderItem"
         if (this.items == null) {
             this.items = new ArrayList<>();
         }
@@ -78,7 +77,7 @@ public class Order implements IOrder {
     // --- SETTERS & GETTERS KHÁC (Hỗ trợ DAO/Model) ---
 
     // Setter dùng int để DAO map dữ liệu
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
