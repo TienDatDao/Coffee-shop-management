@@ -1,8 +1,23 @@
-# Coffee Shop Management System (Java OOP)
+# Coffee Shop Management System ☕
 
-## Giới thiệu Dự án
-Dự án xây dựng ứng dụng quản lý quán cà phê sử dụng ngôn ngữ Java. Hệ thống được thiết kế tuân thủ chặt chẽ 4 nguyên tắc cơ bản của Lập trình hướng đối tượng (OOP):
-- **Encapsulation (Đóng gói)**: Bảo vệ dữ liệu thông qua các access modifiers.
-- **Inheritance (Kế thừa)**: Tái sử dụng mã nguồn giữa các loại món (Drink, Food).
-- **Polymorphism (Đa hình)**: Xử lý linh hoạt các phương thức hiển thị và tính giá.
-- **Abstraction (Trừu tượng)**: Sử dụng Interface và Abstract Class để định nghĩa khung sườn.
+Ứng dụng quản lý quán cà phê viết bằng **Java**, sử dụng **JavaFX** cho giao diện và **SQLite** cho cơ sở dữ liệu.
+
+---
+
+## 🔧 Yêu cầu hệ thống
+
+Trước khi chạy chương trình, hãy đảm bảo máy bạn đã cài đặt các công cụ sau:
+
+- **Java Development Kit (JDK)**: `21`
+- **JavaFX SDK**: `21`
+- **SQLite JDBC**: `3.51.0.0`
+- Hệ điều hành: Windows / macOS / Linux
+
+---
+
+## 📦 Công nghệ sử dụng
+
+- Java 21
+- JavaFX 21
+- SQLite
+- JDBC
