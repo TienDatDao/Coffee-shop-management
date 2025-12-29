@@ -63,14 +63,16 @@ public class MenuManagerController {
     private boolean editMode = false;
     private Map<String, VBox> itemCardMap = new HashMap<>();
 
-    // Formatter tiền tệ (Mặc định VN, có thể đổi logic nếu muốn support $ sau này)
+    // Formatter tiền tệ
     private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+    // phương thức khởi tạo dữ liệu, lấy dữ liệu trong share_menu_service trong main
 
     @FXML
     public void initialize() {
         menuService = Main.SHARED_MENU_SERVICE;
         root.setOnMouseClicked(this::handleClickOutside);
 
+        //  tạo một list các đơn vị triển khai dữ liệu lên giao diện
         fullMenu = new ArrayList<>();
         for (IMenuItem item : menuService.getAllItems()) {
             fullMenu.add(new MenuItemWrapper(item));
@@ -89,7 +91,7 @@ public class MenuManagerController {
         LanguageManager lm = LanguageManager.getInstance();
         Locale currentLocale = lm.getBundle().getLocale();
 
-        // 1. Sidebar & Header (Giữ lại icon bằng cách cộng chuỗi)
+        // 1. Sidebar & Header
         lblAppTitle.setText(lm.getString("menu.pos"));
         btnSell.setText("🛒  " + lm.getString("menu.sell"));
         btnManage.setText("👪 " + lm.getString("menu.manage"));
@@ -152,6 +154,7 @@ public class MenuManagerController {
         }
     }
 
+    // tạo 1 thẻ giao diện
     private VBox createProductCard(MenuItemWrapper w) {
         VBox card = new VBox(10);
         double cardWidth = 170;
@@ -340,6 +343,8 @@ public class MenuManagerController {
     private void onEdit() throws IOException {
         if (selectedItem == null) return;
 
+
+        System.out.println(selectedItem.getId());
         editMode = true;
         applyDimmedEffect();
 

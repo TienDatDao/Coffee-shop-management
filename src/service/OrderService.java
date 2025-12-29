@@ -9,6 +9,7 @@ import model.Order;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class OrderService implements IOrderService {
     private final OrderDAO orderDAO;
@@ -26,10 +27,12 @@ public class OrderService implements IOrderService {
         newOrder.setItems(items); // Set thẳng List<IOrderItem>
 
         // Gọi DAO
-        int generatedId = orderDAO.saveOrder(newOrder);
+        boolean tt = orderDAO.saveOrder(newOrder);
+        Random generatedId = new Random();
+        int x = generatedId.nextInt(100);
 
-        if (generatedId != -1) {
-            newOrder.setOrderId(generatedId);
+        if (tt) {
+            newOrder.setOrderId(x);
             return newOrder;
         }
         return null;

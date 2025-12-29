@@ -15,7 +15,7 @@
 <BorderPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScreen.MenuManagerPage.MenuManagerController">
 
     <left>
-        <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="220.0" spacing="8.0" styleClass="sidebar">
+        <VBox fx:id="sidebarBox" prefHeight="756.0" prefWidth="230.0" spacing="8.0" styleClass="sidebar">
             <padding><Insets bottom="20" left="15" right="15" top="20" /></padding>
             <children>
                 <Label fx:id="lblAppTitle" maxWidth="Infinity" alignment="CENTER" styleClass="app-logo" text="COFFEE POS" />

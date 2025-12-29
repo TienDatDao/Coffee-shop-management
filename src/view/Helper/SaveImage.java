@@ -1,5 +1,5 @@
 package view.Helper;
-
+//lớp này dùng để lưu ảnh
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class SaveImage {
 
-    private static final String IMAGE_DIR = "storage/images";
+    private static final String IMAGE_DIR = "storage/images"; // lưu vào storage/images nếu images chưa có thì tự tạo mới
 
     /**
      * Copy ảnh vào storage/images và trả về path để lưu DB

@@ -19,6 +19,7 @@ import view.Helper.LanguageManager;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+// lớp này dùng để cài đặt điều khiển của cài đặt
 
 public class SettingsController {
 
@@ -48,8 +49,6 @@ public class SettingsController {
     @FXML private Label lblSecurityDesc;
     @FXML private Label lblSecurityStatus;
     @FXML private Button btnChangePassword;
-
-
     @FXML
     public void initialize() {
         // 1. Setup ComboBox
@@ -114,6 +113,7 @@ public class SettingsController {
         btnChangePassword.setText(lm.getString("setting.change"));
     }
 
+    // triển khai darkmode
     @FXML
     private void handleDarkModeToggle() {
         AppConfig.isDarkMode = darkModeToggle.isSelected();
@@ -157,7 +157,7 @@ public class SettingsController {
         }
     }
 
-    // --- NAVIGATION (Đã sửa để truyền ResourceBundle) ---
+    // --- NAVIGATION để mở các màn hình khác ---
 
     @FXML
     private void mainScreen() {

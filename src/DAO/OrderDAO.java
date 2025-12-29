@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 public class OrderDAO {
     // Đường dẫn DB phải khớp với file CreateDatabase
@@ -17,120 +18,70 @@ public class OrderDAO {
     /**
      * Lưu đơn hàng mới vào Database
      */
-    public int saveOrder(Order order) {
-        // 1. Insert Order: orderId tự tăng nên không cần insert
-        String sqlOrder = "INSERT INTO Orders(createdTime, status, staff, tableId) VALUES(?, ?, ?, ?)";
+    public boolean saveOrder(Order order) {
 
-        // 2. Insert OrderItem: orderItemId tự tăng nên không cần insert
-        String sqlDetail = "INSERT INTO OrderItem(orderId, orderMenuId, quantity, note) VALUES(?, ?, ?, ?)";
+        String sqlOrder = """
+        INSERT INTO Orders(orderId, createdTime, status, staff, tableId)
+        VALUES(?, ?, ?, ?, ?)
+    """;
 
-        int generatedId = -1;
+        String sqlDetail = """
+        INSERT INTO OrderItem(orderItemId, orderId, orderMenuId, quantity, note)
+        VALUES(?, ?, ?, ?, ?)
+    """;
 
         try (Connection conn = DriverManager.getConnection(url)) {
-            // Bật ràng buộc khóa ngoại
+
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute("PRAGMA foreign_keys = ON;");
             }
 
-            conn.setAutoCommit(false); // Bắt đầu Transaction
+            conn.setAutoCommit(false);
 
-            // --- BƯỚC 1: INSERT ORDERS ---
-            try (PreparedStatement pstmt = conn.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS)) {
+            // ===== INSERT ORDERS =====
+            String orderId = UUID.randomUUID().toString();
 
-                // ?1: createdTime
-                long time = (order.getCreatedTime() != null) ? order.getCreatedTime().getTime() : System.currentTimeMillis();
-                pstmt.setTimestamp(1, new Timestamp(time));
+            try (PreparedStatement ps = conn.prepareStatement(sqlOrder)) {
 
-                // ?2: status
-                pstmt.setString(2, order.getStatus());
+                ps.setString(1, orderId);
+                ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+                ps.setString(3, order.getStatus());
+                ps.setString(4,
+                        order.getStaff() != null ? order.getStaff().getUsername() : null
+                );
+                ps.setNull(5, Types.INTEGER); // không quan tâm tableId
 
-                // ?3: staff
-                if (order.getStaff() != null) {
-                    pstmt.setString(3, order.getStaff().getUsername());
-                } else {
-                    pstmt.setNull(3, Types.VARCHAR);
-                }
+                ps.executeUpdate();
+            }
 
-                // ?4: tableId
-                try {
-                    pstmt.setInt(4, Integer.parseInt(order.getTableId()));
-                } catch (NumberFormatException e) {
-                    pstmt.setInt(4, 0);
-                }
+            // ===== INSERT ORDER ITEM =====
+            if (order.getItems() != null) {
+                try (PreparedStatement ps = conn.prepareStatement(sqlDetail)) {
 
-                int affectedRows = pstmt.executeUpdate();
-                if (affectedRows == 0) {
-                    throw new SQLException("Tạo đơn hàng thất bại, không có dòng nào được thêm.");
-                }
+                    for (IOrderItem i : order.getItems()) {
+                        if (!(i instanceof OrderItem item)) continue;
+                        if (item.getMenuItem() == null) continue;
 
-                // Lấy ID tự sinh (orderId)
-                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        generatedId = generatedKeys.getInt(1);
-                        order.setOrderId(generatedId);
-                    } else {
-                        throw new SQLException("Tạo đơn hàng thất bại, không lấy được ID.");
+                        ps.setString(1, UUID.randomUUID().toString()); // orderItemId
+                        ps.setString(2, orderId);                      // orderId
+                        ps.setString(3, item.getMenuItem().getId());   // menuId (TEXT)
+                        ps.setInt(4, item.getQuantity());
+                        ps.setString(5, item.getNote());
+
+                        ps.executeUpdate();
                     }
                 }
             }
 
-            // --- BƯỚC 2: INSERT ORDER ITEM ---
-            if (order.getItems() != null && !order.getItems().isEmpty()) {
-                // Thêm RETURN_GENERATED_KEYS để lấy ID của từng món
-                try (PreparedStatement pstmtDetail = conn.prepareStatement(sqlDetail, Statement.RETURN_GENERATED_KEYS)) {
-                    for (IOrderItem itemInterface : order.getItems()) {
-
-                        if (itemInterface instanceof OrderItem) {
-                            OrderItem item = (OrderItem) itemInterface;
-
-                            // Kiểm tra ID món ăn
-                            if (item.getMenuItem() == null || item.getMenuItem().getId() == null) continue;
-
-                            // ?1: orderId
-                            pstmtDetail.setInt(1, generatedId);
-
-                            // ?2: orderMenuId
-                            try {
-                                int menuIdInt = Integer.parseInt(item.getMenuItem().getId());
-                                pstmtDetail.setInt(2, menuIdInt);
-                            } catch (NumberFormatException e) {
-                                System.err.println("Bỏ qua món: ID món không hợp lệ (" + item.getMenuItem().getId() + ")");
-                                continue;
-                            }
-
-                            // ?3: quantity
-                            pstmtDetail.setInt(3, item.getQuantity());
-
-                            // ?4: note
-                            pstmtDetail.setString(4, item.getNote());
-
-                            // Thực thi insert từng dòng
-                            int affectedItemRows = pstmtDetail.executeUpdate();
-
-                            // Lấy orderItemId vừa sinh ra và gán lại vào object
-                            if (affectedItemRows > 0) {
-                                try (ResultSet itemKeys = pstmtDetail.getGeneratedKeys()) {
-                                    if (itemKeys.next()) {
-                                        int generatedItemId = itemKeys.getInt(1);
-                                        item.setOrderItemId(generatedItemId);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            conn.commit(); // Xác nhận Transaction
-            System.out.println("-> Đã lưu Order thành công. ID: " + generatedId);
+            conn.commit();
+            return true;
 
         } catch (SQLException e) {
-            System.err.println("Lỗi Transaction SaveOrder: " + e.getMessage());
             e.printStackTrace();
-            return -1;
+            return false;
         }
-        return generatedId;
     }
+
 
     /**
      * Lấy đơn hàng theo ID

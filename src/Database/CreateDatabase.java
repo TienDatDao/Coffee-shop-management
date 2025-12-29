@@ -44,7 +44,7 @@ public class CreateDatabase {
 
             String sqlOrders = """
                 CREATE TABLE IF NOT EXISTS Orders (
-                    orderId INTEGER PRIMARY KEY AUTOINCREMENT,
+                    orderId TEXT PRIMARY KEY,
                     createdTime TEXT NOT NULL,
                     status TEXT,
                     staff TEXT,
@@ -53,16 +53,16 @@ public class CreateDatabase {
             """;
 
             String sqlOrderItem = """
-                CREATE TABLE IF NOT EXISTS OrderItem (
-                    orderItemId INTEGER PRIMARY KEY AUTOINCREMENT,
-                    orderId INTEGER NOT NULL,
-                    orderMenuId TEXT NOT NULL,
-                    quantity INTEGER NOT NULL,
-                    note TEXT,
-                    FOREIGN KEY (orderId) REFERENCES Orders(orderId) ON DELETE CASCADE,
-                    FOREIGN KEY (orderMenuId) REFERENCES MenuItem(menuId)
-                );
-            """;
+                        CREATE TABLE IF NOT EXISTS OrderItem (
+                                    orderItemId TEXT PRIMARY KEY,
+                                    orderId TEXT,
+                                    orderMenuId TEXT NOT NULL,
+                                    quantity INTEGER NOT NULL,
+                                    note TEXT,
+                                    FOREIGN KEY (orderId) REFERENCES Orders(orderId) ON DELETE CASCADE,
+                                    FOREIGN KEY (orderMenuId) REFERENCES MenuItem(menuId) ON DELETE CASCADE
+                                );
+                    """;
 
             stmt.execute(sqlMenuItem);
             stmt.execute(sqlOrders);
