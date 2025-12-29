@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="final">
-      <change beforePath="$PROJECT_DIR$/src/model/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/i18n/message_vi.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/message_vi.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MainScreen/MenuManagerPage/MenuManager.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1767022311427</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="final">
+      <created>1767024653149</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1767024653149</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
