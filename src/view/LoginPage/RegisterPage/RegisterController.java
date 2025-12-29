@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import model.User;
 import view.Helper.LanguageManager;
 import view.Main;
+import view.MockTest.MockUser;
 
 import java.util.ResourceBundle;
 
@@ -21,7 +22,7 @@ public class RegisterController {
     @FXML private TextField txtUsername;
     @FXML private PasswordField txtPassword;
     @FXML private Label lblMessage;
-    private User user;
+    private MockUser user;
 
     @FXML
     public void initialize() {
@@ -45,7 +46,7 @@ public class RegisterController {
         // thông báo thành công
         showMessage(LanguageManager.getInstance().getString("re.success"));
         // cập nhật dữ liệu
-        user = new User(username, password, role);
+        user = new MockUser(username, password, role);
         Main.MOCK_AUTH_SERVICE.setUser(user);
         delayThenRun(0.5, ()->loadLoginPage());
 

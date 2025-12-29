@@ -10,7 +10,7 @@ public class AuthService implements IAuthService {
     private static IUser MOCK_USER_CREDENTIALS = new MockUser("admin", "123456", "Manager");
 
     // 2. BIẾN TĨNH ĐỂ LƯU PHIÊN (USER ĐANG ĐĂNG NHẬP)
-    private static IUser currentUser = MOCK_USER_CREDENTIALS;
+    private static IUser currentUser = null;
     private User user;
     public AuthService(){}
 
