@@ -9,12 +9,18 @@ public class User implements IUser {
     private String fullName;
     private String phoneNumber;
 
+    private String role;
     public User(int id, String username, String password, String fullName, String phoneNumber) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
+    }
+    public User(String name, String password, String role){
+        this.username = name;
+        this.password = password;
+        this.role = role;
     }
     public User() {
     }

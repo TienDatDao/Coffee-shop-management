@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21875502-0caf-4379-bd48-d2b244d61780" name="Changes" comment="final">
-      <change afterPath="$PROJECT_DIR$/src/model/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/LoginPage/RegisterPage/RegisterController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +83,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hieuv\IdeaProjects\Coffee-shop-management\src\storage" />
       <recent name="C:\Users\GIGABYTE\IdeaProjects\Coffee-shop-management\src\view\PaymentPage" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="model" />
     </key>
   </component>
   <component name="RunManager">
@@ -191,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1767021862909</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="final">
+      <created>1767022311427</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1767022311427</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
