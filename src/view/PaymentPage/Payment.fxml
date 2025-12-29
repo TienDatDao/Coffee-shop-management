@@ -32,11 +32,11 @@
 
                 <Label fx:id="lblPaymentMethodTitle" styleClass="section-header" text="%pay.method" />
 
-                <RadioButton fx:id="rbCash" styleClass="pay-radio" text="%pay.methodcash" />
-                <RadioButton fx:id="rbCard" styleClass="pay-radio" text="%pay.methodcode" />
-                <RadioButton fx:id="rbWallet" styleClass="pay-radio" text="%pay.methodcard" />
+                <RadioButton fx:id="rbCash" alignment="CENTER_LEFT" styleClass="pay-radio" text="%pay.methodcash" />
+                <RadioButton fx:id="rbCard" alignment="CENTER_LEFT" styleClass="pay-radio" text="%pay.methodcode" />
+                <RadioButton fx:id="rbWallet" alignment="CENTER_LEFT" styleClass="pay-radio" text="%pay.methodcard" />
 
-                <FlowPane fx:id="flowImages" hgap="15" prefWrapLength="400" vgap="15" xmlns:fx="http://javafx.com/fxml/1" />
+                <FlowPane fx:id="flowImages" alignment="TOP_CENTER" hgap="15" prefWrapLength="400" vgap="15" xmlns:fx="http://javafx.com/fxml/1" />
 
                 <Button fx:id="btnPay" onAction="#handlePay" prefHeight="25.0" prefWidth="193.0" styleClass="pay-button" text="%pay.btn" />
                 <Label fx:id="lblMessage" text="" wrapText="true" />
