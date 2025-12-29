@@ -5,20 +5,30 @@ import Interface.IMenuItem;
 import Interface.IMenuService;
 import Interface.IOrder;
 import Interface.IOrderItem;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import model.Order;
 import model.OrderItem;
 import view.Helper.LanguageManager;
@@ -147,7 +157,7 @@ public class MainController {
     }
 
     private void setupTable() {
-        menuGrid.setAlignment(Pos.TOP_CENTER);
+        menuGrid.setAlignment(Pos.TOP_LEFT);
         menuGrid.setPadding(new Insets(20, 20, 50, 20));
 
         colName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -312,9 +322,71 @@ public class MainController {
     @FXML
     private void handleCheckout() throws IOException {
         if (currentOrder.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText(LanguageManager.getInstance().getString("mainc.warning"));
-            alert.showAndWait();
+            // --- BẮT ĐẦU CODE TOAST MÀU ĐỎ ---
+
+            Stage toastStage = new Stage();
+            toastStage.initOwner(menuGrid.getScene().getWindow());
+            toastStage.initStyle(StageStyle.TRANSPARENT);
+            toastStage.setAlwaysOnTop(true);
+
+            // Tạo layout chính (Dạng viên thuốc)
+            HBox root = new HBox(10); // Khoảng cách giữa icon và chữ là 10
+            root.setPadding(new Insets(10, 20, 10, 20)); // Padding trên, phải, dưới, trái
+            root.setAlignment(Pos.CENTER);
+
+            // CSS: Màu đỏ, bo tròn 25px, chữ trắng
+            root.setStyle("-fx-background-color: #e74c3c; " + // Màu đỏ
+                    "-fx-background-radius: 25px; " +   // Bo tròn mạnh
+                    "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 2);");
+
+            // Icon dấu than hoặc dấu X màu trắng
+            SVGPath icon = new SVGPath();
+            // Hình tròn có dấu chấm than
+            icon.setContent("M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z");
+            icon.setFill(Color.WHITE);
+
+            // Nội dung Text
+            Label msgLabel = new Label("Giỏ hàng đang trống!"); // Hoặc lấy từ LanguageManager
+            msgLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;");
+
+            root.getChildren().addAll(icon, msgLabel);
+
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            toastStage.setScene(scene);
+
+            // Hiển thị trước (với độ mờ = 0) để tính toán được chiều rộng thực tế
+            root.setOpacity(0);
+            toastStage.show();
+
+            // --- TÍNH TOÁN VỊ TRÍ GÓC DƯỚI GIỮA ---
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+            // Tọa độ X = (Chiều rộng màn hình - Chiều rộng thông báo) / 2
+            double xPos = screenBounds.getMinX() + (screenBounds.getWidth() - toastStage.getWidth()) / 2;
+            // Tọa độ Y = Cách mép dưới 50px
+            double yPos = screenBounds.getMaxY() - 80;
+
+            toastStage.setX(xPos);
+            toastStage.setY(yPos);
+
+            // Hiệu ứng Fade In -> Chờ -> Fade Out
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(300), root);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(2)); // Hiện trong 2s
+
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(500), root);
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+
+            SequentialTransition anim = new SequentialTransition(fadeIn, delay, fadeOut);
+            anim.setOnFinished(e -> toastStage.close());
+            anim.play();
+
+            // --- KẾT THÚC CODE TOAST ---
+
             return;
         }
 

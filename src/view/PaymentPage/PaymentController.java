@@ -12,10 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import service.OrderService;
 import view.Helper.LanguageManager;
@@ -100,58 +97,55 @@ public class PaymentController implements Initializable {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setGraphic(null);
+                    setStyle("-fx-background-color: transparent;");
                 } else {
-                    // *** LOGIC CUSTOM CELL ***
-                    VBox itemVBox = new VBox(5);
-                    itemVBox.getStyleClass().add("list-item-cell");
-                    itemVBox.setPadding(Insets.EMPTY);
+                    // Dùng BorderPane: Trái chứa Ảnh+Tên, Phải chứa Tiền
+                    BorderPane cellLayout = new BorderPane();
+                    cellLayout.getStyleClass().add("list-item-cell");
+                    cellLayout.setPadding(new Insets(10, 15, 10, 15));
 
-                    HBox mainItemContent = new HBox(15);
-                    mainItemContent.getStyleClass().add("main-item-content");
+                    // --- PHẦN TRÁI (LEFT): Ảnh + Tên món ---
+                    HBox leftBox = new HBox(15); // Khoảng cách giữa ảnh và tên là 15
+                    leftBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
-                    // Ảnh món ăn (Bên trái)
                     ImageView itemImage = new ImageView(item.getImage());
                     itemImage.setFitWidth(80);
-                    itemImage.setFitHeight(100);
-                    // Bo tròn ảnh (Soft square)
-                    javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(130, 130);
-                    clip.setArcWidth(30); // Bo tròn nhiều hơn cho mềm mại
-                    clip.setArcHeight(30);
+                    itemImage.setFitHeight(80);
+                    // Bo tròn ảnh nhẹ nhàng
+                    javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(80, 80);
+                    clip.setArcWidth(20); clip.setArcHeight(20);
                     itemImage.setClip(clip);
-                    itemImage.setPreserveRatio(false);
-                    itemImage.getStyleClass().add("item-image");
 
-                    // VBox Tên và Mô tả và Giá
-                    VBox nameAndDescBox = new VBox(3);
-                    nameAndDescBox.getStyleClass().add("item-text-container");
+                    VBox infoBox = new VBox(5);
+                    infoBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
                     Label lblName = new Label(item.getName());
                     lblName.getStyleClass().add("item-name");
-                    Label lblDescription = new Label(item.getCategory());
-                    lblDescription.getStyleClass().add("item-description");
-                    // Sử dụng formatter
-                    Label lblPrice = new Label( LanguageManager.getInstance().getString("pay.price") +" "+ currencyFormatter.format(item.getPrice()));
-                    lblPrice.getStyleClass().add("item-price");
-                    nameAndDescBox.getChildren().addAll(lblName, lblDescription, lblPrice);
 
-                    HBox.setHgrow(nameAndDescBox, Priority.ALWAYS);
+                    Label lblPrice = new Label(LanguageManager.getInstance().getString("pay.price") + " " + currencyFormatter.format(item.getPrice()));
+                    lblPrice.getStyleClass().add("item-price-small");
 
-                    // VBox chứa label của số lượng
-                    VBox detailVBox = new VBox(5);
-                    detailVBox.getStyleClass().add("item-detail-vbox");
+                    infoBox.getChildren().addAll(lblName, lblPrice);
+                    leftBox.getChildren().addAll(itemImage, infoBox);
 
-                    Label lblQty = new Label(LanguageManager.getInstance().getString("pay.quantity")+" " + item.getQuantity());
+                    cellLayout.setLeft(leftBox);
+
+                    // --- PHẦN PHẢI (RIGHT): Số lượng + Tổng tiền ---
+                    VBox rightBox = new VBox(5);
+                    rightBox.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
+
+                    Label lblQty = new Label(LanguageManager.getInstance().getString("pay.quantity") + " " + item.getQuantity());
                     lblQty.getStyleClass().add("item-quantity");
 
-                    // Thành tiền sau ưu đãi/subtotal
-                    Label lblSubtotal = new Label(LanguageManager.getInstance().getString("pay.subtotal")+" " + currencyFormatter.format(item.getSubtotal()));
+                    Label lblSubtotal = new Label(currencyFormatter.format(item.getSubtotal()));
                     lblSubtotal.getStyleClass().add("item-subtotal");
+                    // Căn lề phải cho text
+                    lblSubtotal.setTextAlignment(javafx.scene.text.TextAlignment.RIGHT);
 
-                    detailVBox.getChildren().addAll(lblQty, lblSubtotal);
+                    rightBox.getChildren().addAll(lblQty, lblSubtotal);
+                    cellLayout.setRight(rightBox);
 
-                    mainItemContent.getChildren().addAll(itemImage, nameAndDescBox, detailVBox);
-                    itemVBox.getChildren().addAll(mainItemContent);
-                    setGraphic(itemVBox);
+                    setGraphic(cellLayout);
                 }
             }
         });
@@ -181,20 +175,28 @@ public class PaymentController implements Initializable {
      * Cập nhật các Label tổng tiền, Subtotal và Discount.
      * Chỉ gọi sau khi iOrder đã được gán.
      */
+    // Trong PaymentController.java
+
     private void updateTotalsDisplay() {
         if (iOrder == null) return;
 
-        // Giả định IOrder.getItems() trả về danh sách có sẵn
         double sumSubtotal = iOrder.getItems().stream().mapToDouble(IOrderItem::getSubtotal).sum();
-        double sumTotal = iOrder.getTotalPrice(); // Giả định IOrder có phương thức getTotalPrice()
+        double sumTotal = iOrder.getTotalPrice();
 
-        lblSubTotal.setText(currencyFormatter.format(sumSubtotal));
-        lblTotal.setText(currencyFormatter.format(sumTotal));
+        String textTongTien = LanguageManager.getInstance().getString("pay.total"); // Giả sử key là "Tổng tiền"
+        String textThanhTien = LanguageManager.getInstance().getString("pay.subtotal"); // Giả sử key là "Thành tiền"
 
+        // Hoặc nếu bạn muốn gõ trực tiếp tiếng Việt:
+        // String textTongTien = "Tổng tiền:";
+        // String textThanhTien = "Thành tiền:";
+
+        lblSubTotal.setText(textThanhTien + " " + currencyFormatter.format(sumSubtotal));
+        lblTotal.setText(textTongTien + " " + currencyFormatter.format(sumTotal));
+
+        // Phần giảm giá giữ nguyên
         double discount = sumSubtotal - sumTotal;
         lblDiscount.setText(String.format(LanguageManager.getInstance().getString("pay.discount"), currencyFormatter.format(discount)));
     }
-
     // --- LOGIC XỬ LÝ SỰ KIỆN ---
 
     @FXML

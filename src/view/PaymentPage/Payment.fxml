@@ -20,8 +20,8 @@
         <ListView fx:id="listItems" prefHeight="600" prefWidth="600" styleClass="order-list-view" /> </center>
 
     <right>
-        <StackPane prefWidth="150">
-            <VBox alignment="TOP_CENTER" spacing="15" styleClass="payment-panel">
+        <StackPane prefWidth="300">
+            <VBox alignment="TOP_CENTER" spacing="18" styleClass="payment-panel">
                 <padding>
                     <Insets bottom="20" left="20" right="20" top="20" />
                 </padding>

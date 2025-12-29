@@ -18,9 +18,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import view.Helper.LanguageManager;
 import view.Main;
@@ -63,14 +68,16 @@ public class MenuManagerController {
     private boolean editMode = false;
     private Map<String, VBox> itemCardMap = new HashMap<>();
 
-    // Formatter tiền tệ (Mặc định VN, có thể đổi logic nếu muốn support $ sau này)
+    // Formatter tiền tệ
     private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+    // phương thức khởi tạo dữ liệu, lấy dữ liệu trong share_menu_service trong main
 
     @FXML
     public void initialize() {
         menuService = Main.SHARED_MENU_SERVICE;
         root.setOnMouseClicked(this::handleClickOutside);
 
+        //  tạo một list các đơn vị triển khai dữ liệu lên giao diện
         fullMenu = new ArrayList<>();
         for (IMenuItem item : menuService.getAllItems()) {
             fullMenu.add(new MenuItemWrapper(item));
@@ -89,7 +96,7 @@ public class MenuManagerController {
         LanguageManager lm = LanguageManager.getInstance();
         Locale currentLocale = lm.getBundle().getLocale();
 
-        // 1. Sidebar & Header (Giữ lại icon bằng cách cộng chuỗi)
+        // 1. Sidebar & Header
         lblAppTitle.setText(lm.getString("menu.pos"));
         btnSell.setText("🛒  " + lm.getString("menu.sell"));
         btnManage.setText("👪 " + lm.getString("menu.manage"));
@@ -152,6 +159,7 @@ public class MenuManagerController {
         }
     }
 
+    // tạo 1 thẻ giao diện
     private VBox createProductCard(MenuItemWrapper w) {
         VBox card = new VBox(10);
         double cardWidth = 170;
@@ -340,6 +348,8 @@ public class MenuManagerController {
     private void onEdit() throws IOException {
         if (selectedItem == null) return;
 
+
+        System.out.println(selectedItem.getId());
         editMode = true;
         applyDimmedEffect();
 
@@ -367,19 +377,87 @@ public class MenuManagerController {
     private void onDelete() {
         if (selectedItem == null) return;
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(LanguageManager.getInstance().getString("mem.acept"));
-        alert.setHeaderText(LanguageManager.getInstance().getString("mem.deleteDish"));
-        alert.setContentText(
-                LanguageManager.getInstance().getString("mem.realConfirm")
-                        + selectedItem.getName() + " ?"
-        );
+        // --- BẮT ĐẦU CUSTOM DIALOG ---
 
-        alert.showAndWait().filter(b -> b == ButtonType.OK).ifPresent(b -> {
+        // 1. Tạo Stage (Cửa sổ) mới
+        Stage dialog = new Stage();
+        // Chặn tương tác với cửa sổ chính cho đến khi đóng dialog này
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(centerMenuGrid.getScene().getWindow());
+        dialog.initStyle(StageStyle.TRANSPARENT); // Nền trong suốt để bo tròn
+
+        // 2. Tạo Layout chính (Card)
+        VBox root = new VBox(15); // Khoảng cách dọc các phần tử là 15
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets(20, 30, 20, 30));
+        // Style: Nền trắng, bo tròn 15px, viền đỏ nhẹ
+        root.setStyle("-fx-background-color: white; " +
+                "-fx-background-radius: 15px; " +
+                "-fx-border-color: #e74c3c; -fx-border-width: 1px; -fx-border-radius: 15px; " +
+                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);");
+
+        // 3. Icon thùng rác (SVG)
+        SVGPath icon = new SVGPath();
+        icon.setContent("M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z");
+        icon.setFill(Color.web("#e74c3c")); // Màu đỏ
+        icon.setScaleX(2); icon.setScaleY(2); // Phóng to icon
+
+        // Container cho icon để tạo khoảng cách
+        VBox iconBox = new VBox(icon);
+        iconBox.setPadding(new Insets(10, 0, 10, 0));
+        iconBox.setAlignment(Pos.CENTER);
+
+        // 4. Tiêu đề và Nội dung
+        Label headerLabel = new Label(LanguageManager.getInstance().getString("mem.deleteDish"));
+        headerLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;");
+
+        Label contentLabel = new Label(LanguageManager.getInstance().getString("mem.realConfirm") + " " + selectedItem.getName() + " ?");
+        contentLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #666;");
+        contentLabel.setWrapText(true); // Tự xuống dòng nếu tên món quá dài
+        contentLabel.setMaxWidth(300);
+        contentLabel.setAlignment(Pos.CENTER);
+
+        // 5. Các nút bấm (Cancel và Delete)
+        Button btnCancel = new Button("Hủy"); // Hoặc lấy từ LanguageManager
+        // Style nút hủy: Xám nhạt
+        btnCancel.setStyle("-fx-background-color: #ecf0f1; -fx-text-fill: #333; " +
+                "-fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5px; -fx-padding: 8 20;");
+
+        Button btnDelete = new Button("Xóa"); // Hoặc lấy từ LanguageManager
+        // Style nút xóa: Đỏ đậm
+        btnDelete.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; " +
+                "-fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5px; -fx-padding: 8 20;");
+
+        // Layout chứa 2 nút
+        HBox buttonBox = new HBox(15, btnCancel, btnDelete);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setPadding(new Insets(10, 0, 0, 0));
+
+        // --- XỬ LÝ SỰ KIỆN ---
+
+        // Nút Hủy -> Đóng dialog
+        btnCancel.setOnAction(e -> dialog.close());
+
+        // Nút Xóa -> Thực hiện logic xóa cũ của bạn
+        btnDelete.setOnAction(e -> {
             menuService.deleteMenuItem(selectedItem.getId());
             reloadFromService();
             renderAll();
+            dialog.close(); // Đóng dialog sau khi xóa xong
         });
+
+        // Thêm hiệu ứng Hover cho nút bấm đẹp hơn (Optional)
+        btnDelete.setOnMouseEntered(e -> btnDelete.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5px; -fx-padding: 8 20;"));
+        btnDelete.setOnMouseExited(e -> btnDelete.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5px; -fx-padding: 8 20;"));
+
+        // 6. Hoàn thiện Scene
+        root.getChildren().addAll(iconBox, headerLabel, contentLabel, buttonBox);
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        dialog.setScene(scene);
+
+        // Hiển thị và chờ (Giống showAndWait của Alert)
+        dialog.showAndWait();
     }
 
     @FXML
