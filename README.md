@@ -24,18 +24,7 @@ Trước khi chạy chương trình, hãy đảm bảo máy bạn đã cài đ�
 
 ## File cần chạy để chương trình hoạt động
 
-### Bước 1: Chạy file CreateDatabase trong thư mục database (Nếu chưa có database)
-```
-Coffee-shop-management/
- ├── ...
- └── src/
-      ├── ...
-      └── Database/
-            ├── ...
-            └── CreateDatabase.java
-```
-
-### Bước 2: Chạy file Main.java trong thư mục view
+### Chạy file Main.java trong thư mục view
 ```
 Coffee-shop-management/
  ├── ...
