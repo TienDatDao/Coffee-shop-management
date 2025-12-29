@@ -2,6 +2,7 @@ package view.MainScreen.MenuManagerPage;
 
 import Interface.IMenuItem;
 import Interface.IMenuService;
+import Interface.IOrder;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
@@ -23,16 +24,20 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import model.Order;
 import view.Helper.LanguageManager;
 import view.Main;
 import view.MainScreen.MenuManagerPage.Dialog.ItemDialogController;
 import view.Wrapper.MenuItemWrapper;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -418,12 +423,12 @@ public class MenuManagerController {
         contentLabel.setAlignment(Pos.CENTER);
 
         // 5. Các nút bấm (Cancel và Delete)
-        Button btnCancel = new Button("Hủy"); // Hoặc lấy từ LanguageManager
+        Button btnCancel = new Button(LanguageManager.getInstance().getString("mem.cancel")); // Hoặc lấy từ LanguageManager
         // Style nút hủy: Xám nhạt
         btnCancel.setStyle("-fx-background-color: #ecf0f1; -fx-text-fill: #333; " +
                 "-fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5px; -fx-padding: 8 20;");
 
-        Button btnDelete = new Button("Xóa"); // Hoặc lấy từ LanguageManager
+        Button btnDelete = new Button(LanguageManager.getInstance().getString("mem.acept")); // Hoặc lấy từ LanguageManager
         // Style nút xóa: Đỏ đậm
         btnDelete.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; " +
                 "-fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5px; -fx-padding: 8 20;");
@@ -516,5 +521,59 @@ public class MenuManagerController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML private Button btnExport;
+
+    @FXML
+    private void onExportHistory() {
+        // 1. Lấy dữ liệu từ Service
+        service.OrderService orderService = new service.OrderService();
+        // Giả sử bạn đã thêm hàm getAllOrders vào OrderService
+        List<IOrder> allOrders = orderService.getAllOrdersFromDB();
+
+        if (allOrders == null || allOrders.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "No Data", "There are no transactions to export.");
+            return;
+        }
+
+        // 2. Mở cửa sổ lưu file
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Transaction History");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        fileChooser.setInitialFileName("Transaction_History_" + System.currentTimeMillis() + ".csv");
+
+        File file = fileChooser.showSaveDialog(root.getScene().getWindow());
+
+        if (file != null) {
+            try (PrintWriter writer = new PrintWriter(file)) {
+                // Viết Header cho file CSV
+                writer.println("Order ID,Date Time,Table,Total Price,Status");
+
+                // Viết dữ liệu
+                for (Interface.IOrder order : allOrders) {
+                    writer.printf("%s,%s,%s,%.2f,%s\n",
+                            order.getOrderId(),
+                            order.getCreatedAt(),
+                            order.getTableId(),
+                            order.getTotalPrice(),
+                            "COMPLETED"
+                    );
+                }
+
+                showAlert(Alert.AlertType.INFORMATION, "Success", "History exported successfully to: " + file.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to export data.");
+            }
+        }
+    }
+
+    // Hàm bổ trợ hiển thị thông báo
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

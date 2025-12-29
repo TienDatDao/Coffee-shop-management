@@ -99,7 +99,7 @@ public class OrderDAO {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         order = new Order();
-                        order.setOrderId(rs.getInt("orderId"));
+                        order.setOrderId(rs.getString("orderId"));
                         order.setCreatedTime(rs.getTimestamp("createdTime"));
                         order.setStatus(rs.getString("status"));
 
@@ -190,7 +190,7 @@ public class OrderDAO {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
                         Order order = new Order();
-                        int currentOrderId = rs.getInt("orderId");
+                        String currentOrderId = rs.getString("orderId");
 
                         order.setOrderId(currentOrderId);
                         order.setCreatedTime(rs.getTimestamp("createdTime"));
@@ -207,7 +207,7 @@ public class OrderDAO {
                         // Lấy chi tiết
                         List<IOrderItem> items = new ArrayList<>();
                         try (PreparedStatement pstmtDetail = conn.prepareStatement(sqlDetail)) {
-                            pstmtDetail.setInt(1, currentOrderId);
+                            pstmtDetail.setString(1, currentOrderId);
 
                             try (ResultSet rsDetail = pstmtDetail.executeQuery()) {
                                 while (rsDetail.next()) {
@@ -238,6 +238,76 @@ public class OrderDAO {
             e.printStackTrace();
         }
 
+        return orders;
+    }
+    public List<Order> getAllOrders() {
+        List<Order> orders = new ArrayList<>();
+        // Câu lệnh lấy đơn hàng
+        String sqlOrder = "SELECT * FROM Orders ORDER BY createdTime DESC";
+        // Câu lệnh lấy chi tiết món của đơn hàng đó (Join với MenuItem để lấy giá và tên món)
+        String sqlDetail = """
+        SELECT oi.*, mi.name, mi.price, mi.category 
+        FROM OrderItem oi
+        JOIN MenuItem mi ON oi.orderMenuId = mi.menuId
+        WHERE oi.orderId = ?
+    """;
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+            // 1. Lấy danh sách đơn hàng
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sqlOrder)) {
+
+                while (rs.next()) {
+                    Order order = new Order();
+                    String orderId = rs.getString("orderId");
+                    order.setOrderId(orderId);
+                    order.setTableId(rs.getString("tableId"));
+                    order.setStatus(rs.getString("status"));
+
+                    String timeStr = rs.getString("createdTime");
+                    if (timeStr != null) {
+                        try {
+                            long millis = Long.parseLong(timeStr);
+                            order.setCreatedTime(new java.util.Date(millis));
+                        } catch (Exception e) {
+                            order.setCreatedTime(new java.util.Date());
+                        }
+                    }
+
+                    // 2. Lấy chi tiết món cho đơn hàng này
+                    List<IOrderItem> items = new ArrayList<>();
+                    try (PreparedStatement pstmtDetail = conn.prepareStatement(sqlDetail)) {
+                        pstmtDetail.setString(1, orderId);
+                        try (ResultSet rsDetail = pstmtDetail.executeQuery()) {
+                            while (rsDetail.next()) {
+                                // Tạo đối tượng MenuItem để chứa thông tin giá/tên
+                                model.MenuItem menuItem = new model.MenuItem(
+                                        rsDetail.getString("orderMenuId"),
+                                        rsDetail.getString("name"),
+                                        rsDetail.getDouble("price"),
+                                        rsDetail.getString("category"),
+                                        ""
+                                );
+
+                                // Tạo OrderItem và gán vào list
+                                model.OrderItem item = new model.OrderItem(
+                                        menuItem,
+                                        rsDetail.getInt("quantity"),
+                                        rsDetail.getString("note")
+                                );
+                                items.add(item);
+                            }
+                        }
+                    }
+
+                    // Gán danh sách món vào Đơn hàng
+                    order.setItems(items);
+                    orders.add(order);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return orders;
     }
 }

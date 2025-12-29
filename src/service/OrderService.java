@@ -32,7 +32,7 @@ public class OrderService implements IOrderService {
         int x = generatedId.nextInt(100);
 
         if (tt) {
-            newOrder.setOrderId(x);
+            newOrder.setOrderId(String.valueOf(x));
             return newOrder;
         }
         return null;
@@ -63,4 +63,16 @@ public class OrderService implements IOrderService {
         }
         return result;
     }
+    public List<IOrder> getAllOrdersFromDB() {
+
+        List<model.Order> orders = orderDAO.getAllOrders();
+
+        // Ép kiểu về Interface để Controller sử dụng
+        List<IOrder> result = new ArrayList<>();
+        if (orders != null) {
+            result.addAll(orders);
+        }
+        return result;
+    }
+
 }

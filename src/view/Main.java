@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import model.AuthService;
 import service.MenuService;
 import view.MockTest.MockAuthService;
 import view.MockTest.MockMenuService;
@@ -19,7 +20,7 @@ import java.net.URL;
 
 public class Main extends Application {
 
-    public static final MockAuthService MOCK_AUTH_SERVICE = new MockAuthService();
+    public static final AuthService MOCK_AUTH_SERVICE = new AuthService();
     public static final MenuService SHARED_MENU_SERVICE = MenuService.getInstance() ;
 
     @Override

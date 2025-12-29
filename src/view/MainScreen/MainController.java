@@ -346,7 +346,7 @@ public class MainController {
             icon.setFill(Color.WHITE);
 
             // Nội dung Text
-            Label msgLabel = new Label("Giỏ hàng đang trống!"); // Hoặc lấy từ LanguageManager
+            Label msgLabel = new Label(LanguageManager.getInstance().getString("menu.warning")); // Hoặc lấy từ LanguageManager
             msgLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;");
 
             root.getChildren().addAll(icon, msgLabel);

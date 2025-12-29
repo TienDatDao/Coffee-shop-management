@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane styleClass="main-border-pane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PaymentPage.PaymentController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+
+    <center>
+        <ListView fx:id="listItems" prefHeight="600" prefWidth="600" styleClass="order-list-view" /> </center>
+
+    <right>
+        <StackPane prefWidth="300">
+            <VBox alignment="TOP_CENTER" spacing="18" styleClass="payment-panel">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+
+                <Label fx:id="lblTotal" styleClass="total-label" text="Tổng tiền: 0.00" />
+                <Label fx:id="lblDiscount" styleClass="discount-label" text="Ưu đãi: -0.00" />
+                <Label fx:id="lblSubTotal" styleClass="subtotal-label" text="Thành tiền: 0.00" />
+
+                <Label fx:id="lblPaymentMethodTitle" styleClass="section-header" text="%pay.method" />
+
+                <RadioButton fx:id="rbCash" styleClass="pay-radio" text="%pay.methodcash" />
+                <RadioButton fx:id="rbCard" styleClass="pay-radio" text="%pay.methodcode" />
+                <RadioButton fx:id="rbWallet" styleClass="pay-radio" text="%pay.methodcard" />
+
+                <FlowPane fx:id="flowImages" hgap="15" prefWrapLength="400" vgap="15" xmlns:fx="http://javafx.com/fxml/1" />
+
+                <Button fx:id="btnPay" onAction="#handlePay" prefHeight="25.0" prefWidth="193.0" styleClass="pay-button" text="%pay.btn" />
+                <Label fx:id="lblMessage" text="" wrapText="true" />
+            </VBox>
+        </StackPane>
+    </right>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" /> </padding>
+            <Button fx:id="btnBack" onAction="#handleBack" styleClass="back-button" text="%pay.btnBack" />
+            <HBox.margin>
+                <Insets bottom="10" left="10" right="0" top="10" />
+            </HBox.margin>
+        </HBox>
+    </bottom>
+</BorderPane>
