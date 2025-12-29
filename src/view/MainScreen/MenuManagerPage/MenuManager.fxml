@@ -52,7 +52,7 @@
                 <Button fx:id="btnFilterFood" onAction="#filterFood" styleClass="filter-btn" text="🍰 Đồ ăn" />
 
                 <Region prefHeight="35.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                <Button fx:id="btnExport" onAction="#onExportHistory" styleClass="secondary-btn" text="📊 Export History" />
+                <Button fx:id="btnExport" onAction="#onExportHistory" styleClass="secondary-btn" text="%menu.export" />
                 <Button fx:id="btnAdd" onAction="#onAdd" styleClass="primary-btn" text="➕ Thêm món" />
                 <Button fx:id="btnEdit" disable="true" onAction="#onEdit" styleClass="secondary-btn" text="✏️ Sửa món" />
                 <Button fx:id="btnDelete" disable="true" onAction="#onDelete" styleClass="danger-btn" text="🗑️ Xóa món" />

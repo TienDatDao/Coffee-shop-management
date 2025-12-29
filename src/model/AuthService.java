@@ -10,12 +10,12 @@ public class AuthService implements IAuthService {
     private static IUser MOCK_USER_CREDENTIALS = new MockUser("admin", "123456", "Manager");
 
     // 2. BIẾN TĨNH ĐỂ LƯU PHIÊN (USER ĐANG ĐĂNG NHẬP)
-    private static IUser currentUser = null;
-    private MockUser user;
+    private static IUser currentUser = MOCK_USER_CREDENTIALS;
+    private User user;
     public AuthService(){}
 
-    public void setUser(MockUser user){
-        MOCK_USER_CREDENTIALS =user;
+    public void setUser(User user){
+        MOCK_USER_CREDENTIALS = user;
     }
 
     // Tên phương thức nên là 'login'
@@ -39,7 +39,7 @@ public class AuthService implements IAuthService {
     @Override
     public void logout() {
         // Đặt lại phiên khi đăng xuất
-        currentUser = null;
+        currentUser = MOCK_USER_CREDENTIALS;
     }
 
     // SỬA ĐỂ TRẢ VỀ NGƯỜI DÙNG ĐÃ LƯU TRONG BIẾN PHIÊN
